@@ -1,0 +1,103 @@
+<?php
+// $Id: guestbook.install,v 1.4.2.3 2008/08/13 22:21:48 sun Exp $
+
+/**
+ * Implementation of hook_schema().
+ */
+function guestbook_schema() {
+  $schema['guestbook'] = array(
+    'fields' => array(
+      'id' => array(
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'recipient' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'author' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'anonname' => array(
+        'type' => 'varchar',
+        'length' => '128',
+        'not null' => FALSE,
+      ),
+      'anonemail' => array(
+        'type' => 'varchar',
+        'length' => '128',
+        'not null' => FALSE,
+      ),
+      'anonwebsite' => array(
+        'type' => 'varchar',
+        'length' => '128',
+        'not null' => FALSE,
+      ),
+      'message' => array(
+        'type' => 'text',
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'commentauthor' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'comment' => array(
+        'type' => 'text',
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'created' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'indexes' => array(
+      'recipient' => array('recipient'),
+      'commentauthor' => array('commentauthor'),
+      'created' => array('created'),
+    ),
+    'primary key' => array('id'),
+  );
+  return $schema;
+}
+
+/**
+ * Implementation of hook_install().
+ */
+function guestbook_install() {
+  drupal_install_schema('guestbook');
+}
+
+/**
+ * Implementation of hook_uninstall().
+ */
+function guestbook_uninstall() {
+  drupal_uninstall_schema('guestbook');
+  db_query("DELETE FROM {variable} WHERE name LIKE 'guestbook_%%'");
+}
+
+function guestbook_update_6001() {
+  $ret = array();
+
+  db_drop_primary_key($ret, 'guestbook');
+  db_change_field($ret, 'guestbook', 'id', 'id',
+    array('type' => 'serial', 'unsigned' => TRUE, 'not null' => TRUE),
+    array('primary key' => array('id')));    
+  db_change_field($ret, 'guestbook', 'anonname', 'anonname',
+    array('type' => 'varchar', 'length' => '128', 'not null' => FALSE));    
+
+  return $ret;
+}
+
+

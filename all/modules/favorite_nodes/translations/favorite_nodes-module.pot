@@ -1,0 +1,143 @@
+# $Id: favorite_nodes-module.pot,v 1.1 2008/06/18 14:44:15 kbahey Exp $
+#
+# LANGUAGE translation of Drupal (favorite_nodes.module)
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from file: favorite_nodes.module,v 1.5 2007/01/23 15:27:08 kbahey
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2007-04-14 00:52-0400\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: favorite_nodes.module:80
+msgid "Add a favorite node to the current user's list."
+msgstr ""
+
+#: favorite_nodes.module:109;143;185
+msgid "Favorites"
+msgstr ""
+
+#: favorite_nodes.module:138
+msgid "Favorite nodes"
+msgstr ""
+
+#: favorite_nodes.module:164
+msgid "More Favorite %types"
+msgstr ""
+
+#: favorite_nodes.module:176
+msgid "Titles"
+msgstr ""
+
+#: favorite_nodes.module:182
+msgid "Block title"
+msgstr ""
+
+#: favorite_nodes.module:184
+msgid "This title will be displayed at the top of the block."
+msgstr ""
+
+#: favorite_nodes.module:189
+msgid "Number of favorites to display"
+msgstr ""
+
+#: favorite_nodes.module:191
+msgid "Up to this many favorites of each type of content will be displayed in the block. If there are no marked favorites of a type, then that type won't show up."
+msgstr ""
+
+#: favorite_nodes.module:199
+msgid "Type subtitles"
+msgstr ""
+
+#: favorite_nodes.module:207
+msgid "Subtitle for the %name content type"
+msgstr ""
+
+#: favorite_nodes.module:209
+msgid "Within the block, any links to content of the %name type will be categorized under this subtitle."
+msgstr ""
+
+#: favorite_nodes.module:242
+msgid "add to favorites"
+msgstr ""
+
+#: favorite_nodes.module:245
+msgid "in favorites"
+msgstr ""
+
+#: favorite_nodes.module:246
+msgid "remove from favorites"
+msgstr ""
+
+#: favorite_nodes.module:262
+msgid "Favorites Page Settings"
+msgstr ""
+
+#: favorite_nodes.module:268
+msgid "Favorite Nodes Page Limit"
+msgstr ""
+
+#: favorite_nodes.module:270
+msgid "How many items to display on a single page of marked favorites."
+msgstr ""
+
+#: favorite_nodes.module:274
+msgid "Favorite Nodes Profile Limit"
+msgstr ""
+
+#: favorite_nodes.module:276
+msgid "How many items per type to display on the profile page."
+msgstr ""
+
+#: favorite_nodes.module:280
+msgid "Type of Page Display for Favorite Nodes"
+msgstr ""
+
+#: favorite_nodes.module:286
+msgid "How should favorites be displayed on the favorite nodes page?"
+msgstr ""
+
+#: favorite_nodes.module:291
+msgid "Enable favorites for these node types"
+msgstr ""
+
+#: favorite_nodes.module:363
+msgid "The node was added to your favorites."
+msgstr ""
+
+#: favorite_nodes.module:381
+msgid "The node was deleted from your favorites"
+msgstr ""
+
+#: favorite_nodes.module:432;469
+msgid "Favorite %type for %user"
+msgstr ""
+
+#: favorite_nodes.module:452
+msgid "Title"
+msgstr ""
+
+#: favorite_nodes.module:452
+msgid "Added"
+msgstr ""
+
+#: favorite_nodes.module:452
+msgid "Operations"
+msgstr ""
+
+#: favorite_nodes.module:459
+msgid "delete"
+msgstr ""
+
+#: favorite_nodes.module:0
+msgid "favorite_nodes"
+msgstr ""
+

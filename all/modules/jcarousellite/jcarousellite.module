@@ -1,0 +1,26 @@
+<?php
+// $Id: jcarousellite.module,v 1.3 2009/03/07 21:05:23 owahab Exp $
+
+/**
+ * @file
+ * jCarousel Lite is a jQuery plugin that carries you on a carousel ride
+ * filled with images and HTML content. Put simply, you can navigate
+ * images and/or HTML in a carousel-style widget. It is super light weight,
+ * at about 2 KB in size, yet very flexible and customizable to fit most
+ * of our needs.
+ */
+
+function jcarousellite_add($data = NULL) {
+  static $added;
+
+  if (!isset($added)) {
+    drupal_add_js(drupal_get_path('module', 'jcarousellite') .'/js/jcarousellite.js');
+    drupal_add_js(drupal_get_path('module', 'jcarousellite') .'/js/jquery.easing.js');
+    drupal_add_js(drupal_get_path('module', 'jcarousellite') .'/js/jquery.mousewheel.js');
+    $added = TRUE;
+  }
+  if ($data) {
+    drupal_add_js($data, 'inline', 'footer', FALSE);
+  }
+}
+

@@ -1,0 +1,124 @@
+<?php
+/**
+ * @file
+ * Provides a "sticky footer" for logged-on users
+ *
+ * @author Lukas White <hello@lukaswhite.com>
+ */
+
+/**
+ * Implementation of hook_theme
+ *
+ * @return array
+ */
+function sticky_footer_theme() {
+
+  return array(
+    'sticky_footer_block' => array(      
+      'template' => 'sticky-footer-block',
+	  'arguments' => array('items' => null),
+    ),
+  );
+}
+
+/**
+ * Implementation of hook_block()
+ *
+ * @param string $op
+ * @param int $delta
+ * @return Mixed
+ */
+function sticky_footer_block($op = 'list', $delta = 0) {
+	
+	switch ($op) {
+		case 'list':
+			$blocks[0]['info'] = t('Sticky Footer');
+			$blocks[0]['cache'] = BLOCK_NO_CACHE;			
+			return $blocks;
+		case 'view':
+										
+            drupal_add_css(drupal_get_path('module', 'sticky_footer') .'/sticky_footer.css', 'module', 'all', FALSE);                    
+            
+			
+			$items[] =  array(
+				'url'	=>	'/'.$GLOBALS['user']->name,
+				'title'	=>	'View my Profile',
+				'icon'	=>	'fbProfile.gif',
+			  );
+			
+			if(is_publisher()) {
+			  $items[] =    array(
+				'url'	=>	'/node/add/blog',
+				'title'	=>	'Add Blog',
+				'icon'	=>	'fbAddBlog.gif',
+			  );
+			  $items[] =    array(
+				'url'	=>	'/node/add/supported-author',
+				'title'	=>	'Add Supported Author',
+				'icon'	=>	'fbAddAuthor.gif',
+			  );
+			  $items[] =    array(
+				'url'	=>	'/node/add/book-published',
+				'title'	=>	'Add Book Published',
+				'icon'	=>	'fbWords.gif',
+			  );
+			  $items[] =    array(
+				'url'	=>	'/node/add/release',
+				'title'	=>	'Add Forthcoming Release',
+				'icon'	=>	'fbAddRelease.gif',
+			  );
+			  $items[] =    array(
+				'url'	=>	'/node/add/event',
+				'title'	=>	'Add Event',
+				'icon'	=>	'fbAddEvent.gif',
+			  );
+			  if(!publisher_banner($GLOBALS['user']->uid)) {
+				$items[] =    array(
+				  'url'	=>	'/node/add/banner',
+				  'title'	=>	'Add Banner',
+				  'icon'	=>	'fbAddBanner.gif',
+				);
+			  } else {
+				$items[] =    array(
+				  'url'	=>	'/node/'.publisher_banner($GLOBALS['user']->uid),
+				  'title'	=>	'Edit Banner',
+				  'icon'	=>	'fbAddBanner.gif',
+				);
+			  }
+			}  // end if publisher
+			
+			$items[] =    array(
+				'url'	=>	'/node/add/word',
+				'title'	=>	'Upload your words',
+				'icon'	=>	'fbWords.gif',
+			  );
+			$items[] =    array(
+				'url'	=>	'/user/'.$GLOBALS['user']->uid.'/edit',
+				'title'	=>	'Edit my account',
+				'icon'	=>	'fbAccount.gif',
+			  );
+			$items[] =    array(
+				'url'	=>	'/user/'.$GLOBALS['user']->uid.'/edit',
+				'title'	=>	'Change my password',
+				'icon'	=>	'fbPassword.gif',
+			  );
+			$items[] =  
+			  array(
+				'url'	=>	'/alerts',
+				'title'	=>	'My alerts',
+				'icon'	=>	'fbAlerts.gif',
+			  );
+			$items[] =   
+			  array(
+				'url'	=>	'/relationships/1',
+				'title'	=>	'My friends',
+				'icon'	=>	'fbFriends.gif',
+			  );
+			
+			$block['content'] = theme('sticky_footer_block', $items);
+			
+
+
+			return $block;
+	}
+}

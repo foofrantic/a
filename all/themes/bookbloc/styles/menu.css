@@ -1,0 +1,73 @@
+#login {
+	position:absolute;
+	right:0px;
+	top:3px;
+	padding: 6px 15px;
+	background: #e9e6b2;
+}
+#login a {
+	color:#535353;
+}
+/******************/
+/* MAIN MENU BLOCK
+/******************/
+#block_8 {
+	position:absolute;
+	top:72px;
+	right:0px;
+	height:50px;
+	background:transparent;
+}
+#block_8 li {
+	display:inline;
+	background:transparent;
+}
+
+#block_8 li a {
+	border-bottom:3px solid #D6D5A1;
+	color:#5A5A5A;
+	padding:10px 16px 7px;
+	text-decoration:none;
+	background:#F6F3B2;
+	font-size:1.45em;
+	font-weight:normal;
+}
+#block_8 li a:hover {
+	background:#FFFFFF none repeat scroll 0 0;
+	border-bottom:4px solid #FFFFFF;
+	color:#DD7C1D;
+	padding:10px 17px 7px;
+	text-decoration:underline;
+}
+
+body.search #block_8 li#search a {
+	background:white none repeat scroll 0 0;
+	border-bottom:3px solid #FFFFFF;
+	color:#757575;
+	padding:13px 17px 14px;
+	position:relative;
+	text-decoration:none;
+	top:-6px;
+}
+
+ul.menu li span { overflow: hidden; }
+
+/*************************/
+/* MAIN MENU ACTIVE STYLES
+/************************/
+#block_8 li a.active {
+	background:white none repeat scroll 0 0;
+	border-bottom:3px solid #FFFFFF;
+	color:#757575;
+	position:relative;
+	top:-6px;
+	padding:13px 17px 14px;
+	text-decoration:none;
+}
+/*************************/
+/* sidebar menu settings
+/************************/
+#sidebar li {
+	width:auto !important;
+	background:transparent;
+}

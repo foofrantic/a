@@ -1,0 +1,5 @@
+name = Bookshelf
+description = Implements the Bookbloc "Book shelf" feature
+package = Bookbloc
+version = VERSION
+core = 6.x

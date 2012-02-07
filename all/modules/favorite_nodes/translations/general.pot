@@ -1,0 +1,39 @@
+# $Id: general.pot,v 1.1 2008/06/18 14:44:15 kbahey Exp $
+#
+# LANGUAGE translation of Drupal ()
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from file: 
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2007-04-14 00:52-0400\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: favorite_nodes.module:21 favorite_nodes.info:0
+msgid "Allows users to manage a favorite list of nodes."
+msgstr ""
+
+#: favorite_nodes.install:25
+msgid "favourite_nodes module database tables created successfully."
+msgstr ""
+
+#: favorite_nodes.install:27
+msgid "favourite_nodes module database table creation failure. Please view the favourite_nodes module folder and read the README.txt"
+msgstr ""
+
+#: favorite_nodes.info:0
+msgid "Favorite Nodes"
+msgstr ""
+
+#: favorite_nodes.info:0
+msgid ""
+msgstr ""
+

@@ -1,0 +1,334 @@
+<?php
+/**
+ * @file
+ * Implements the Bookbloc "Book shelf" feature
+ *
+ * @author Lukas White <hello@lukaswhite.com>
+ */
+
+/**
+ * Implementation of hook_theme
+ *
+ * @return array
+ */
+function bookshelf_theme() {
+
+  return array(
+    'bookshelf_block' => array(      
+      'template' => 'bookshelf-block',
+	  'arguments' => array('tabs' => null, 'class' => null),
+    ),
+  );
+}
+
+/**
+ * Implementation of hook_block()
+ *
+ * @param string $op
+ * @param int $delta
+ * @return Mixed
+ */
+function bookshelf_block($op = 'list', $delta = 0) {
+	
+	switch ($op) {
+		case 'list':
+			$blocks[0]['info'] = t('Bookshelf (Homepage)');
+			$blocks[0]['cache'] = BLOCK_NO_CACHE;
+			$blocks[1]['info'] = t('Bookshelf (Profile)');
+			$blocks[1]['cache'] = BLOCK_NO_CACHE;
+			$blocks[2]['info'] = t('Bookshelf (Words)');
+			$blocks[2]['cache'] = BLOCK_NO_CACHE;			
+			return $blocks;
+		case 'view':
+			
+		  // No need to check the $delta; there's only one block
+			
+		  // add the styles dynamically	
+		  drupal_add_css(drupal_get_path('module', 'bookshelf') .'/bookshelf.css', 'module', 'all', FALSE);
+		  
+		  // Now add the Javascript files
+		  drupal_add_js(drupal_get_path('module', 'bookshelf') .'/js/jquery.scrollContent.js', 'module');
+		  drupal_add_js(drupal_get_path('module', 'bookshelf') .'/js/jquery.easing.1.3.js', 'module');
+		  drupal_add_js(drupal_get_path('module', 'bookshelf') .'/js/jcarousellite_1.0.1.pack.js', 'module');
+		  
+		  
+
+		  switch ($delta) {
+			
+			case 0:
+			  
+				// add the code that actually makes it work...
+			    drupal_add_js(drupal_get_path('module', 'bookshelf') .'/js/bookshelf.js', 'module');
+			  
+				// the user in question is the user currently logged in
+			  
+				// get the user's words
+				$users_words = bookshelf_user_words($GLOBALS['user']->uid);
+				
+				// get the user's favourite words
+				$users_favourites = bookshelf_favourite_words($GLOBALS['user']->uid);
+				
+				// get the suggested words
+				$suggested_words = bookshelf_suggested_words($GLOBALS['user']->uid);
+				
+				// build params
+				
+				if (count($suggested_words)>0) {
+				  $tabs[] =  array(
+					  'name'	=>	'Suggested Chapters',
+					  'active'	=>	true,
+					  'items'	=>	$suggested_words,	
+					);
+				}
+				
+				if (count($users_words)>0) {
+				  $tabs[] =  array(
+					  'name'	=>	'Users Chapters',
+					  'active'	=>	false,
+					  'items'	=>	$users_words,
+					);
+				}
+				
+				if (count($users_favourites)>0) {
+				  $tabs[] =  array(
+					  'name'	=>	'Users Favourite Chapters',
+					  'active'	=>	false,
+					  'items'	=>	$users_favourites,	
+					);			
+				}
+				
+				$class = 'bookshelf bookshelfFullWidth bottomPullUp';
+				
+			  break;
+			
+			case 1:
+			  
+			  // add the code that actually makes it work...
+			  drupal_add_js(drupal_get_path('module', 'bookshelf') .'/js/bookshelf_short.js', 'module');
+			  
+			  // the user in question is the user whose profile we're on
+			  
+			  if (arg(0)=='user') {
+				$uid = arg(1);
+			  } else {
+				$uid = 1;
+			  }
+			  
+			  // get the user's words
+			  $users_words = bookshelf_user_words($uid);
+			  
+			  // get the user's favourite words
+			  $users_favourites = bookshelf_favourite_words($uid);			  
+			  
+			  // build params			  
+			  if (count($users_words)>0) {
+				$tabs[] = array(
+					'name'	=>	'Users Chapters',
+					'active'	=>	true,
+					'items'	=>	$users_words,
+				  );
+			  }
+			  
+			  if (count($users_favourites)>0) {
+				$tabs[] = array(
+					'name'	=>	'Users Favourite Chapters',
+					'active'	=>	false,
+					'items'	=>	$users_favourites,	
+				  );
+			  }
+			  
+			  $class = 'bookshelf smallShelf';
+			  
+			  break;
+			
+			case 2:
+			  
+			  // add the code that actually makes it work...
+			  drupal_add_js(drupal_get_path('module', 'bookshelf') .'/js/bookshelf_short.js', 'module');
+			  
+			  // get the current node
+			  
+			  if (arg(0)=='node') {
+				$nid = arg(1);
+				$node = node_load($nid);
+			  }
+			  			  			   
+			  // get the user's words
+			  $users_other_words = bookshelf_users_other_words($node->uid, $nid);
+			  
+			  // get words in the same genre(s)
+			  $same_genre = bookshelf_words_in_same_genre($nid);
+			  
+			  // build params			  
+			  if (count($users_other_words)>0) {
+				$tabs[] = array(
+					'name'	=>	'Users Other Chapters',
+					'active'	=>	true,
+					'items'	=>	$users_other_words,
+				  );
+			  }
+			  
+			  if (count($same_genre)>0) {
+				$tabs[] = array(
+				  'name'	=>	'Similar Chapters',
+				  'active'	=>	false,
+				  'items'	=>	$same_genre,	
+				);
+			  }
+			  
+			  $class = 'bookshelf smallShelf';
+			  
+			  break;
+			
+			
+			
+		  }
+
+		  // Theme the actual block
+		  $block['content'] = theme('bookshelf_block', $tabs, $class);
+
+		  return $block;
+
+		  break;
+	}
+}
+
+/**
+ * Get a users' words
+ *
+ * @param int $uid The user ID
+ * @return array
+ */
+function bookshelf_user_words($uid) {
+	$nodes = array();
+	$sql = db_query('SELECT nid FROM {node} WHERE uid = %d AND type="word" AND status=1 ORDER BY nid DESC',$uid);
+	while($row = db_fetch_array($sql)) {
+
+	  // load the node. That way, we get a comment count, author details and the picture
+	  $node = node_load($row['nid']);
+	  
+	  $node->rating = bookshelf_get_rating($node->nid);
+	  
+	  $nodes[] = $node;
+	}
+	return $nodes;
+}
+
+/**
+ * Get a users' favourite words
+ *
+ * @param int $uid The user ID
+ * @return array
+ */
+function bookshelf_favourite_words($uid) {
+  $nodes = array();
+  $sql = db_query('SELECT nid FROM {favorite_nodes} WHERE uid = %d',$uid);
+  while($row = db_fetch_array($sql)) {
+
+	  // load the node. That way, we get a comment count, author details and the picture
+	  $node = node_load($row['nid']);
+	  
+	  
+	  $node->rating = bookshelf_get_rating($row['nid']);
+	  
+	  $nodes[] = $node;
+	}
+	return $nodes;
+}
+
+/**
+ * Get a users' words, not including the one specified
+ *
+ * @param int $uid The user ID
+ * @param int $nid The node to exclude
+ * @return array
+ */
+function bookshelf_users_other_words($uid, $nid)
+{
+  $nodes = array();
+	$sql = db_query('SELECT nid FROM {node} WHERE uid = %d AND type="word" AND status=1 AND nid <> %d ORDER BY nid DESC',$uid, $nid);
+	while($row = db_fetch_array($sql)) {
+
+	  // load the node. That way, we get a comment count, author details and the picture
+	  $node = node_load($row['nid']);
+	  
+	  $node->rating = bookshelf_get_rating($node->nid);
+	  
+	  $nodes[] = $node;
+	}
+	return $nodes;
+}
+
+/**
+ * Get a lst of chapters in one or more of the same genres as the one specified
+ *
+ * @param int $nid The node ID
+ * @return array
+ */
+function bookshelf_words_in_same_genre($nid)
+{
+  $nodes = array();
+	$sql = db_query("SELECT DISTINCT(n.nid), n.title FROM term_node tn1 RIGHT JOIN node n on tn1.vid = n.vid WHERE tid IN (SELECT DISTINCT tid FROM term_node tn2 WHERE nid = 191) AND n.type = 'word'", $nid);
+	while($row = db_fetch_array($sql)) {
+
+	  // load the node. That way, we get a comment count, author details and the picture
+	  $node = node_load($row['nid']);
+	  
+	  $node->rating = bookshelf_get_rating($node->nid);
+	  
+	  $nodes[] = $node;
+	}
+	return $nodes;  
+}
+
+/**
+ * Get a some suggested words
+ *
+ * @param int $uid The user ID
+ * @return array
+ */
+function bookshelf_suggested_words($uid)
+{
+  $suggestions = suggested_words();
+  foreach ($suggestions as $node) {
+	//print_r($node);
+	$node->rating = bookshelf_get_rating($node->nid);
+  }
+  return $suggestions;
+}
+
+/**
+ * Determine how many times this instance of words has been favourited
+ *
+ * @param int $nid
+ * @return int
+ */
+function bookshelf_favourited_count($nid) {
+  $sql = db_query('SELECT COUNT(*) AS n FROM favorite_nodes WHERE nid = %d', $nid);
+  $row = db_fetch_array($sql);
+  return ($row->n)+0;
+}
+
+/**
+ * Get the rating for a given node ID
+ *
+ * @param int $nid
+ * @return int
+ */
+function bookshelf_get_rating($nid) {
+	$sql = db_query('SELECT value FROM {votingapi_vote} WHERE content_id = %d',$nid);
+	
+	while($row = db_fetch_array($sql)) {
+	   $rows[] = $row;
+	}
+	$rate = 0;
+	
+	if (count($rows)>0) {
+	  foreach($rows as $row) {
+		  $rate += $row['value'];
+	  }
+	  $rate = round($rate/count($rows));
+	}
+	return (0+$rate)*0.05;
+}
+

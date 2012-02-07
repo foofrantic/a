@@ -1,0 +1,99 @@
+$Id: CHANGELOG.txt,v 1.4.2.10 2008/09/11 02:02:42 sun Exp $
+
+Guestbook x.x-x.x, xxxx-xx-xx
+-----------------------------
+
+
+Guestbook 6.x-1.x, xxxx-xx-xx
+-----------------------------
+
+
+Guestbook 6.x-1.1, 2008-09-11
+-----------------------------
+#302941 by sponnet, sun: Changed internal form submit button key name.
+#295025 by sun: Added uninstaller.
+#295015 by sun: Code clean-up.
+#292010 by smk-ka, sun: Fixed admins cannot access guestbook of blocked users.
+#258793 by forschi: Fixed n/a instead of entry displayed for anonymous users.
+#243590 by mdatab: Fixed email notification for new guestbook entries.
+#244365 by seals: Added Swedish translation.
+#193672 by sun: Changed paths to add guestbook entry (sign) to guestbook/sign,
+  resp. user/#/guestbook/sign.
+#193672 by sun: Changed guestbook paths for user and site guestbooks.
+#193672 by sun: Moved gettext translation files into translations.
+#193672 by sun: Ported Guestbook for Drupal 6.x.
+
+
+Guestbook 5.x-1.x, xxxx-xx-xx
+-----------------------------
+#234328 by wrwrwr: Added Polish translation.
+by sun: Updated CHANGELOG.txt and README.txt (merged credits and installation
+  instructions).
+Code clean-up using coder_format.
+#126273 by sun: Fixed duplicate HTTP protocol prefix in anonymous user website.
+#162904 by incrn8, sun: Added zebra striping to guestbook entries.
+#181978 by sun: Fixed wrong line-endings and character encoding.
+#17613 by jaydub: Added checkbox to allow users to enable/disable email
+  notification for guestbook entries.
+#149379 by jaydub: Added option to use profile as link target on user picture.
+
+
+Guestbook 5.x-1.0, 2007-03-04
+-----------------------------
+Initial release of Guestbook port for Drupal 5.x.
+#123805: Use site_mail as notification sender.
+#123929: Increase textarea.
+#85349: Fixed error when viewed by guest.
+#107340: Tiny bugfix.
+#72413: Added more indexes.
+
+
+Guestbook 4.7.x-x.x, 2006-05-20
+-------------------------------
+- Honor user and guestbook access settings when linking (or not linking) to
+  users and guestbooks
+#61967: Fixed The authors name links to his personal guestbook even after they
+  are disabled in settings.
+#61963: Fixed user avatars.
+#61635: Fixed Guestbook ignores display configuration settings.
+#37587: Rewrite for Drupal 4.7 by tenrapid.
+
+
+Guestbook 4.6.x-x.x, 2006-02-20
+-------------------------------
+- Breadcrumbs work again
+- Minor type safety fix
+#30142: Fixed my guestbook nbsp (0).
+#37136: Fixed Cannot post guestbook entries when running Drupal from a
+  subdirectory.
+#25467: Fixed Module links redirect out of the site.
+#28291: Fixed Solving the internal server error when viewing the site guestbook.
+#39265: Fixed User's Guestbook don't work properly when drupal is installed in a
+  subdirectory.
+#41757: Fixed Getting guestbook working.
+#39263: Fixed Guestbook doesn't work with clean URL's.
+#45001: Fixed reply-link added.
+#25710: Fixed missing table brackets.
+#24817: Fixed missing table brackets.
+#24014: Port to 4.6.x without modifications.
+
+
+Guestbook 4.5.x-x.x, 2005-04-18
+-------------------------------
+- Fixed bug: Couldn't delete comments
+- Fixed bug: User entries without avatars had previous entry's avatar
+- Feature: Double post (on reload) not possible anymore
+- Upgraded to Drupal 4.5
+
+
+Guestbook 4.4.x-x.x, 2004-02-09
+-------------------------------
+- Small bug fixes & UI improvements
+- Added avatars to all guestbooks.  
+- dependent on profile.module and comments.module
+
+
+Guestbook 4.4.x-x.x, 2003-12-11
+-------------------------------
+Initial release of Guestbook module.
+

@@ -1,0 +1,49 @@
+/*** Sticky Footer Styles ***/
+		
+		
+		#footpanel {
+			position: fixed;
+			bottom: 0; left: 0;
+			z-index: 100; /*--Keeps the panel on top of all other elements--*/
+			background: #acacac;
+			border: 3px solid #e8e8e8;
+			border-bottom: none;
+			width: 90%;
+			margin: 0 5%;
+			padding: 1px;
+			height: 45px; 
+		}
+		#footpanelInterior {
+			border: 3px solid #f7f7f7;
+			background-color: #ededed;
+			padding: 5px 15px 0px;
+			height: 40px;
+			overflow: hidden;
+			border-bottom: none;
+		}
+		.footerLeft { float: left; width: 50%; }
+		.footerRight { float: right; }
+		#footpanel h6 {
+			font-size: 0.9em;
+			text-transform: uppercase;
+			color: #4b4b4b;
+			line-height: 30px;
+			font-weight: bold;
+			float: left;
+			margin-right: 10px;
+		}
+        #footpanel ul { list-style-type: none; }
+		#footpanel ul li { float: left; overflow: hidden; margin: 3px 5px 0 0; }
+		
+		#tooltip {
+			position: absolute;
+			z-index: 200;
+			border: 1px solid #ddd;
+			background-color: #fff;
+			padding: 5px;
+			-moz-border-radius: 3px;
+			-webkit-border-radius: 3px;
+			margin-left: -25px;
+			color: #467D69;
+		}
+		#tooltip h3, #tooltip div { margin: 0; text-transform: none; color: #467D69; }

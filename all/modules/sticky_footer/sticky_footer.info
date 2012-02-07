@@ -1,0 +1,5 @@
+name = Sticky Footer
+description = Provides a "sticky footer" for logged-on users
+package = Other
+version = VERSION
+core = 6.x

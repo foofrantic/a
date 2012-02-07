@@ -1,0 +1,222 @@
+<?php
+// $Id: jcarousellite_node.module,v 1.3 2009/03/07 21:05:23 owahab Exp $
+
+/**
+ * This module allows you to embed the jCarousel Lite jQuery plugin
+ * in any node.
+ */
+
+/**
+ * Implementation of hook_perm().
+ */
+function jcarousellite_node_perm() {
+  return array('edit jcarousel lite');
+}
+
+/**
+ * Implementation of hook_form_alter().
+ */
+function jcarousellite_node_form_alter(&$form, $form_state, $form_id) {
+  if (!user_access('edit jcarousel lite')) {
+    return;
+  }
+
+  switch ($form_id) {
+    // node settings form
+    case 'node_type_form':
+      $node_type = (isset($form['old_type']) && isset($form['old_type']['#value'])) ? $form['old_type']['#value'] : NULL;
+  	
+      $form['submission']['jcarousellite'] = array(
+        '#type' => 'radios',
+        '#title' => t('Enable jCarousel Lite'),
+        '#default_value' => variable_get('jcarousellite_' . $node_type, 0),
+        '#options' => array(t('Disabled'), t('Enabled')),
+      );
+      break;
+      
+    // node edit form
+    case $form['type']['#value'] .'_node_form':
+      if (variable_get('jcarousellite_'. $form['type']['#value'], 0) && user_access('edit jcarousel lite')) {
+        $node = $form['#node'];
+
+        $form['jcarousellite'] = array(
+          '#type' => 'fieldset',
+          '#title' => t('jCarousel Lite'),
+          '#description' => t('<strong>Example: </strong><br />
+<code>
+&lt;a href="#" class="prev">&lt;&lt;/a><br />
+&lt;a href="#" class="next">>&lt;/a><br />
+<br />
+&lt;div class="anyClass"><br />
+&#160; &lt;ul><br />
+&#160; &#160; &lt;li>&lt;img src="someimage" alt="" width="100" height="100" />&lt;/li><br />
+&#160; &#160; &lt;li>&lt;img src="someimage" alt="" width="100" height="100" />&lt;/li><br />
+&#160; &#160; &lt;li>&lt;img src="someimage" alt="" width="100" height="100" />&lt;/li><br />
+&#160; &lt;/ul><br />
+&lt;/div>
+</code>'),
+          '#collapsible' => TRUE,
+          '#collapsed' => !$node->jcarousellite_enabled && !$node->jcarousellite_container_class && !$node->jcarousellite_btnprev_class && !$node->jcarousellite_btnnext_class && !$node->jcarousellite_options,
+        );
+        $form['jcarousellite']['jcarousellite_enabled'] = array(
+          '#type' => 'radios',
+          '#title' => t('Enable jCarousel Lite'),
+          '#default_value' => isset($node->jcarousellite_enabled) ? $node->jcarousellite_enabled : 0,
+          '#options' => array(t('Disabled'), t('Enabled')),
+        );
+        $form['jcarousellite']['jcarousellite_container_class'] = array(
+          '#type' => 'textfield',
+          '#title' => t('Container class'),
+          '#default_value' => $node->jcarousellite_container_class,
+          '#description' => t("The carousel container's class name. In the case of our example, this is '.anyClass'."),
+          '#size' => 50,
+          '#maxlength' => 128
+        );
+        $form['jcarousellite']['jcarousellite_btnprev_class'] = array(
+          '#type' => 'textfield',
+          '#title' => t('Previous button class'),
+          '#default_value' => $node->jcarousellite_btnprev_class,
+          '#description' => t("Selector for the 'Previous' button. In the case of our example, this is '.prev'."),
+          '#size' => 50,
+          '#maxlength' => 128
+        );
+        $form['jcarousellite']['jcarousellite_btnnext_class'] = array(
+          '#type' => 'textfield',
+          '#title' => t('Next button class'),
+          '#default_value' => $node->jcarousellite_btnnext_class,
+          '#description' => t("Selector for the 'Next' button. In the case of our example, this is '.next'"),
+          '#size' => 50,
+          '#maxlength' => 128
+        );
+        $form['jcarousellite']['jcarousellite_options'] = array(
+          '#type' => 'textarea',
+          '#title' => t('Additional options'),
+          '#default_value' => $node->jcarousellite_options,
+          '#description' => t("Additional options. See !link for more detail.<br /><code>
+btnGo: ['.externalControl .1', '.externalControl .2', '.externalControl .3'],<br />
+auto: null,<br />
+speed: 200,<br />
+vertical: false,<br />
+circular: true,<br />
+visible: 3,<br />
+start: 0,<br />
+scroll: 1,
+</code>", array('!link' => l('documentation', 'http://www.gmarwaha.com/jquery/jcarousellite/index.php', array('target' => '_blank', 'fragment' => 'doc')))),
+          '#cols' => 50,
+          '#rows' => 4,
+        );
+
+      }
+      break;
+  }
+}
+
+/**
+* Implementation of hook_nodeapi().
+*/
+function jcarousellite_node_nodeapi(&$node, $op, $teaser, $page) {
+    switch ($op) {
+      case 'load':
+        $results = db_fetch_object(db_query("SELECT * FROM {jcarousellite_node} WHERE vid = %d", $node->vid));
+        if ($results) {
+            $node->jcarousellite_enabled         = $results->jcarousellite_enabled;
+            $node->jcarousellite_container_class = $results->jcarousellite_container_class;
+            $node->jcarousellite_btnprev_class   = $results->jcarousellite_btnprev_class;
+            $node->jcarousellite_btnnext_class   = $results->jcarousellite_btnnext_class;
+            $node->jcarousellite_options         = $results->jcarousellite_options;
+        }
+        else {
+            $node->jcarousellite_enabled         = 0;
+            $node->jcarousellite_container_class = '';
+            $node->jcarousellite_btnprev_class   = '';
+            $node->jcarousellite_btnnext_class   = '';
+            $node->jcarousellite_options         = '';
+        }
+        break;
+
+      case 'validate':
+        break;
+      case 'insert':
+      case 'update':
+        if (variable_get('jcarousellite_'. $node->type, 0)) {
+          db_query("DELETE FROM {jcarousellite_node} WHERE vid = %d", $node->vid);
+          db_query("INSERT INTO {jcarousellite_node} (nid, vid, jcarousellite_enabled, jcarousellite_container_class, jcarousellite_btnprev_class, jcarousellite_btnnext_class, jcarousellite_options) VALUES (%d, %d, %d, '%s', '%s', '%s', '%s')", $node->nid, $node->vid, $node->jcarousellite_enabled, $node->jcarousellite_container_class, $node->jcarousellite_btnprev_class, $node->jcarousellite_btnnext_class, $node->jcarousellite_options);
+        }
+        break;
+
+      case 'view':
+        // Need to play nice with revisions module
+        if (arg(2) != 'revisions' || (arg(2) == 'revisions' && arg(3) == 'view' && $node->vid == arg(5))) {
+          if ($node->jcarousellite_enabled) {
+            $js = <<<END
+
+$(function() {
+$("{$node->jcarousellite_container_class}").jCarouselLite({
+btnPrev: "{$node->jcarousellite_btnprev_class}",
+btnNext: "{$node->jcarousellite_btnnext_class}",
+{$node->jcarousellite_options}
+});
+});
+
+END;
+            jcarousellite_add($js);
+          }
+        }
+        break;
+
+      case 'delete revision':
+        db_query('DELETE FROM {jcarousellite_node} WHERE vid = %d', $node->vid);
+        break;
+
+      case 'delete':
+        db_query("DELETE FROM {jcarousellite_node} WHERE nid = %d", $node->nid);
+        break;
+  }
+}
+
+/**
+ * Implementation of hook_diff().
+ */
+function jcarousellite_diff(&$old_node, &$new_node) {
+  $result = array();
+
+  $result[] = array(
+    'name' => t('jCarousel Lite: Enabled'),
+    'old' => array($old_node->jcarousellite_enabled ? 'true' : 'false'),
+    'new' => array($new_node->jcarousellite_enabled ? 'true' : 'false'),
+    'format' => array(
+      'show_header' => false,
+    )
+  );
+  $result[] = array(
+    'name' => t('jCarousel Lite: Container class'),
+    'old' => array($old_node->jcarousellite_container_class),
+    'new' => array($new_node->jcarousellite_container_class),
+    'format' => array(
+      'show_header' => false,
+    )
+  );
+  $result[] = array(
+    'name' => t('jCarousel Lite: Previous button class'),
+    'old' => array($old_node->jcarousellite_btnprev_class),
+    'new' => array($new_node->jcarousellite_btnprev_class),
+    'format' => array(
+      'show_header' => false,
+    )
+  );
+  $result[] = array(
+    'name' => t('jCarousel Lite: Next button class'),
+    'old' => array($old_node->jcarousellite_btnnext_class),
+    'new' => array($new_node->jcarousellite_btnnext_class),
+    'format' => array(
+      'show_header' => false,
+    )
+  );
+  $result[] = array(
+    'name' => t('jCarousel Lite: Additional options'),
+    'old' => array($old_node->jcarousellite_options),
+    'new' => array($new_node->jcarousellite_options),
+  );
+
+  return $result;	
+}

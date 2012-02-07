@@ -1,0 +1,19 @@
+div.jcarousellite-prev a,
+div.jcarousellite-next a,
+div.jcarousellite div.item-list,
+div.jcarousellite {
+  float: left;
+}
+
+div.jcarousellite {
+  direction: ltr;
+}
+
+div.jcarousellite div.item-list {
+  border: 1px solid #666;
+  background-color: #DCDCDC;
+}
+
+div.jcarousellite div.item-list ul li {
+  margin: 10px;
+}

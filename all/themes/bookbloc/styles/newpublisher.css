@@ -1,0 +1,386 @@
+/* New Publisher section stylesheet September 2010. This stylesheet has been created to keep new styles separate from mix of old styles, to ensure no existing styles are accidently overwritten. (NB) */
+
+#pubWrapper {
+	width: 845px;
+	overflow: hidden;
+	background: #fff;
+	clear: both;
+	margin: 0 auto;
+	padding: 0 5px;
+	font-size: 10px;
+}
+#pubSidebar {
+	width: 150px;
+	float: left;
+	margin: 35px 15px 35px 0;
+}
+#pubContent {
+	width: 450px;
+	float: left;
+	margin: 35px 15px 35px 0;
+}
+#pubRightSide {
+	width: 210px;
+	float: right;
+	margin: 35px 0;
+}
+
+
+/* Publisher Left Sidebar */
+
+#pubAvatar {
+	width: 120px;
+	height: 120px;
+	padding: 10px 15px 30px;
+	background: url(../images/publisher/pubAvatar.jpg) no-repeat;
+}
+#pubAvatar img { width: 119px; border: 1px solid #efefef; max-height: 120px; }
+ul#pubNav { margin: 15px 0; }
+ul#pubNav li {
+	width: 148px;
+	height: 36px;
+	background: #f4efb5;
+	color: #676767;
+	font-size: 1.7em;
+	line-height: 36px;
+	text-align: center;
+	margin-bottom: 2px;
+	border: 1px solid #d1cea4;
+}
+ul#pubNav li a { 
+	color: #676767; 
+	text-decoration: none; 
+	display: block; 
+	height: 36px; 
+}
+ul#pubNav li:hover, ul#pubNav li.active {
+	background: #fff;
+	color: #d6923d;
+}
+ul#pubNav li:hover a, ul#pubNav li.active a { color: #d6923d; }
+
+
+/* Pubslisher Profile main content */
+
+#pubContent h1 {
+	font: normal normal 2.8em "Lucida Sans", sans-serif;
+	color: #467d69;
+	margin-bottom: 10px;
+	padding: 0;
+	letter-spacing: -0.1px;
+}
+#pubContent h2, #pubRightSide h2 {
+	font: normal bold 1.45em "Lucida Sans", sans-serif;
+	color: #d6923d;
+	letter-spacing: -0.1px;
+	margin-bottom: 15px;
+}
+.pubDesc {
+	width: 310px;
+	float: left;
+	font-size: 1.2em;
+}
+.pubDesc p { font-size: 1em; margin-bottom: 12px; }
+#pubContent img.add_friend { 
+	float: right;
+	clear: none;
+	top: 0;
+	margin: 0;
+}
+.pubMeta { clear: both; overflow: hidden; }
+.bio_label { 
+	clear: both;
+	background: #467d69;
+	font-size: 1.15em;
+	margin-right: 6px;
+	padding: 0px 5px;
+}
+#pubContent .bio_data { float: left; font-size: 1.15em; clear: none !important; }
+.bio_data p { font-size: 1em; }
+
+.pubBox {
+	margin: 15px 0;
+	width: 420px;
+	padding: 14px;
+	border: 1px solid #c6e2a0;
+	border-bottom-width: 4px;
+	clear: both;
+	overflow: hidden;
+}
+.pubBoxColumn {
+	width: 205px;
+	margin-right: 15px;
+	float: left;
+}
+.pubBoxColumnRight {
+	width: 200px;
+	margin: 0;
+	float: left;
+}
+ul.pubFeeds li:first-child { border-top: none; padding-top: 0; }
+ul.pubFeeds li { padding: 15px 0; border-top: 1px solid #c6e2a0; overflow: hidden; }
+
+.pubFriends img {
+	width: 45px;
+	height: 45px;
+	border: 1px solid #d1cea4;
+	float: left;
+	margin: 0 4px 4px 0;
+}
+.pubFriends p a { 
+	font: normal bold 1.2em "Lucida Sans";
+	color: #535353;
+	clear: both;
+	padding-top: 5px;
+	display: block;	
+}
+
+.pubBox h4 {
+	text-transform: none;
+	font: normal normal 1.4em "Lucida Sans", sans-serif;
+	color: #467d69;
+	margin: 0;
+	padding: 0;
+}
+
+.overviewLeft {
+	width: 305px;
+	float: left;
+}
+.overviewLeft h4 { float: none; }
+.overviewRight {
+	width: 105px;
+	float: right;
+	margin: 0 !important;
+}
+.overviewRight a { color: #467d69; }
+
+li.pubBlogFeed p, li.pubReviewsFeed p { font-size: 1.2em; margin: 10px 0; }
+li.pubPigeonFeed ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	font-size: 1.2em;
+}
+li.pubPigeonFeed ul li {
+	padding: 2px 0 2px 10px;
+	background: url(../images/greenBullet.png) no-repeat left;
+	border: none;
+}
+li.pubPigeonFeed ul li br { display: none; }
+
+
+/* Publisher section right sidebar */
+
+#pubRightSide .pubBox:first-child { margin-top: 0; }
+#pubRightSide .pubBox {	width: 180px; }
+#pubRightSide .pubBox ul li:first-child { padding-top: 0; }
+#pubRightSide .pubBox ul li {
+	padding: 4px 0;
+	border-bottom: 1px solid #c6e2a0;
+	color: #467d69;
+	font-size: 1.25em;
+}
+#pubRightSide .pubBox ul li a {
+	color: #467d69;
+	text-decoration: none;
+	display: block;
+	background: url(../images/doubleRightArrow.png) no-repeat right;
+}
+#pubRightSide .pubBox ul li a:hover { text-decoration: underline; }
+#pubRightSide a.viewAll {
+	float: right;
+	margin-top: 10px;
+	color: #d6923d;
+	font-size: 1.2em;
+}
+#pubRightSide ul#twitter_update_list li { margin: 0; color: #434343; font-size: 1.11em; line-height: 16px !important; }
+#pubRightSide ul#twitter_update_list li a { 
+	background: none; 
+	color: #999; 
+	clear: both; 
+	display: block; 
+	text-decoration: underline;
+}
+#pubRightSide ul#twitter_update_list li span a { display: inline; clear: none; }
+
+
+/* Misc */
+
+p.empty {
+	font-style: italic;
+	color: #999;
+}
+.greenTab {
+	float: left;
+	clear: both;
+	display: block;
+	background: #467d69;
+	padding: 1px 5px;
+	color: #fff !important;
+	text-decoration: none;
+}
+.overviewLink {
+	float: left;
+	clear: both;
+	display: block;
+	color: #467d69 !important;
+	font-weight: bold;
+}
+h1.floatedHeader {
+	float: left;
+	margin-bottom: 20px;
+}
+.bodyContent { font-size: 11px; }
+.bodyContent p {
+	line-height: 17px;
+	margin: 18px 0;
+}
+
+
+/* Publisher Reviews page */
+
+.reviewsBox h2 { font-size: 2.0em !important; }
+.reviewsBox ul.pubFeeds h3 {
+	font: normal normal 1.6em "Lucida Sans";
+	color: #467d69;
+	margin: 0 0 5px;
+	text-transform: none;
+} 
+
+/* Publisher Publications page */
+
+.publicationsContent { width: 680px !important; margin-right: 0 !important; }
+.publicationsContent .pubBox { 
+	width: 650px;
+	margin-top: -1px;
+	position: relative;
+	float: left;
+	z-index: 1;
+}
+.supportedAuthors a {
+	font-style: italic;
+	color: #535353;
+	text-decoration: none;
+}
+.supportedAuthors a:hover { text-decoration: underline; }
+
+ul#publicationsTabs {
+	clear: both;
+	margin-top: 20px;
+	float: left;
+	position: relative;
+	z-index: 2;
+}
+ul#publicationsTabs li {
+	float: left;
+	padding: 5px 10px;
+	font: normal bold 1.5em "Lucida Sans";
+	color: #fff;
+	letter-spacing: -0.15px;
+	background: #337d66;
+	margin-right: 2px;
+	cursor: pointer;
+}
+ul#publicationsTabs li.active, ul#publicationsTabs li:hover {
+	border: 1px solid #C6E2A0;
+	border-bottom: 1px solid #fff;
+	background: #fff;
+	color: #d6923d;
+	font-size: 1.6em;
+	margin-top: -1px;
+}
+
+ul.booksList { overflow: hidden; }
+ul.booksList li:first-child { border: none; padding-top: 0; }
+ul.booksList li {
+	border-top: 1px solid #C6E2A0;
+	padding: 25px 0 15px;
+	overflow: hidden;
+}
+ul.booksList h3 {
+	margin: 0 0 20px;
+	font: normal normal 1.8em "Lucida Sans";
+	color: #467d69;
+	text-transform: none;
+}
+ul.booksList h4 {
+	margin: 0;
+	padding: 0;
+	color: #d6923d;
+	font: normal bold 1.2em "Lucida Sans";
+	text-transform: uppercase;
+}
+ul.booksList p { font-size: 1.2em; margin: 15px 0; }
+div.mainDetails {
+	width: 430px;
+	margin-right: 30px;
+	float: left;
+}
+div.sideDetails {
+	width: 190px;
+	float: left;
+}
+
+
+/* Publisher logged in homepage */
+
+h3.subHeader a { color: #31765C; font-size: 0.9em; }
+#pubHomeAvatar {
+	float: left;
+	margin-top: 30px;
+}
+#pubHomeAvatar img {
+	float: left;
+	margin-right: 10px;
+	width: 50px;
+	height: 50px;
+}
+#pubHomeTitle {
+	float: left;
+	margin-top: 30px;
+}
+#pubHomeTitle h2 { margin-top: 0px; }
+#pubHomeTitle h3 { padding-bottom: 0px; }
+
+.pubHomeSide {
+	float: none !important;
+	width: auto !important;
+	margin: 0 !important;
+}
+
+.pubHomeContent {
+	width: 580px !important;
+	margin: 30px 0 !important;
+	overflow: hidden;
+	font-size: 10px;
+}
+.pubBoxHomeLeft {
+	width: 330px;
+	float: left;
+	padding: 14px;
+	border: 1px solid #c6e2a0;
+	border-bottom-width: 4px;
+	clear: both;
+	overflow: hidden;
+}
+.pubBoxHomeRight {
+	width: 205px;
+	margin-left: 15px;
+	float: left;
+}
+.pubBoxHomeLeft .overviewRight { display: none; }
+.pubBoxHomeRight .pubFriends { margin-bottom: 25px; }
+
+.editButton {
+	font-size: 1.2em;
+	padding: 5px 8px;
+	margin-bottom: 10px;
+	border: 1px solid #e2e5d8;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+	float: left;
+	text-decoration: none;
+}
+.editButton:hover { border-color: #c5c9aa;}

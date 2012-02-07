@@ -1,0 +1,63 @@
+<?php
+/**
+ * @file
+ * Displays some random tips in a block
+ *
+ * @author Lukas White <hello@lukaswhite.com>
+ */
+
+/**
+ * Implementation of hook_theme
+ *
+ * @return array
+ */
+function random_tips_theme() {
+
+  return array(
+    'random_tips_block' => array(      
+      'template' => 'random-tips-block',
+	  'arguments' => array('tips' => null),
+    ),
+  );
+}
+
+/**
+ * Implementation of hook_block()
+ *
+ * @param string $op
+ * @param int $delta
+ * @return Mixed
+ */
+function random_tips_block($op = 'list', $delta = 0) {
+	
+	switch ($op) {
+		case 'list':
+			$blocks[0]['info'] = t('Random Tips');
+			$blocks[0]['cache'] = BLOCK_NO_CACHE;			
+			return $blocks;
+		case 'view':
+		
+		  $all_tips = array(
+			'You upload your own artwork for your chapter front cover. When <a href="/node/add/words">adding a chapter</a> you can select the image from your computer.',
+			'Wish to change the artwork? just edit the chapter and you will have to option to do so.',			
+		  );
+
+		  $keys = array_rand($all_tips, 2);
+		
+		  $tips = array();
+		
+		  foreach ($keys as $key) {
+			$tips[] = $all_tips[$key];			
+		  }		  
+
+		  // Theme the actual block
+		  $block['title'] = 'Quick Tips';
+		  $block['content'] = theme('random_tips_block', $tips);
+
+		  return $block;
+
+		  break;
+
+
+	}
+}

@@ -1,0 +1,25 @@
+$Id: INSTALL.txt,v 1.2 2009/03/07 20:40:59 owahab Exp $
+
+REQUIREMENTS
+---------------------------------------------
+- JQuery Update (jquery_update) module is required.
+
+
+INSTALL INSTRUCTIONS FOR JCAROUSELLITE.MODULE
+---------------------------------------------
+
+1. Place the jCarousel Lite module with all its files under
+   modules/jcarousellite.
+
+2. Enable the module in 'Administer -> Site configuration -> Modules' 
+   and set access control as you like in
+   'Administer -> User management -> Access control.'
+
+3. You must then enable one or more node types to be able to use
+   jCarousel Lite. You can do this by navigating to
+   'Administer -> Content management -> Content types' and selecting a node
+   type from the list. Once there, change Enable jCarousel Lite from disabled
+   to enabled.
+
+4. Now, when you edit any node of the type where you enabled jCarousel Lite,
+   you will find jCarousel Lite settings which you can edit.

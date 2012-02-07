@@ -1,0 +1,167 @@
+body.comments .node {
+	display:none;
+}
+body.comments .box h2 {
+	display:none;
+}
+.box {
+	padding:0;
+}
+#comment-form{
+	padding:0;
+	margin:0;
+}
+.collapsible, .collapsed {
+	display:none;
+}
+.user_picture .user-picture {
+	width:50px;
+	height:65px;
+}
+#comments {
+	width:100%;
+}
+#comment_template {
+	width:380px;
+	float:left;
+	font-size:0.95em;
+}
+#comments .odd {
+	background:none;
+	border:none;
+}
+h2.comments {
+	display:none;
+}
+#comments .comment,#comments .odd {
+}
+.user_picture {
+	width:59px;
+	height:74px;
+	background:url('/sites/all/themes/bookbloc/images/profile-comment-bg.gif') no-repeat 0 0;
+	padding:2px;
+	float:left;
+}
+.user_picture .user-picture {
+	width:50px;
+	height:65px;
+	position:relative;
+	float:none;
+	top:3px;
+	left:5px;
+}
+
+.comment_area {
+	width:243px;
+	float:left;
+	margin-left:10px;
+	background:#fdf7c5 url('/sites/all/themes/bookbloc/images/comment_yellow.gif') no-repeat 0 0;
+	padding:10px 10px 0 30px;
+	color:#995E1C;
+}
+#main-wrapper #comments .comment_area h3.title a {
+	color:#995E1C;
+}
+.comment_bottom {
+	background:#fdf7c5 url('/sites/all/themes/bookbloc/images/comment_yellow_bottom.gif') no-repeat 0 0;
+	height:14px;
+	width:281px;
+	margin-left:-29px;
+}
+
+#comments .links {
+	width:200px;
+}
+.indented {
+	margin-left:0;
+}
+
+#other_words {
+	float:right;
+	width:150px;
+	position:relative;
+	top:-48px;
+}
+
+#other_words .body {
+	font-size:0.9em;
+	border-bottom:1px solid #d5d5d5;
+	display:block;
+	padding-bottom:4px;
+	margin-bottom:4px;
+}
+
+.author {
+	font-size:0.85em;
+}
+
+
+#main-wrapper #comments .comment_area h3 {
+	font-style:italic;
+	font-family:"Lucida Sans",verdana.arial;
+	font-size:1em;
+}
+#main-wrapper #comments a.active {
+	color:#467D69;
+	text-decoration:none;
+}
+
+.comment_area .content {
+	margin-top:-10px;
+}
+
+/* Left align comments boxes */
+.align_right {
+	float:right;
+}
+.align_left {
+	background:#df9024 url('/sites/all/themes/bookbloc/images/comment_orange.gif') no-repeat top right;
+	width:242px;
+	padding-right:30px;
+	padding-left:10px;
+	color:#FFF;
+}
+#main-wrapper #comments .align_left h3.title a {
+	color:#FFF;
+}
+.align_left .comment_bottom {
+	background:#df9024 url('/sites/all/themes/bookbloc/images/comment_orange_bottom.gif') no-repeat top right;
+	margin-left:-10px;
+	width:282px;
+}
+/* Green comment boxes */
+
+.green {
+	background:#b3e091 url('/sites/all/themes/bookbloc/images/comment_green.gif') no-repeat 0 0;
+	width:242px;
+	padding-right:10px;
+	color:#3B681A;
+}
+#main-wrapper #comments .green h3.title a {
+	color:#3B681A;
+}
+.green .comment_bottom {
+	background:#b3e091 url('/sites/all/themes/bookbloc/images/comment_green_bottom.gif') no-repeat 0 0;
+	margin-left:-30px;
+	width:282px;
+}
+
+/* New styles 19/06/2009*/
+
+
+body.blog_view .comment,
+body.node-type-word .comment {
+	clear:both;
+	width:380px;
+}
+
+body.blog_view #comments,
+body.node-type-word #comments {
+	width:380px;
+}
+body.blog_view #comments .comment .content {
+	padding:10px 0 10px 0;
+}
+body.blog_view #comments .comment_bottom .action {
+	position:relative;
+}

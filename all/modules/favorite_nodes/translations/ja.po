@@ -1,0 +1,229 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2008-11-14 16:47+0900\n"
+"Last-Translator: PineRay <matsudaterutaka@gmail.com>\n"
+"Language-Team: Japanese <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: favorite_nodes.views.inc:25
+#: favorite_nodes.info:0
+msgid "Favorite Nodes"
+msgstr "お気に入りコンテンツ"
+
+#: favorite_nodes.views.inc:39
+msgid "Time Added"
+msgstr "追加日時"
+
+#: favorite_nodes.views.inc:40
+msgid "Display the date/time the favorite node was added."
+msgstr "お気に入りコンテンツに追加した日時を表示します。"
+
+#: favorite_nodes.views.inc:50
+msgid "This filter allows favorite nodes to be filtered by the date and time the user added them. Enter dates in the format: CCYY-MM-DD HH:MM:SS. Enter 'now' to use the current time. You may enter a delta (in seconds) to the option that will be added to the time; this is most useful when combined with now."
+msgstr "ユーザがお気に入りに追加した日時でコンテンツを絞り込みます。以下の書式で日時を入力します: CCYY-MM-DD HH:MM:SS。「now」と入力すれば現在の日時を使用します。デルタを入力して日時に追加することができます (秒単位); 現在日時と組み合わせるのに役立ちます。"
+
+#: favorite_nodes.views.inc:55
+msgid "Count"
+msgstr "回数"
+
+#: favorite_nodes.views.inc:56
+msgid "Number of times this node was added to favorites by any user."
+msgstr "このコンテンツがユーザのお気に入りに追加された回数"
+
+#: favorite_nodes.views.inc:65
+msgid "User ID"
+msgstr "ユーザID"
+
+#: favorite_nodes.views.inc:66
+msgid "This allows you to filter based on favorites nodes."
+msgstr "お気に入りコンテンツかどうかで絞り込むことができます。"
+
+#: favorite_nodes.module:33
+#: favorite_nodes.info:0
+msgid "Allows users to manage a favorite list of nodes."
+msgstr "ユーザがお気に入りコンテンツのリストを管理できるようになります。"
+
+#: favorite_nodes.module:121
+msgid "Add a favorite node to the current user's list."
+msgstr "現在のユーザのリストへお気に入りコンテンツを追加します。"
+
+#: favorite_nodes.module:144
+msgid "My favorites"
+msgstr "お気に入り"
+
+#: favorite_nodes.module:195;49
+msgid "Favorite nodes"
+msgstr "お気に入りコンテンツ"
+
+#: favorite_nodes.module:200;239;71
+msgid "Favorites"
+msgstr "お気に入り"
+
+#: favorite_nodes.module:218
+msgid "More Favorite %types"
+msgstr "その他のお気に入りの%types"
+
+#: favorite_nodes.module:230
+msgid "Titles"
+msgstr "タイトル"
+
+#: favorite_nodes.module:236
+msgid "Block title"
+msgstr "ブロックのタイトル"
+
+#: favorite_nodes.module:238
+msgid "This title will be displayed at the top of the block."
+msgstr "このタイトルをブロックの最上部に表示します。"
+
+#: favorite_nodes.module:243
+msgid "Number of favorites to display"
+msgstr "お気に入りの表示数"
+
+#: favorite_nodes.module:245
+msgid "Up to this many favorites of each type of content will be displayed in the block. If there are no marked favorites of a type, then that type won't show up."
+msgstr "各コンテンツタイプ毎にこの数までのお気に入りをブロックに表示します。お気に入りに登録のないコンテンツタイプは表示しません。"
+
+#: favorite_nodes.module:250
+msgid "Type subtitles"
+msgstr "コンテンツタイプごとのサブタイトル"
+
+#: favorite_nodes.module:258
+msgid "Subtitle for the %name content type"
+msgstr "%nameコンテンツタイプ用サブタイトル"
+
+#: favorite_nodes.module:260
+msgid "Within the block, any links to content of the %name type will be categorized under this subtitle."
+msgstr "ブロックでは、%nameタイプのコンテンツへのリンクをこのサブタイトルでカテゴリ分けします。"
+
+#: favorite_nodes.module:294;297
+msgid "add to favorites"
+msgstr "お気に入りに追加"
+
+#: favorite_nodes.module:303;307
+msgid "in favorites"
+msgstr "お気に入り"
+
+#: favorite_nodes.module:304;308
+msgid "remove from favorites"
+msgstr "お気に入りから除去"
+
+#: favorite_nodes.module:326
+msgid "Favorites Page Settings"
+msgstr "お気に入りページの設定"
+
+#: favorite_nodes.module:332
+msgid "Favorite Nodes Page Limit"
+msgstr "お気に入りコンテンツページでの表示数"
+
+#: favorite_nodes.module:334
+msgid "How many items to display on a single page of marked favorites."
+msgstr "お気に入りコンテンツページで表示する1ページあたりの記事数。"
+
+#: favorite_nodes.module:338
+msgid "Favorite Nodes Profile Limit"
+msgstr "プロフィールでのお気に入りコンテンツの表示数"
+
+#: favorite_nodes.module:340
+msgid "How many items per type to display on the profile page."
+msgstr "プロフィールページで表示するコンテンツタイプごとの記事数。"
+
+#: favorite_nodes.module:344
+msgid "Type of Page Display for Favorite Nodes"
+msgstr "お気に入りコンテンツページの表示タイプ"
+
+#: favorite_nodes.module:350
+msgid "How should favorites be displayed on the favorite nodes page?"
+msgstr "お気に入りコンテンツページでお気に入りをどのように表示しますか？"
+
+#: favorite_nodes.module:354
+msgid "Navigation menu items"
+msgstr "ナビゲーションメニュー項目"
+
+#: favorite_nodes.module:357
+msgid "Whether to show a menu item in the navigation block for each node type?"
+msgstr "メニュー項目を各コンテンツタイプのナビゲーションブロックに表示しますか？"
+
+#: favorite_nodes.module:361
+msgid "Show in teaser"
+msgstr "ティーザーに表示"
+
+#: favorite_nodes.module:364
+msgid "Whether to show in teaser or not?"
+msgstr "ティーザーに表示しますか？"
+
+#: favorite_nodes.module:368
+msgid "Display empty tables in user favorite listing ?"
+msgstr "ユーザのお気に入りリストで空のテーブルを表示しますか？"
+
+#: favorite_nodes.module:370
+msgid "By default, all node types are listed on the user favorite nodes table view. In many cases, you may want to limit the lists to those that have favorite nodes actually bookmarked. Selecting this option will allow all the lists to appear regardless of whether they contain nodes or not. Unselecting this option will restirct the list to only those actually containing nodes."
+msgstr "デフォルトでは、ユーザのお気に入りコンテンツテーブルにすべてのコンテンツタイプが表示されます。多くの場合、実際にお気に入りコンテンツを登録している場合にだけリストを表示させたいと思うことでしょう。このオプションを選択すると、お気に入りコンテンツがあるかどうかに関わらず、すべてのリストが表示されます。このオプションを選択しなければ、お気に入りコンテンツがある場合にだけリストを表示します。"
+
+#: favorite_nodes.module:376
+msgid "Enable favorites for these node types"
+msgstr "これらのコンテンツタイプでお気に入りを有効化"
+
+#: favorite_nodes.module:474
+msgid "The !type was added to your favorites."
+msgstr "!typeをあなたのお気に入りに追加しました。"
+
+#: favorite_nodes.module:495
+msgid "The !type was removed from your favorites."
+msgstr "!typeをあなたのお気に入りから除去しました。"
+
+#: favorite_nodes.module:549
+msgid "Please select favorite type."
+msgstr "お気に入りのタイプを選択してください。"
+
+#: favorite_nodes.module:553
+msgid "Favorite !type for !user"
+msgstr "!userのお気に入りの!type"
+
+#: favorite_nodes.module:560
+msgid "No favorites of type !type."
+msgstr "!typeにはお気に入りがありません。"
+
+#: favorite_nodes.module:574
+msgid "Title"
+msgstr "タイトル"
+
+#: favorite_nodes.module:574
+msgid "Added"
+msgstr "追加"
+
+#: favorite_nodes.module:574
+msgid "Operations"
+msgstr "操作"
+
+#: favorite_nodes.module:581
+msgid "delete"
+msgstr "削除"
+
+#: favorite_nodes.module:592
+msgid "Favorite !types for !user"
+msgstr "!userのお気に入りの!types"
+
+#: favorite_nodes.module:50
+msgid "Settings for favorite nodes"
+msgstr "お気に入りコンテンツの設定"
+
+#: favorite_nodes.module:86
+msgid "Favorite @type"
+msgstr "お気に入りの@type"
+
+#: favorite_nodes.module:0
+msgid "favorite_nodes"
+msgstr "favorite_nodes"
+
+#: favorite_nodes.install:15
+msgid "favorite node module installed."
+msgstr "favorite nodeモジュールをインストールしました。"
+
+#: favorite_nodes.install:18
+msgid "favorite node table creation failed. Please \"uninstall\" the module and retry."
+msgstr "favorite nodeテーブルの作成に失敗しました。モジュールを「アンインストール」して再度インストールしてください。"
+

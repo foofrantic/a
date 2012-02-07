@@ -1,0 +1,46 @@
+* {
+	
+}
+pre {
+
+}
+h1 {
+
+}
+h3 {
+	font-size: 16px;	
+
+	color: #3D3D3D;
+}
+th {
+	padding-right:10px;
+}
+td {
+	
+}
+table {
+	
+}
+.even {
+	
+}
+.odd {
+
+}
+.highlight {
+	
+}
+.header {
+	background:#ACDD87 url('/sites/all/themes/bookbloc/images/ab.gif') no-repeat right;
+}
+.headerSortUp {
+	background:#ACDD87 url(/sites/all/themes/bookbloc/images/asc.gif) no-repeat right;
+}
+.headerSortDown {
+	background:#ACDD87 url(/sites/all/themes/bookbloc/images/desc.gif) no-repeat right;
+
+}
+
+#content p a:hover {
+	text-decoration:none  !important;
+}

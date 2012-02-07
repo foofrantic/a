@@ -1,0 +1,14 @@
+; $Id: jcarousellite_views.info,v 1.3 2009/03/07 21:05:23 owahab Exp $
+name = jCarousel Lite: Views Integration
+description = Display views in carousels.
+package = jCarousel Lite
+dependencies[] = jcarousellite
+dependencies[] = views
+core = 6.x
+
+; Information added by drupal.org packaging script on 2009-12-31
+version = "6.x-2.0-beta6"
+core = "6.x"
+project = "jcarousellite"
+datestamp = "1262246741"
+

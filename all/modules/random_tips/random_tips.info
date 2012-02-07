@@ -1,0 +1,5 @@
+name = Random Tips
+description = Displays some random tips in a block
+package = Other
+version = VERSION
+core = 6.x

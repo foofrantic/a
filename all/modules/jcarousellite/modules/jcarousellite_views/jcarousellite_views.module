@@ -1,0 +1,51 @@
+<?php
+// $Id: jcarousellite_views.module,v 1.3.2.4 2009/12/02 11:19:14 owahab Exp $
+
+/**
+ * @file
+ * This module allows you to use jCarousel in views
+ */
+
+/**
+ * Implementation of hook_views_api().
+ */
+function jcarousellite_views_views_api() {
+  return array(
+    'api' => 2.0,
+  );
+}
+
+/**
+ * Implementation of hook_views_style_plugins().
+ */
+function jcarousellite_views_views_style_plugins() {
+  $style_plugins['jcarousellite_views'] = array(
+    'name' => t('jCarousel Lite View'),
+    'theme' => 'views_view_jcarousellite',
+    'validate' => 'views_ui_plugin_validate_list', // We want at least one field to be displayed, and so does the "List View" View style, so we use that validator.
+    'needs_fields' => TRUE,
+  );
+  return $style_plugins;
+}
+
+function jcarousellite_callback($callback, $vid, $c, $options = array()) {
+  // Attempt to call a function to handle the required calback:
+  $functions[] = "jcarousellite_${callback}_vid${vid}_c${c}";
+  $functions[] = "jcarousellite_${callback}_vid${vid}";
+  $functions[] = "jcarousellite_${callback}";
+  foreach ($functions as $func) {
+    if (function_exists($func)) {
+      return $func($vid, $c, $options);
+    }
+  }
+}
+
+function jcarousellite_add_view_js($vid, $c, $options) {
+  return "
+    $('.jcarousellite-$vid-$c .item-list').jCarouselLite({
+        btnNext: '.jcarousellite-next-$vid-$c a',
+        btnPrev: '.jcarousellite-prev-$vid-$c a',
+        mouseWheel: true,
+        visible: ". $options['items_visible'] ."
+    });";
+}

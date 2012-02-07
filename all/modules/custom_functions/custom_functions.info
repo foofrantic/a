@@ -1,0 +1,11 @@
+; $Id: custom_functions.info,v 1.0 2008/11/05 Wed Exp $
+name = "Custom Functions"
+description = "All Spring digital custom functions."
+package = "Spring Digital"
+core = 6.x
+
+; Information added by drupal.org packaging script on 2008-11-04
+version = "6.x-1.x-dev"
+core = "6.x"
+project = "custom_functions"
+datestamp = "1225756843"

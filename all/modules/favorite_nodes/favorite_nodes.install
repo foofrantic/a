@@ -1,0 +1,45 @@
+<?php
+// $Id: favorite_nodes.install,v 1.4.2.2 2008/09/29 16:08:52 kbahey Exp $
+
+/**
+ * @file
+ * Install file for Favorite Node module
+ */
+
+/**
+ * Implementation of hook_install().
+ */
+function favorite_nodes_install() {
+  $result = drupal_install_schema('favorite_nodes');
+  if (count($result) > 0) {
+    drupal_set_message(t('favorite node module installed.'));
+  }
+  else {
+    drupal_set_message(t('favorite node table creation failed. Please "uninstall" the module and retry.'));
+  }
+}
+
+/**
+ * Implementation of hook_uninstall().
+ *
+ */
+function favorite_nodes_uninstall() {
+  db_query("DELETE FROM {variable} WHERE name LIKE 'favorite_node%'");
+  drupal_uninstall_schema('favorite_nodes');
+}
+
+/**
+ * Implementation of hook_schema().
+ */
+function favorite_nodes_schema() {
+  $schema['favorite_nodes'] = array(
+    'fields' => array(
+      'nid'  => array('type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0),
+      'uid'  => array('type' => 'int', 'not null' => TRUE, 'default' => 0),
+      'last' => array('type' => 'int'),
+    ),
+    'primary key' => array('nid', 'uid')
+  );
+
+  return $schema;
+}

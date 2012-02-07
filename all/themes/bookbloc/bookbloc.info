@@ -1,0 +1,34 @@
+; $Id: bookbloc.info,v 1.1.2.2 2008/10/24 08:17:02 jwolf Exp $
+
+name = Bookbloc
+description = Bookbloc main theme.
+
+core = 6.x
+engine = phptemplate
+stylesheets[all][] = style.css
+stylesheets[all][] = icons.css
+stylesheets[all][] = local.css
+regions[sidebar] = sidebar
+regions[header] = header
+regions[alerts] = alerts
+regions[content] = content
+regions[footer] = footer
+regions[above_content] = above_content
+regions[below_content] = below_content
+regions[pre_closure] = pre_closure
+features[] = logo
+features[] = name
+features[] = slogan
+features[] = mission
+features[] = node_user_picture
+features[] = comment_user_picture
+features[] = search
+features[] = favicon
+features[] = primary_links
+
+; Information added by drupal.org packaging script on 2008-12-03
+version = "6.x-1.3"
+core = "6.x"
+project = "Bookbloc"
+datestamp = "1228298102"
+

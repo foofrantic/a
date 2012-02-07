@@ -1,0 +1,136 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: $Id: es.po,v 1.1 2008/06/18 14:44:15 kbahey Exp $\n"
+"POT-Creation-Date: 2007-04-14 00:52-0400\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Alejandro Garza <alejandro.garza@itesm.mx>\n"
+"Language-Team:  <alejandro.garza@itesm.mx>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Spanish\n"
+
+#: favorite_nodes.module:80
+msgid "Add a favorite node to the current user's list."
+msgstr "Agregar un favorito al listado del usuario actual."
+
+#: favorite_nodes.module:109;143;185
+msgid "Favorites"
+msgstr "Favoritos"
+
+#: favorite_nodes.module:138
+msgid "Favorite nodes"
+msgstr "Nodos Favoritos"
+
+#: favorite_nodes.module:164
+msgid "More Favorite %types"
+msgstr "Más %types Favoritos"
+
+#: favorite_nodes.module:176
+msgid "Titles"
+msgstr "Títulos"
+
+#: favorite_nodes.module:182
+msgid "Block title"
+msgstr "Título del Bloque"
+
+#: favorite_nodes.module:184
+msgid "This title will be displayed at the top of the block."
+msgstr "Este título se mostrará en la parte superior del bloque."
+
+#: favorite_nodes.module:189
+msgid "Number of favorites to display"
+msgstr "Número de favoritos a mostrar"
+
+#: favorite_nodes.module:191
+msgid "Up to this many favorites of each type of content will be displayed in the block. If there are no marked favorites of a type, then that type won't show up."
+msgstr "Hasta esta cantidad de favoritos de cada tipo se mostrarán en el bloque. Si no hay favoritos marcados para un tipo, entonces ese tipo no se motrará."
+
+#: favorite_nodes.module:199
+msgid "Type subtitles"
+msgstr "Subtítulos de Tipo"
+
+#: favorite_nodes.module:207
+msgid "Subtitle for the %name content type"
+msgstr "Subtítulo para el tipo de contenido %name"
+
+#: favorite_nodes.module:209
+msgid "Within the block, any links to content of the %name type will be categorized under this subtitle."
+msgstr "Dentro del bloque, cualquier liga al contenido de tipo %type será categorizado bajo este subtítulo."
+
+#: favorite_nodes.module:242
+msgid "add to favorites"
+msgstr "agregar a favoritos"
+
+#: favorite_nodes.module:245
+msgid "in favorites"
+msgstr "marcado como favorito"
+
+#: favorite_nodes.module:246
+msgid "remove from favorites"
+msgstr "eliminar de favoritos"
+
+#: favorite_nodes.module:262
+msgid "Favorites Page Settings"
+msgstr "Configuración de Página de Favoritos"
+
+#: favorite_nodes.module:268
+msgid "Favorite Nodes Page Limit"
+msgstr "Límite de Nodos Favoritos en Página"
+
+#: favorite_nodes.module:270
+msgid "How many items to display on a single page of marked favorites."
+msgstr "Cuántos ítems mostrar en una sola página de favoritos marcados."
+
+#: favorite_nodes.module:274
+msgid "Favorite Nodes Profile Limit"
+msgstr "Límite de Nodos Favoritos en Perfil de Usuario"
+
+#: favorite_nodes.module:276
+msgid "How many items per type to display on the profile page."
+msgstr "Cuántos ítems por tipo a mostrar en el Perfil de Usuario"
+
+#: favorite_nodes.module:280
+msgid "Type of Page Display for Favorite Nodes"
+msgstr "Tipo de Despliege para Nodos Favoritos"
+
+#: favorite_nodes.module:286
+msgid "How should favorites be displayed on the favorite nodes page?"
+msgstr "¿Cómo se deben mostrar los favoritos en la Página de Nodos Favoritos?"
+
+#: favorite_nodes.module:291
+msgid "Enable favorites for these node types"
+msgstr "Activar nodos favoritos para estos tipos de nodos"
+
+#: favorite_nodes.module:363
+msgid "The node was added to your favorites."
+msgstr "Este ítem fue agregado a tus favoritos."
+
+#: favorite_nodes.module:381
+msgid "The node was deleted from your favorites"
+msgstr "El ítem fue borrado de tus favoritos"
+
+#: favorite_nodes.module:432;469
+msgid "Favorite %type for %user"
+msgstr "%type favoritos para %user"
+
+#: favorite_nodes.module:452
+msgid "Title"
+msgstr "Título"
+
+#: favorite_nodes.module:452
+msgid "Added"
+msgstr "Agregado"
+
+#: favorite_nodes.module:452
+msgid "Operations"
+msgstr "Operaciones"
+
+#: favorite_nodes.module:459
+msgid "delete"
+msgstr "borrar"
+
+#: favorite_nodes.module:0
+msgid "favorite_nodes"
+msgstr ""
+

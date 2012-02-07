@@ -1,0 +1,121 @@
+/* Hiding block headings */
+#sidebar .block {
+	border-color:#A6DB7F;
+	border-style:solid;
+	border-width:1px 1px 5px;
+	color:#625A3D;
+	font-size:0.9em;
+	line-height:1.5em;
+	margin-bottom:20px;
+	padding:15px;
+}
+#sidebar .block h2 {
+	color:#D27E26;
+	background:url('/sites/all/themes/bookbloc/images/tick-orange-box.gif') no-repeat 0 0;
+	padding-left:20px;
+}
+
+#block_8 h2 {  /* Hide main menu header*/
+	display:none;
+}
+/* Utility menu at the top block */
+#block_22 {
+	position:absolute;
+	top:0;
+	left:218px;
+}
+#block_22 ul li {
+	border-right:2px solid #F9F7BB;
+	display:inline;
+	float:left;
+	height:20px;
+	padding-top:10px;
+}
+#block_22 ul li a {
+	color:#F9F7BB;
+	padding:10px 12px;
+}
+#block_22 ul li#faq {
+	border:0;
+}
+
+/* Account Tools Block */
+#block_25 .block {
+	background:#fbf7b8 url('/sites/all/themes/bookbloc/images/turn.gif') no-repeat top right;
+}
+#sidebar #block_25 .block h2 {
+	background:url('none');
+	margin-left:0;
+	padding-left:0;
+	padding-bottom:5px;
+	border-bottom:1px solid #CFCB95;
+}
+
+#sidebar #block_25 .block ul li a {
+	font-weight:normal;
+}
+
+#sidebar #block_25 .block ul li a:hover {
+	text-decoration:none;
+}
+
+#sidebar #block_25 .block ul {
+	margin-top:10px;
+}
+#sidebar #block_25 .block ul li {
+	padding:3px 0 3px 20px;
+}
+#sidebar #block_25 .block ul li.view-icon {
+	background:transparent url('/sites/all/themes/bookbloc/images/user.png') no-repeat left;
+}
+#sidebar #block_25 .block ul li.add_blog {
+	background:transparent url('/sites/all/themes/bookbloc/images/add_blog.png') no-repeat left;
+}
+#sidebar #block_25 .block ul li.add_author {
+	background:transparent url('/sites/all/themes/bookbloc/images/add_author.png') no-repeat left;
+}
+#sidebar #block_25 .block ul li.add_release {
+	background:transparent url('/sites/all/themes/bookbloc/images/add_release.png') no-repeat left;
+}
+#sidebar #block_25 .block ul li.add_event {
+	background:transparent url('/sites/all/themes/bookbloc/images/add_event.png') no-repeat left;
+}
+#sidebar #block_25 .block ul li.edit_banner {
+	background:transparent url('/sites/all/themes/bookbloc/images/edit_banner.png') no-repeat left;
+}
+#sidebar #block_25 .block ul li.edit_banner {
+	background:transparent url('/sites/all/themes/bookbloc/images/add_banner.png') no-repeat left;
+}
+#sidebar #block_25 .block ul li.edit_account {
+	background:transparent url('/sites/all/themes/bookbloc/images/edit_account.png') no-repeat left;
+}
+#sidebar #block_25 .block ul li.pass {
+	background:transparent url('/sites/all/themes/bookbloc/images/pass.png') no-repeat left;
+}
+#sidebar #block_25 .block ul li.add_review {
+	background:transparent url('/sites/all/themes/bookbloc/images/review.png') no-repeat left;
+}
+#sidebar #block_25 .block ul li.friends {
+	background:transparent url('/sites/all/themes/bookbloc/images/friends.png') no-repeat left;
+}
+#sidebar #block_25 .block ul li.alerts {
+	background:transparent url('/sites/all/themes/bookbloc/images/alerts.png') no-repeat left;
+}
+#sidebar #block_25 .block ul li.add_book {
+	background:transparent url('/sites/all/themes/bookbloc/images/add_book.png') no-repeat left;
+}
+#sidebar #block_25 .block ul li.edit-icon {
+	background:transparent url('/sites/all/themes/bookbloc/images/lock-icon.gif') no-repeat left;
+}
+#sidebar #block_25 .block ul li.change-icon {
+	background:transparent url('/sites/all/themes/bookbloc/images/pencil-icon.gif') no-repeat left;
+}
+
+#block_51 h2 {
+	display:none;
+}
+
+/* The Quick Tips block - this might need to be changed later */
+#sidebar #block_68 {
+	background-color: #FBF7B8;
+}

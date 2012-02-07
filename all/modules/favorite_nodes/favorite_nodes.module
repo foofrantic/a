@@ -1,0 +1,700 @@
+<?php
+// $Id: favorite_nodes.module,v 1.8.2.15 2009/11/20 03:51:27 kbahey Exp $
+
+/**
+ * @file
+ * Favorite node module
+ *
+ * This module allows users to add certain nodes to a favorite list. Each node has an "add to favorites" link at the bottom.
+ * This favorite list is visible to others viewing the site.
+ */
+
+define('FAVORITE_NODES_NODE_TYPE',         'favorite_nodes_node_type_');
+define('FAVORITE_NODES_PERM_ADD',          'create favorite nodes');
+define('FAVORITE_NODES_PERM_VIEW',         'view favorite nodes');
+define('FAVORITE_NODES_PERM_ADMINISTER',   'administer favorite nodes');
+define('FAVORITE_NODES_BLOCK',             'favorite_nodes_block_type_');
+define('FAVORITE_NODES_BLOCK_LIMIT',       'favorite_nodes_block_limit');
+define('FAVORITE_NODES_BLOCK_TITLE',       'favorite_nodes_block_title');
+define('FAVORITE_NODES_PAGE_LIMIT',        'favorite_nodes_page_limit');
+define('FAVORITE_NODES_PROFILE_LIMIT',     'favorite_nodes_profile_limit');
+define('FAVORITE_NODES_PAGE_TYPE',         'favorite_nodes_page_type');
+define('FAVORITE_NODES_MENUS',             'favorite_nodes_menu');
+define('FAVORITE_NODES_TEASER',            'favorite_nodes_teaser');
+define('FAVORITE_NODES_LIST_EMPTY_TITLES', 'favorite_nodes_list_empty_titles');
+define('FAVORITE_NODES_SHOWLINK',          'favorite_nodes_showlink');
+
+/**
+ * Implementation of hook_help().
+ */
+function favorite_nodes_help($path, $arg) {
+  switch ($path) {
+    case 'admin/help#favorite_nodes':
+    case 'admin/modules#description':
+      return t('Allows users to manage a favorite list of nodes.');
+  }
+}
+
+function favorite_nodes_perm() {
+  return array(FAVORITE_NODES_PERM_ADD, FAVORITE_NODES_PERM_VIEW, FAVORITE_NODES_PERM_ADMINISTER);
+}
+
+/**
+ * Implementation of hook_menu().
+ */
+function favorite_nodes_menu() {
+  global $user;
+  $items = array();
+
+  $items['admin/settings/favorite_nodes'] = array(
+      'title'            => 'Favorite nodes',
+      'description'      => 'Settings for favorite nodes',
+      'page callback'    => 'drupal_get_form',
+      'page arguments'   => array('favorite_nodes_settings'),
+      'type'             => MENU_NORMAL_ITEM,
+      'access arguments' => array(FAVORITE_NODES_PERM_ADMINISTER),
+  );
+
+  $items['favorite_nodes/add'] = array(
+      'page callback'    => 'favorite_nodes_add_page',
+      'type'             => MENU_CALLBACK,
+      'access arguments' => array(FAVORITE_NODES_PERM_ADD),
+  );
+
+  $items['favorite_nodes/delete'] = array(
+      'page callback'    => 'favorite_nodes_delete_page',
+      'type'             => MENU_CALLBACK,
+      'access arguments' => array(FAVORITE_NODES_PERM_ADD),
+  );
+
+  $items['favorite_nodes/view'] = array(
+      'page callback'    => 'favorite_nodes_view_page',
+      'title'            => 'Favorites',
+      'type'             => MENU_CALLBACK,
+      'access arguments' => array(FAVORITE_NODES_PERM_VIEW),
+  );
+
+  $items['favorites/view'] = array(
+      'page callback'    => 'favorite_nodes_view_page',
+      'type'             => MENU_CALLBACK,
+      'access arguments' => array(FAVORITE_NODES_PERM_VIEW),
+  );
+
+  if (variable_get(FAVORITE_NODES_MENUS, 0)) {
+    foreach (_node_types_natcasesort() as $type) {
+      if (variable_get(FAVORITE_NODES_NODE_TYPE . $type->type, 0)) {
+        $items["favorites/view/$type->type"] = array(
+          'title'            => t('Favorite @type', array('@type' => $type->name)),
+          'page callback'    => 'favorite_nodes_view_page',
+          'type'             => MENU_NORMAL_ITEM,
+          'access arguments' => array(FAVORITE_NODES_PERM_VIEW),
+        );
+      }
+    }
+  }
+  return $items;
+}
+
+/**
+ * Implementation of hook_theme().
+ */
+function favorite_nodes_theme() {
+  return array(
+    'favorite_nodes_view_table' => array(
+      'arguments' => array('list' => array(), 'type' => NULL, 'uid' => NULL),
+    ),
+    'favorite_nodes_view_teasers' => array(
+      'arguments' => array('list' => array(), 'type' => NULL, 'uid' => NULL),
+    )
+  );
+}
+
+/**
+ * Implementation of hook_xmlrpc().
+ */
+function favorite_nodes_xmlrpc() {
+  $items = array();
+
+  $items[] = array(
+    'favorite_nodes.add',
+    'favorite_nodes_add',
+    array('boolean', 'int'),
+    t('Add a favorite node to the current user\'s list.')
+  );
+}
+
+function _node_types_natcasesort() {
+  static $node_types;
+
+  if (!isset($node_types)) {
+    $node_types = node_get_types();
+    uasort($node_types, create_function('$a, $b', 'return strnatcasecmp($a->name, $b->name);'));
+  }
+  return $node_types;
+}
+
+/**
+ * Implementation of hook_user().
+ */
+function favorite_nodes_user($op, &$edit, &$account, $category = NULL) {
+  switch ($op) {
+    case 'view':
+      $types = array();
+
+      foreach (_node_types_natcasesort() as $type) {
+        $types[$type->name] = $type->type;
+
+        if (variable_get(FAVORITE_NODES_NODE_TYPE . $type->type, 0)) {
+          $favorites[$type->name] = favorite_nodes_get($account->uid, $type->type, variable_get(FAVORITE_NODES_PROFILE_LIMIT, 5));
+        }
+      }
+
+      if (!empty($favorites)) {
+        $account->content['favorite_nodes_list'] = array(
+          '#type'  => 'user_profile_category',
+          '#title' => t('Favorites'),
+        );
+
+        foreach($favorites as $type => $favorite) {
+          $items = array();
+          foreach($favorite as $id => $object) {
+            $items[] = l($object->title, "node/$object->nid");
+          }
+
+          $account->content['favorite_nodes_list']['Favorites'][$type] = array(
+            '#type'  => 'user_profile_item',
+            '#title' => l($type, "favorite_nodes/view/" . $types[$type] . "/" . $account->uid),
+            '#value' => theme('item_list', $items),
+          );
+        }
+      }
+      break;
+
+    case 'delete':
+      favorite_nodes_delete_favorites($account->uid);
+      break;
+  }
+}
+
+/**
+ * List of favorite enabled content types with favorites
+ */
+function theme_favorite_nodes_user_page($account) {
+  $fav_list = array();
+  foreach (_node_types_natcasesort() as $type) {
+    if (variable_get(FAVORITE_NODES_NODE_TYPE . $type->type, 0)) {
+      $uid = intval($account->uid);
+      $favorites = favorite_nodes_get($uid, $type->type, variable_get(FAVORITE_NODES_BLOCK_LIMIT, 5));
+      $items = array();
+      if (!empty($favorites)) {
+        foreach ($favorites as $favorite) {
+          $items[] = l($favorite->title, "node/$favorite->nid");
+        }
+      }
+      $fav_list[] = array(
+        'title' => $items ? l($type->name, "favorite_nodes/view/$account->uid/$type->type") : $type->name,
+        'value' => theme('item_list', $items),
+      );
+    }
+  }
+  return array(t('Favorites') => $fav_list);
+}
+
+/**
+ * Implementation of hook_nodeapi().
+ */
+function favorite_nodes_nodeapi(&$node, $op, $teaser = NULL, $page = NULL) {
+  switch ($op) {
+    case 'delete':
+      // Delete all favorite entries of the node being deleted.
+      db_query("DELETE FROM {favorite_nodes} WHERE nid = %d", $node->nid);
+      break;
+  }
+}
+
+/**
+ * Implementation of hook_block().
+ */
+function favorite_nodes_block($op = 'list', $delta = 0, $edit = array()) {
+  global $user;
+
+  $node_types = _node_types_natcasesort();
+
+  switch ($op) {
+    case 'list':
+      return array(array('info' => t('Favorite nodes')));
+
+    case 'view':
+      if (user_access(FAVORITE_NODES_PERM_VIEW)) {
+        $block = array();
+        $block['subject'] = variable_get(FAVORITE_NODES_BLOCK_TITLE, t('Favorites'));
+        $block['content'] = '';
+
+        foreach ($node_types as $type) {
+          if (variable_get(FAVORITE_NODES_NODE_TYPE . $type->type, 0)) {
+            $uid = intval($user->uid);
+            $favorites = favorite_nodes_get($uid, $type->type, variable_get(FAVORITE_NODES_BLOCK_LIMIT, 5));
+            $items = array();
+            if (!empty($favorites)) {
+              foreach ($favorites as $favorite) {
+                $items[] = l($favorite->title, "node/$favorite->nid");
+              }
+              $block['content'] .= theme('item_list', $items, variable_get(FAVORITE_NODES_BLOCK . $type->type, $type->name));
+            }
+            $sql = "SELECT COUNT(*) FROM {node} n INNER JOIN {favorite_nodes} f USING(nid) WHERE n.type = '%s' AND f.uid = %d";
+            $count = db_result(db_query($sql, $type->type, $user->uid));
+            if ($count > variable_get(FAVORITE_NODES_BLOCK_LIMIT, 5)) {
+              $block['content'] .= "<div class=\"more\">\n";
+              $block['content'] .= l(t('More Favorite %types', array('%types' => variable_get(FAVORITE_NODES_BLOCK . $type->type, $type->name))), "favorite_nodes/view/$user->uid/$type->type");
+              $block['content'] .= "</div>\n";
+            }
+          }
+        }
+      }
+      return $block;
+
+    case 'configure':
+      $form = array();
+      $form['titles'] = array(
+        '#type' => 'fieldset',
+        '#title' => t('Titles'),
+        '#collapsible' => TRUE,
+        '#collapsed' => FALSE,
+      );
+      $form['titles']['title'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Block title'),
+        '#size' => 60,
+        '#description' => t('This title will be displayed at the top of the block.'),
+        '#default_value' => variable_get(FAVORITE_NODES_BLOCK_TITLE, t('Favorites')),
+      );
+      $form['limit'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Number of favorites to display'),
+        '#size' => 4,
+        '#description' => t('Up to this many favorites of each type of content will be displayed in the block. If there are no marked favorites of a type, then that type won\'t show up.'),
+        '#default_value' => variable_get(FAVORITE_NODES_BLOCK_LIMIT, 5),
+      );
+      $form['titles']['subtitles'] = array(
+        '#type' => 'fieldset',
+        '#title' => t('Type subtitles'),
+        '#collapsible' => TRUE,
+        '#collapsed' => TRUE,
+      );
+      foreach ($node_types as $type) {
+        if (variable_get(FAVORITE_NODES_NODE_TYPE . $type->type, 0)) {
+          $form['titles']['subtitles'][FAVORITE_NODES_BLOCK . $type->type] = array(
+            '#type' => 'textfield',
+            '#title' => t('Subtitle for the %name content type', array('%name' => $type->name)),
+            '#size' => 60,
+            '#description' => t('Within the block, any links to content of the %name type will be categorized under this subtitle.', array('%name' => $name)),
+            '#default_value' => variable_get(FAVORITE_NODES_BLOCK . $type->type, $type->name),
+          );
+        }
+      }
+      return $form;
+
+    case 'save':
+      variable_set(FAVORITE_NODES_BLOCK_TITLE, $edit['title']);
+      variable_set(FAVORITE_NODES_BLOCK_LIMIT, $edit['limit']);
+      foreach ($node_types as $type) {
+        if (variable_get(FAVORITE_NODES_NODE_TYPE . $type->type, 0)) {
+          variable_set(FAVORITE_NODES_BLOCK . $type->type, $edit[FAVORITE_NODES_BLOCK . $type->type]);
+        }
+      }
+      break;
+
+    default:
+      break;
+  }
+}
+
+/**
+ * Implementation of hook_link().
+ */
+function favorite_nodes_link($type, $node = NULL, $teaser = FALSE) {
+  global $user;
+  $links = array();
+
+  if ($type == 'node') {
+    if (variable_get(FAVORITE_NODES_NODE_TYPE . $node->type, 0)) {
+      if (user_access(FAVORITE_NODES_PERM_ADD)) {
+        if (!_favorite_nodes_check($node->nid)) {
+          if (!$teaser) {
+            $links['add_to_favorites'] = array(
+              'title' => t('add to favorites'), 
+              'href' => 'favorite_nodes/add/'. $node->nid
+            );
+          }
+          elseif ($teaser && variable_get('favorite_nodes_teaser', 0) == 1) {
+            $links['add_to_favorites'] = array(
+              'title' => t('add to favorites'), 
+              'href' => 'favorite_nodes/add/'. $node->nid
+            );
+          }
+        }
+        else {
+          if (user_access(FAVORITE_NODES_PERM_VIEW)) {
+            if (!$teaser) {
+              $links['in_favorites'] = array(
+                'title' => t('in favorites')
+              );
+              $links['remove_from_favorites'] = array(
+                'title' => t('remove from favorites'), 
+                'href' => 'favorite_nodes/delete/'. $node->nid
+              );
+            }
+            elseif ($teaser && variable_get('favorite_nodes_teaser', 0) == 1) {
+              $links['in_favorites'] = array(
+                'title' => t('in favorites')
+              );
+              $links['remove_from_favorites'] = array(
+                'title' => t('remove from favorites'), 
+                'href' => 'favorite_nodes/delete/'. $node->nid
+              );
+            }
+          }
+        }
+      }
+    }
+  }
+
+  return $links;
+}
+
+/**
+ * Settings page for this module.
+ */
+function favorite_nodes_settings() {
+  $set = 'page';
+  $form[$set] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Favorites Page Settings'),
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+  );
+  $form[$set][FAVORITE_NODES_PAGE_LIMIT] = array(
+    '#type' => 'textfield',
+    '#title' => t('Favorite Nodes Page Limit'),
+    '#default_value' => variable_get(FAVORITE_NODES_PAGE_LIMIT, 10),
+    '#description' => t('How many items to display on a single page of marked favorites.'),
+  );
+  $form[$set][FAVORITE_NODES_PROFILE_LIMIT] = array(
+    '#type' => 'textfield',
+    '#title' => t('Favorite Nodes Profile Limit'),
+    '#default_value' => variable_get(FAVORITE_NODES_PROFILE_LIMIT, 3),
+    '#description' => t('How many items per type to display on the profile page.'),
+  );
+  $form[$set][FAVORITE_NODES_PAGE_TYPE] = array(
+    '#type' => 'select',
+    '#title' => t('Type of Page Display for Favorite Nodes'),
+    '#options' => array(
+      'table' => 'Table',
+      'teasers' => 'Teasers',
+    ),
+    '#default_value' => variable_get(FAVORITE_NODES_PAGE_TYPE, 'table'),
+    '#description' => t('How should favorites be displayed on the favorite nodes page?'),
+  );
+  $form[$set][FAVORITE_NODES_MENUS] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Navigation menu items'),
+    '#return_value' => 1,
+    '#default_value' => variable_get(FAVORITE_NODES_MENUS, 0),
+    '#description' => t('Whether to show a menu item in the navigation block for each node type?'),
+  );
+  $form[$set][FAVORITE_NODES_TEASER] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Show in teaser'),
+    '#return_value' => 1,
+    '#default_value' => variable_get(FAVORITE_NODES_TEASER, 0),
+    '#description' => t('Whether to show in teaser or not?'),
+  );
+  $form[$set][FAVORITE_NODES_LIST_EMPTY_TITLES] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Display empty tables in user favorite listing ?'),
+    '#default_value' => variable_get(FAVORITE_NODES_LIST_EMPTY_TITLES, 0),
+    '#description' => t('By default, all node types are listed on the user favorite nodes table view. In many cases, you may want to limit the lists to those that have favorite nodes actually bookmarked. Selecting this option will allow all the lists to appear regardless of whether they contain nodes or not. Unselecting this option will restirct the list to only those actually containing nodes.'),
+  );
+
+  $form[$set][FAVORITE_NODES_SHOWLINK] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Display Favorite Node options as links'),
+    '#return_value' => 1,
+    '#default_value' => variable_get(FAVORITE_NODES_SHOWLINK, 1),
+    '#description' => t('Whether to show link items in the node view?'),
+  );
+
+  $set = 'types';
+  $form[$set] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Enable favorites for these node types'),
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+  );
+  foreach (_node_types_natcasesort() as $type) {
+    $form[$set][FAVORITE_NODES_NODE_TYPE . $type->type] = array(
+      '#type' => 'checkbox',
+      '#title' => $type->name,
+      '#return_value' => 1,
+      '#default_value' => variable_get(FAVORITE_NODES_NODE_TYPE . $type->type, 0),
+    );
+  }
+  
+  return system_settings_form($form);
+}
+
+/**
+ * Add a favorite node.
+ */
+function favorite_nodes_add($nid) {
+  global $user;
+
+  $node = node_load($nid);
+  if (!$node->nid) {
+    return FALSE;
+  }
+
+  db_query("DELETE FROM {favorite_nodes} WHERE nid = %d AND uid = %d", $nid, $user->uid);
+  db_query("INSERT INTO {favorite_nodes} (nid, uid, last) VALUES (%d, %d, %d)", $nid, $user->uid, time());
+
+  /**
+   * Invoke hook_favorite_nodes(), which has the following parameters:
+   * @param op
+   * The operation being performed. Can be either 'add' or 'delete'.
+   * @param node
+   * The node object being added or deleted.
+   */
+  module_invoke_all('favorite_nodes', 'add', $node);
+  return TRUE;
+}
+
+/**
+ * Delete a favorite node.
+ */
+function favorite_nodes_delete($nid) {
+  global $user;
+
+  $node = node_load($nid);
+  if (!$node->nid) {
+    return FALSE;
+  }
+
+  db_query("DELETE FROM {favorite_nodes} WHERE nid = %d AND uid = %d", $nid, $user->uid);
+
+  /**
+   * Invoke hook_favorite_nodes(), which has the following parameters:
+   * @param op
+   * The operation being performed. Can be either 'add' or 'delete'.
+   * @param node
+   * The node object being added or deleted.
+   */
+  module_invoke_all('favorite_nodes', 'delete', $node);
+  return TRUE;
+}
+
+/**
+ * Select all the favorite nodes a user has.
+ * TODO why don't return all node if tpye are nul. So we can display all favorite node on path favorite_nodes/view/"uid"
+ */
+function favorite_nodes_get($uid, $type = NULL, $limit = NULL) {
+  if (is_null($limit)) {
+    $limit = variable_get(FAVORITE_NODES_PAGE_LIMIT, 10);
+  }
+  $row = array();
+  if ($limit != 0 && $type && variable_get(FAVORITE_NODES_NODE_TYPE . $type, 0)) {
+    $sql = "SELECT n.nid, n.title, f.uid, f.last FROM {node} n INNER JOIN {favorite_nodes} f ON n.nid = f.nid WHERE n.type = '%s' AND f.uid = %d ORDER by f.last DESC";
+    $sql_count = "SELECT COUNT(*) FROM {node} n INNER JOIN {favorite_nodes} f ON n.nid = f.nid WHERE n.type = '%s' AND f.uid = %d";
+
+    $result = pager_query($sql, $limit, 0, $sql_count, $type, $uid);
+    if ($result) {
+      while ($data = db_fetch_object($result)) {
+        $row[$data->nid] = $data;
+      }
+    }
+  }
+  return $row;
+}
+
+/**
+ * Page to add a favorite node.
+ */
+function favorite_nodes_add_page() {
+  $nid = arg(2);
+  if (is_numeric($nid)) {
+    $result = favorite_nodes_add($nid);
+    if ($result) {
+      $node = node_load($nid);
+      $type = node_get_types('name', $node);
+      drupal_set_message(t('The !type was added to your favorites.', array("!type" => $type)));
+    }
+    else {
+
+    }
+    drupal_goto('node/'. $nid);
+  }
+
+  drupal_not_found();
+}
+
+/**
+ * Page to delete a favorite node.
+ */
+function favorite_nodes_delete_page() {
+  global $user;
+  $nid = arg(2);
+
+  favorite_nodes_delete($nid);
+  $node = node_load($nid);
+  $type = node_get_types('name', $node);
+  drupal_set_message(t('The !type was removed from your favorites.', array("!type" => $type)));
+  drupal_goto("user/$user->uid");
+}
+
+/**
+ * Page to display a user's favorite list.
+ */
+function favorite_nodes_view_page() {
+  global $user;
+
+  $a2 = arg(2);
+  $a3 = arg(3);
+
+  if (isset($a2)) {
+    // argument 2 is specified
+    if (is_numeric($a2)) {
+      // It is a number, so it is a user's uid
+      $uid = $a2;
+    }
+    else {
+      // It is not a number, so a node type
+      $type = $a2;
+      if (isset($a3)) {
+        // We have argument 2, it must be a uid
+        $uid = $a3;
+      }
+      else {
+        $uid = $user->uid;
+      }
+    }
+  }
+  else {
+    // No arguments specified
+    if ($user->uid) {
+      // Use the uid for the currently logged in user
+      $uid = $user->uid;
+    }
+    else {
+      return t('No favorites');
+    }
+  }
+
+  return theme('favorite_nodes_view_'. variable_get(FAVORITE_NODES_PAGE_TYPE, 'table'), favorite_nodes_get($uid, $type), $uid, $type);
+}
+
+/**
+ * Delete favorite nodes a user has.
+ */
+function favorite_nodes_delete_favorites($uid) {
+  db_query("DELETE FROM {favorite_nodes} WHERE uid = %d", $uid);
+}
+
+/**
+ * Get all the favorite nodes inner joining the users.
+ * TODO: currently not being used.. do we need this?
+ */
+function _favorite_nodes_get_users($nid) {
+  $sql = "SELECT u.*, f.last FROM {users} u INNER JOIN {favorite_nodes} f USING(uid) WHERE f.nid = %d ORDER by f.last DESC";
+  $result = db_query($sql, $nid);
+  $row = array();
+  while ($data = db_fetch_object($result)) {
+    $row[$data->uid] = $data;
+  }
+
+  return $row;
+}
+
+/**
+ * Check if a user already has a node in their favorite list.
+ */
+function _favorite_nodes_check($nid) {
+  global $user;
+  $sql = "SELECT COUNT(*) FROM {favorite_nodes} WHERE uid = %d AND nid = %d";
+  return db_result(db_query($sql, $user->uid, $nid));
+}
+
+/**
+ * TODO: This is not being used.. do we need it?
+ */
+function theme_favorite_nodes_view_teasers($list = array(), $uid = NULL, $type = NULL) {
+  $type_desc = variable_get(FAVORITE_NODES_BLOCK . $type, $type);
+
+  $user = user_load(array('uid' => $uid));
+
+  $output .= '<div id="favorite_page">';
+
+  if (!$type) {
+    $output .= t('Please select favorite type.');
+  }
+  else {
+    if (!empty($list)) {
+      $output .= '<h2>'. t('Favorite !type for !user', array('!type' => $type_desc, '!user' => theme('username', $user))) ."</h2>\n";
+      $iterator = 0;
+      foreach ($list as $nid => $data) {
+        $iterator++; 
+        $node = node_load($nid);
+        $output .= '<div class="favorite_row favorite_row_' . $iterator . '">' . node_view($node, TRUE). '</div>';
+      }
+    }
+    else {
+      $output .= t('No favorites of type !type.', array('!type' => $type_desc));
+    }
+  }
+  $output .= theme('pager');
+
+  $output .= '</div>';
+
+  return $output;
+}
+
+/**
+ * Table which displays favorite node lists.
+ */
+function theme_favorite_nodes_view_table($list = array(), $uid = NULL, $type = NULL) {
+  global $user;
+  $account = user_load(array('uid' => $uid));
+  $header = array(t('Title'), t('Added'), t('Operations'));
+
+  $rows = array();
+  if (isset($list)) {
+    foreach ($list as $nid => $data) {
+      $title = array(l($data->title, "node/$nid"), format_date($data->last, 'custom', 'Y-m-d H:i'));
+      if ($user->uid == $data->uid || $user->uid == 1) {
+        $delete = array(l(t('delete'), "favorite_nodes/delete/$nid"));
+        $result = array_merge($title, $delete);
+      }
+      else {
+        $result = $title;
+      }
+      $rows[] = array('data' => $result);
+    }
+  }
+
+  if (variable_get(FAVORITE_NODES_LIST_EMPTY_TITLES, 0) || !empty($rows)) {
+    $output .= '<h2>'. t('Favorite !types for !user', array(
+      '!type' => variable_get(FAVORITE_NODES_BLOCK . $type, node_get_types('name', $type)),
+      '!user' => theme('username', $account))) ."</h2>\n";
+    $output .= theme('table', $header, $rows);
+    $output .= theme('pager');
+  }
+
+  return $output;
+}
+
+/**
+ * Implementation of hook_views_api().
+ */
+function favorite_nodes_views_api() {
+  return array(
+    'api' => 2,
+  );
+}

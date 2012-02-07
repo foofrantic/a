@@ -1,0 +1,871 @@
+/* 
+Title:		screen styles and ie/win fixes
+Author: 	Ijcspam@gmail.com - Http://www.ianjamescox.com
+*/
+
+/* important controls \*/
+
+body {margin:0;
+	font-family:"Lucida Sans",Verdana, Arial, Helvetica, sans-serif;
+	font-size:72%;
+	color:#535353;
+	letter-spacing:-0.010em;
+	}
+
+/* default styles \*/
+
+a {
+	color:#333;
+	text-decoration:underline;
+}
+
+a:active {
+	color:#333;
+	text-decoration:none;
+}
+
+a:hover {
+	color:#333;
+	text-decoration:none;
+}
+
+p {font-size:1.1em;margin:0;padding:0;}
+
+h1 {margin:0;}
+
+
+
+
+
+/* quick classes \*/
+
+.floatleft {float:left;}
+.floatright {float:right;}
+.displaynone {display:none;}
+.displayinline {display:inline;}
+
+
+/*Important classes \*/
+
+.full-stretch {
+	
+	margin:0 auto;
+	width:840px;
+	
+	
+	
+}
+
+
+.newsdivider {border-bottom:solid 1px #ccc;clear:left;float:left;width:100%;margin:15px 0;}
+
+.cert-pub {display:none;}
+
+/*Sitewide Main Id's \*/
+
+#banner {
+	background:#3abca9 url(/sites/all/themes/bookbloc/images/wallpaper-1.gif) center top;
+	float:left;
+	width:100%;
+	min-height:100px;
+
+}
+
+#SecMenu   {width:420px;margin:0;}
+#SecMenu li{display:inline;border-right:solid 2px #77936d;float:left;height:30px;}
+#SecMenu a {padding:10px 12px;float:left;text-decoration:underline;}
+
+
+#MainMenu   {clear:right;margin-top:26px;margin-bottom:0;width:614px;display:inline;}
+
+#MainMenu li{
+	display:inline;
+	background:#b8f58a;
+	font-size:1.4em;
+	color:#328d70;
+	text-transform:uppercase;
+	margin-bottom:0;
+	float:left;
+	margin-left:3px;
+	margin-top:6px;
+
+}
+
+#MainMenu a {color:#328d70;text-decoration:underline;padding:10px 14px 7px 14px;float:left;border-bottom:solid 3px #aadd85;}
+
+#MainMenu a.active {background:white;color:#757575;border-bottom:solid 3px #fff;padding:13px 16px 10px 16px;text-decoration:none;float:left;margin-top:-6px;}
+
+#MainMenu a:hover.active {background:white;color:#757575;border-bottom:solid 3px #fff;padding:13px 16px 10px 16px;text-decoration:none;margin-top:-6px;}
+
+#MainMenu a:hover {background:#fff;color:#dd7c1d;border-bottom:solid 3px #fff;padding:10px 14px 7px 14px;text-decoration:underline;}
+
+#banner form {float:right;width:200px;height:35px;}
+
+#banner form #searchInput {background:#ecf1b2;border-top:#dde784 2px solid;border-left:#dde784 2px solid;border-right:#ecf1b2 1px solid;border-bottom:#ecf1b2 1px solid;margin-top:8px;margin-right:3px;color:#467d69;font-size:1.0em;padding:3px;}
+
+
+
+
+#footer {
+	background: #fff;
+	padding-top:18px;
+	padding-bottom:24px;
+	color:#7d7350;	
+	line-height:125%;
+	clear:both;
+	float:left;
+	width:100%;
+}
+
+#banner h1{
+	width:148px;
+	height:85px;
+	background:url(/sites/all/themes/bookbloc/images/logo.gif) no-repeat;
+	float:left;
+	
+	}
+
+#banner h1 a {
+	width:148px;
+	height:85px;
+	background:url(/sites/all/themes/bookbloc/images/logo.gif) no-repeat;
+}
+
+#banner h1 a:hover{
+	background:url(/sites/all/themes/bookbloc/images/logo-down.gif) no-repeat;
+	
+}
+
+#cat {color:#b8f58a;}
+
+/*Homepage \*/
+#viewing-options {
+	
+background:#214033;
+	float:left;
+	width:100%;
+
+}
+
+#content-panel {
+	
+	background:#FFF;
+	clear:both;
+	float:left;
+	width:100%;
+	background:url(/sites/all/themes/bookbloc/images/orange-bottom.jpg) no-repeat #dd7c1d center top;
+	padding-top:15px;
+}
+
+
+#interior-panel {
+	background:#FFF;
+	clear:both;
+	float:left;
+	width:100%;
+	padding-top:15px;	
+	
+}
+
+#content-dynamic {
+	width:555px;
+	float:left;
+	margin-bottom:25px;	
+}
+
+#Whats-New-Headline-box {
+	
+	border-bottom:solid 1px #ae6218;
+	margin:18px 0;
+	float:left;
+
+
+}
+
+#Whats-New-Headline-box ul {margin:4px 0 0 0;padding:0;float:right;color:#fff5b4;width:300px;}
+#Whats-New-Headline-box ul li {display:inline;text-transform:uppercase;}
+
+#Whats-New-Headline-box ul a.selected {background:#dd7d1d;border-top:solid 1px #a85113;border-right:solid 1px #a85113;border-left:solid 1px #a85113;padding:10px 22px 10px;margin-top:-5px;}
+#Whats-New-Headline-box ul a {color:#fff5b4;padding:8px 23px;background:#ae6218;float:left;margin-left:3px;}
+
+#content-panel h3 {
+	
+
+	float:left;
+	font-size:1.6em;
+	color:white;
+	font-weight:normal;
+	margin:0 0 3px 0;
+	padding:0;
+	text-transform:uppercase;
+	
+}
+
+
+.featureBoxRightAlign {float:right;width:265px;margin-top:20px;}
+.featureBoxRightAlign h4{float:left;
+	font-size:1.2em;
+	color:white;
+	font-weight:normal;
+	margin:0 0 3px 0;
+	padding:0;
+	text-transform:uppercase;}
+	
+	
+.featureBoxRightAlign p{float:left;
+	font-size:1.0em;
+	color:white;
+	font-weight:normal;
+	margin:0 0 3px 0;
+	padding:0;
+	}
+
+#Sidebar-frontpage {float:right;margin-top:25px;}
+
+#Sidebar-frontpage p {width:260px;margin-bottom:10px;margin-left:5px;font-size:1.1em;line-height:1.4em;}
+
+
+#Sidebar-frontpage a {text-decoration:underline;}
+
+#Sidebar-frontpage h3 {
+	
+
+	font-size:1.6em;
+	font-weight:normal;
+	margin:14px 0 6px 5px;
+	padding:0;
+	text-transform:uppercase;
+	color:#dd7c1d;
+font-family: 'Gill Sans','Gill Sans MT';
+	
+	
+}
+
+#Sidebar-frontpage h4 {
+	
+
+	font-size:1.6em;
+	font-weight:normal;
+	margin:14px 0 6px 5px;
+	padding:0;
+	text-transform:uppercase;
+	color:#dd7c1d;
+	
+	
+	
+}
+
+#login-box {
+	background:url(/sites/all/themes/bookbloc/images/login-box-panel-bg.jpg) no-repeat top left red;
+	min-height:158px;
+	width:263px;
+	line-height:1.7em;
+	margin-top:22px;
+}
+
+#login-box h3{font-size:1.3em;color:#fff;margin:11px 0 4px;padding:0 0 0 18px;float:left;background:url(/sites/all/themes/bookbloc/images/lock-icon-orange.jpg) no-repeat top left;}
+
+#login-header {border-bottom:solid 1px #ffe628;margin-left:15px;margin-right:15px;float:left;margin-bottom:10px;}
+#login-header p {float:right;width:140px;margin-top:12px;font-size:0.9em;text-align:right;}
+#login-form label{width:75px;float:left;padding:5px;color:#fff;margin-left:15px;}
+#login-form input{float:left;}
+
+#login-box a {color:#fff;}
+
+#content-dynamic .section {
+	
+width:260px;
+border-bottom:solid 4px #efb423;	
+color:#fff;
+float:left;
+margin-right:17px;	
+
+}
+
+#content-dynamic .section a{
+	display:block;
+padding:10px 14px;
+}
+
+#content-dynamic .section a:hover{
+	background:url(/sites/all/themes/bookbloc/images/tick-arrow.jpg) no-repeat #e0871e top right;
+	display:block;
+	padding:10px 14px;
+}
+
+#content-dynamic .section h4 {	
+	color:#fff5a8;
+	font-size:1.6em;
+	margin:0;
+	padding:0;
+	font-weight:normal;
+	letter-spacing:-0.01em;
+
+}
+
+#content-dynamic p.byline {	
+	color:#fff5a8;
+	margin:0 0 5px 0;
+	padding:0;
+	text-transform:uppercase;
+	font-size:0.9em;
+	letter-spacing:0.04em;
+}
+
+#content-dynamic p.summary {	
+line-height:1.4em;
+color:#fff;
+}
+
+#content-dynamic .section a{
+	color:#fff5a8;
+	
+
+	
+}
+
+#intro-panel {	
+
+	clear:both;
+	background:url(/sites/all/themes/bookbloc/images/green-divider-two-col.gif) repeat-x bottom center #fff;
+
+	float:left;
+	width:100%;
+	padding-bottom:15px;
+	padding-top: 15px;
+}
+
+
+#intro-panel h2{	
+	width:520px;
+	height:45px;
+	background:url(/sites/all/themes/bookbloc/images/publish-title-orange.gif) no-repeat;
+	margin:20px 0 15px;
+	float:left;
+}
+
+#chooser-genre {
+	height:342px;
+
+
+	float:left;
+	margin:0 0 20px 0;
+
+	
+}
+
+#genre-choice {
+	height:342px;
+	width:138px;
+	background:url(/sites/all/themes/bookbloc/images/genre-left.jpg) red no-repeat;
+	float:left;
+	padding:0;
+	font-size:0.9em;
+}
+
+#genre-choice a {
+	color:#3a9b73;
+	line-height:1.8em;
+}
+
+#user-choice-scroll {
+	
+	background:#a6db7f;
+	height:342px;
+	float:left;
+	width:418px;
+	display:block;
+}
+
+.chooseAstage {
+	background:#a6db7f;
+	display:block;
+	margin:0;
+	padding:0;
+	height:340px;
+	margin-top:2px;
+}
+
+.chooseAstage1 {
+	background:url(/sites/all/themes/bookbloc/images/reading-slide-1.jpg) #a6db7f no-repeat;
+	display:block;
+}
+
+.chooseAstage2 {
+	background:url(/sites/all/themes/bookbloc/images/reading-slide-2.jpg) #a6db7f no-repeat;
+	display:block;
+	height:340px;
+}
+
+.chooseAstage3 {
+	background:url(/sites/all/themes/bookbloc/images/reading-slide-3.jpg) #a6db7f no-repeat;
+	display:block;
+	height:340px;
+}
+
+.chooseAstage ul {margin:0;padding:0 20px 0 0;float:right;}
+.chooseAstage li {display:inline;padding:10px 12px 0 0;float:left;}
+.chooseAstage li a:link {	text-decoration:underline;font-size:1.2em;}
+
+#genre-choice ul {
+	float:left;
+	padding-left: 0;
+	margin-left: 20px;
+	margin-top:60px;
+	line-height:1.8em;
+	}
+
+#genre-choice li {
+	font-size:1.2em;
+	color:#328d70;
+	margin:0;
+	padding:0;
+	list-style-type: none;
+	text-decoration:underline;
+}
+
+/*Interior styles \*/
+
+#InteriorPanelFull {float:left;width:840px;background:#dd7c1d;	background:url(/sites/all/themes/bookbloc/images/orange-bottom.jpg) no-repeat #dd7c1d center top;}
+
+#InteriorPanelFull .paddingtopright {padding-right:5px;padding-top:4px;}
+
+#InteriorSidebar {width:216px;float:right;margin-bottom:10px;margin-top:20px;}
+.sidepanel{border:#a6db7f solid 1px;border-bottom:#a6db7f solid 5px;color:#625a3d;padding:15px;font-size:0.9em;line-height:1.5em;margin-bottom:20px;}
+#InteriorSidebar .note{border:#a6db7f solid 1px;border-bottom:#a6db7f solid 5px;color:#625a3d;padding:15px;font-size:0.9em;line-height:1.5em;margin-bottom:20px;background:#fbf7b9;}
+#InteriorSidebar .note ul {margin:0 0 0 5px;padding:0;}
+#InteriorSidebar .note li {list-style:none;margin:0;padding:0 0 0 20px;font-size:1.1em;margin-bottom:5px;}
+#InteriorSidebar .note li.view-icon {background:url(/sites/all/themes/bookbloc/images/icon-home.gif) no-repeat top left;}
+#InteriorSidebar .note li.edit-icon {background:url(/sites/all/themes/bookbloc/images/lock-icon.gif) no-repeat top left;}
+#InteriorSidebar .note li.change-icon {background:url(/sites/all/themes/bookbloc/images/pencil-icon.gif) no-repeat top left;}
+#InteriorSidebar .note li.comments-icon {background:url(/sites/all/themes/bookbloc/images/chat-bubble-icon.gif) no-repeat top left;}
+
+#InteriorSidebar .note h3 {border-bottom:#cfcb95 solid 1px;padding-bottom:8px;text-transform:uppercase;font-size:1.4em;}
+
+#InteriorSidebar .sidepanel h3.tickicon{background:url(/sites/all/themes/bookbloc/images/tick-orange-box.gif) no-repeat top left;padding-left:20px;}
+#InteriorSidebar h3 {font-size:1.5em;font-weight:normal;color:#dd7c1d;margin:2px 0 8px;}
+#InteriorSidebar h4 {font-size:1.5em;font-weight:normal;color:#dd7c1d;margin:2px 0 8px;}
+#InteriorSidebar .sidepanel p {margin-bottom:9px;}
+#InteriorSidebar .sidepanel a {text-decoration:underline;}
+
+#InteriorMainBody {float:left;width:600px;}
+
+#InteriorMainBody .full{width:600px;float:left;margin-top:15px;}
+#InteriorMainBody .half-left{width:205px;float:left;margin-right:20px;}
+#InteriorMainBody .half-right{width:373px;float:left;}
+
+#InteriorMainBody .bigdivider {border-bottom:solid 4px #467d69;padding-bottom:10px;}
+
+
+#InteriorMainBody h2 {color:#3a9371;text-transform:none;margin:10px 0;padding:0;font-size:2.2em;font-weight:normal;font-family: 'Gill Sans','Gill Sans MT';}
+#InteriorMainBody h3 {color:#dd7c1d;text-transform:uppercase;margin:14px 0;padding:0;clear:both;}
+#InteriorMainBody h4 {color:#467d69;text-transform:uppercase;font-size:1.2em;margin:3px 0;padding:0;}
+#InteriorMainBody h4 a{color:#467d69;text-transform:uppercase;}
+#InteriorMainBody .storydate {color:#467d69;margin:0;padding:0;}
+#InteriorMainBody .storydate a{color:#467d69;}
+#InteriorMainBody p {margin:6px 0;font-size:1.1em;line-height:1.4em;}
+#InteriorMainBody p a{text-decoration:underline;}
+#InteriorMainBody .wall-date {border-bottom:solid 1px #ccc;font-size:0.9em;color:#467d69;}
+#InteriorMainBody .usernametitle {color:#467d69;text-transform:uppercase;font-size:1.4em;margin:3px 0;padding:0;font-weight:bold;}
+#InteriorMainBody .usernametitle span {font-size:0.8em;font-weight:normal;}
+#InteriorMainBody .statRight {width:80px;float:right;line-height:1.5em;border-left:solid 1px #ccc;margin-top:10px;padding:10px 10px 10px 15px;}
+
+#InteriorMainBody #votes {float:left;width:110px;}
+#InteriorMainBody #votes p{padding:0;margin:0;font-size:0.9em;}
+
+#users-pic-bg {background:url(/sites/all/themes/bookbloc/images/profile-pic-bg.gif) no-repeat top left ;height:133px;width:120px;float:left;}
+#users-pic-bg img{padding:5px 0 0 11px;}
+
+
+
+
+#InteriorPanelFull p {text-align:right;float:right;color:#7e3f0c;font-size:1.2em;
+	background:url(/sites/all/themes/bookbloc/images/logged-in-as-icon.gif) no-repeat left 11px;padding-left:23px;margin-right:27px;padding-top:16px;
+	
+	}
+#InteriorPanelFull h2 {float:left;height:40px;width:300px;margin:0 0 5px 0;}
+#InteriorPanelFull h2 span {display:none;}
+h2#search {	background:url(/sites/all/themes/bookbloc/images/titles/title-search.gif) no-repeat left top;} 
+h2#profile {	background:url(/sites/all/themes/bookbloc/images/titles/title-profile.gif) no-repeat left top;} 
+
+
+
+/* Search styles \*/
+
+#search-box {border-bottom:solid 5px #acdd87;padding:10px;	background:#467d69;}
+#searchInputBig {width:300px;border-top:solid 2px #acdd87;border-left:solid 2px #acdd87;border-bottom:solid 1px #acdd87;border-right:solid 1px #acdd87;padding:5px 10px;font-size:1.3em;color:#7eb09e;float:left;margin-top:7px;margin-right:10px;}
+.search-results-text {font-size:2em;font-family:"Trebuchet MS", "Lucida Sans",Verdana, Arial, Helvetica, sans-serif;background:url(/sites/all/themes/bookbloc/images/lightbulb-icon.gif) no-repeat left top;color:#467d69;font-weight:normal;}
+
+
+table a,
+table a:link,
+table a:visited {
+	border:none;
+	text-decoration:underline;
+	}		
+img {
+	border:0;
+	margin-top:.5em;
+	}	
+table {
+	width:100%;
+	border-top:1px solid #e3f1fe;
+	border-right:1px solid #e3f1fe;
+	margin:0em auto;
+		border-collapse:collapse;
+		font-size:1.1em;
+		font-family:"Lucida Sans",Verdana, Arial, Helvetica, sans-serif;
+	}
+	
+	
+	
+caption {
+	color: #9ba9b4;
+	font-size:.94em;
+	letter-spacing:.1em;
+	padding:0;
+	margin:1em 0 0 0;
+	margin-bottom:0;
+	caption-side:top;
+	text-align:center;
+	}	
+tr.odd td,
+tr.odd .column1 {
+	background:#eef9e5 url(images/background.gif) no-repeat;
+	}	
+.column1	{
+	background:#f9fcfe;
+	}
+td {
+	color:#678197;
+	border-bottom: 1px solid #e3f1fe;
+	border-left:1px solid #e5eff8;
+	padding:.3em 1em;
+	text-align:center;
+	}				
+th {
+	font-weight:normal;
+	color: #678197;
+	text-align:left;
+	border-bottom: 1px solid #e3f1fe;
+	border-left:1px solid #e5eff8;
+	padding:1em 1em;
+	}
+
+thead th a {color: #fef7a4;}
+thead th a:hover {color: #fef7a4;}	
+		
+thead th {
+	background:#467d69;
+	text-align:center;
+	font:bold 1.2em/2em;
+	font-family:"Trebuchet MS", "Lucida Sans",Verdana, Arial, Helvetica, sans-serif;
+	color:#fef7a4;
+	cursor: pointer;
+	}				
+tfoot th {
+	background:#f4f9fe;
+	text-align:center;
+	}	
+tfoot th strong {
+	font:bold 1.2em;
+	font-family:"Trebuchet MS", "Lucida Sans",Verdana, Arial, Helvetica, sans-serif;
+	margin:.5em .5em .5em 0;
+	color:#66a3d3;
+		}		
+tfoot th em {
+	color:#f03b58;
+	font-weight: bold;
+	font-size: 1.1em;
+	font-style: normal;
+	}
+	
+	
+	
+	/* form styles \*/	
+	.formlabel { width:125px; padding-right:25px; float:left; margin-top:8px;}
+	.formlabel label{ color:#333; font-size:1.2em;  font-weight:normal; padding:0 0 00px 18px; text-align:right; margin:0;  float:left; width:120px;}
+
+
+.paddingshade { padding:25px 16px; float:left; clear:left; width:560px; border-bottom:solid 1px #ccc;}
+
+.alt {background:#eef9e5;}
+
+		#upload .formoutlineBold { background:#FAF8F0; padding:2px; float:left; margin:0;margin-left:8px; border:double 3px #aaa;}
+		#upload input.Bold{ background:#FFFFE4;}
+		
+.commentcontainer { float:left; margin:3px 0;}
+
+		#upload input{  float:left; clear: left; padding:4px 8px; margin:0;}
+		#upload textarea { float:left; padding:4px 8px; margin:0;font-family: arial, sans-serif; font-size:14px; letter-spacing:0.01em;}
+		#upload select{  float:left; padding:2px 4px; width:240px;}
+		#upload option{ padding:0px 4px;}
+		#upload .formoutline { background:#FAF8F0; padding:2px; float:left; margin:0;margin-left:10px; border:solid 1px #DCDBD0;}
+		#upload .addanotherbutton{margin-left:470px;}
+		
+		#upload p.required {color:#67879d;font-size:0.9em;}
+
+
+
+#cat {display:none;}
+
+.download-panel {border-top:solid 1px #ccc;}
+
+
+#news-frontpage {}
+#news-frontpage h3{color:#ffd262;text-transform:none;clear:left;margin-top:10px;width:100%;margin-bottom:10px;}
+#news-frontpage h4{clear:left;padding:3px 0px 0px;width:100%;color:#fff;}
+#news-frontpage p{clear:left;font-size:1.1em;line-height:1.3em;color:#fcd867;border-bottom:#fff dashed 1px;width:100%;padding-bottom:10px;}
+
+ .news-divider {border-bottom:solid 1px #ccc;width:100%;height:1px;float:left;clear:left;}
+.admin-news-align p{clear:left;margin:4px 0;}
+
+
+
+	/* search drop down \*/	
+
+#dropdown-bg {background:url(/sites/all/themes/bookbloc/images/dropdown-bg.gif) no-repeat red;float:left;}
+
+div#InteriorMainBody div.full h2 {
+	background: none;
+}
+
+div.break {
+	clear: both;
+}
+
+	
+	
+#publisher-id {background:#3d6251;margin-top:0px;width:610px;margin-bottom:15px;height:155px;position:relative;}
+
+#publisher-subMenu   {clear:right;margin-top:0px;margin-bottom:0;display:block;margin-right:12px;height:40px;*height:35px;}
+
+#publisher-subMenu li{
+	display:inline;
+	background:#328a74;
+	font-size:1.0em;
+	color:#328d70;
+	text-transform:uppercase;
+	margin-bottom:0;
+	float:left;
+	margin-left:3px;
+	margin-top:6px;
+
+}
+
+#publisher-subMenu a {color:#fff;text-decoration:underline;padding:10px 14px 7px 14px;float:left;border-bottom:solid 1px #fff;}
+
+#publisher-subMenu a.active {background:#3d6251;color:#fff;border-bottom:solid 1px #3d6251;padding:13px 16px 10px 16px;text-decoration:none;float:left;margin-top:-6px;}
+
+#publisher-subMenu a:hover.active {background:#3d6251;color:#fff;border-bottom:solid 1px #3d6251;padding:13px 16px 10px 16px;text-decoration:none;margin-top:-6px;}
+
+#publisher-subMenu a:hover {background:#3d6251;color:#fff;border-bottom:solid 1px #3d6251;padding:10px 14px 7px 14px;text-decoration:underline;}
+
+
+.cert-pub {background:url(/sites/all/themes/bookbloc/images/certified-publisher.gif) top right no-repeat;position:absolute;top:0;right:0;display:inline;height:145px;width:145px;float:right;}
+
+.delete-friend {background:red;width:52px;height:52px;float:left;position:absolute;}
+
+
+
+div.form_element {
+border-bottom: 1px solid #cdcdcd;
+padding: 20px 5px;
+}
+
+div.form_element label {
+font-weight: bold;
+}
+
+div.form_element input {
+ width: 400px;
+ clear:left;
+ float:left;
+ margin:0pt;
+ padding:4px 8px;
+}
+
+div.form_element select {
+ width: 400px !important;
+}
+
+div.form_element select.date {
+ width: 133px !important;
+}
+
+div.form_element input.submit {
+ width: auto;
+}
+
+div.form_element span {
+ color: green;
+}
+
+div.form_element textarea {
+ width: 400px;
+ height: 200px;
+ clear: lleft;
+ float: left;
+}
+
+p.error {
+ color: red;
+ font-weight: bold;
+ border: 1px solid red;
+ padding: 10px 5px;
+ background-color: #ffe9e9;
+}
+
+p.success {
+ color: green;
+ font-weight: bold;
+ border: 1px solid green;
+ padding: 10px 5px;
+ background-color: #e9fff0;
+}
+
+ul#publisher-menu {
+ padding:0;
+ margin:0;
+ list-style-type: none;
+ height: 35px;
+}
+
+ul#publisher-menu li {
+ float: left;
+ height: 35px;
+ line-height: 25px;
+}
+
+ul#publisher-menu li a {
+ display: block;
+ height: 25px;
+ line-height: 35px;
+ padding: 0 14px;
+ background-color: #ededed;
+ border-right: 0px solid white;
+padding-bottom:6px;
+ border-top: 2px solid #fff;
+border-bottom: 2px solid #ccc;
+
+}
+
+ul#publisher-menu li a.selected {
+ border-top: 2px solid #cdcdcd;
+ border-left: 2px solid #cdcdcd;
+border-right: 2px solid #cdcdcd;
+border-bottom: 0px solid #ccc;
+background-color:#fff;
+padding-bottom:10px;
+ padding-left:12px;
+padding-right:12px;
+}
+div.profilebox {
+ border: 2px solid #cdcdcd;
+ border-top: 1px solid #cdcdcd;
+ border-bottom: 5px solid #eee;
+}
+
+div#online_profile_div {
+ display: none;
+}
+
+body.blog .item-list {
+	display:none;
+}
+
+body.node-type-blog #content-tabs ul.primary {
+	display:block !important;
+}
+
+
+#pub_banner {
+	overflow:hidden;
+	width:425px;
+	height:135px;
+	position:absolute;
+	left:233px;
+	top:5px;
+}
+
+#pub_image {
+	position:absolute;
+	left:70px;
+	top:8px;
+}
+
+body.publisher #content {
+	padding-left:5px;
+	padding-right:5px;
+	width:610px;
+}
+
+body.publisher #sidebar-left {
+	float:left;
+	margin-right:0px!important;
+	width:195px;
+	padding-left:10px;
+}
+body.publisher #content-inner {
+	float:right;
+	width:380px;
+	margin-right:10px;
+}
+body.publisher h3 {
+	clear:both;
+	color:#DD7C1D;
+	margin:14px 0;
+	padding:0;
+	text-transform:uppercase;
+}
+
+body.publisher #content-bottom {
+	border-top:4px solid #467D69;
+}
+
+body.publisher #content-bottom .column1 {
+	float:left;
+	width:195px;
+	padding-left:10px;
+}
+body.publisher #content-bottom .column2 {
+	float:right;
+	width:380px;
+	margin-right:10px;
+}
+
+body.blog_view #content-inner {
+	float:left;
+	width:96%;
+	padding-left:15px;
+}
+
+body.blog_view #page {
+	background:#FFF;
+}
+
+body.blog_view #publisher-subMenu {
+	position:relative;
+	z-index:100;
+}
+body.blog_view #publisher-id {
+	margin-left:8px;
+}
+
+p.utilities {
+	display:block;
+	font-size:0.9em;
+	margin-top:10px;
+}
+
+p.utilities span.comments {
+	background:url('/sites/all/themes/bookbloc/images/comments.gif') no-repeat left;
+	padding-left:20px;
+}
+p.utilities span.comment_add {
+	background:url('/sites/all/themes/bookbloc/images/add.png') no-repeat left;
+	padding-left:20px;
+	margin-left:20px;
+}
+
+

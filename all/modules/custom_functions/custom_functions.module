@@ -1,0 +1,187 @@
+<?php
+include_once 'functions.php';
+include_once 'tabs_menu.php';
+function custom_functions_form_alter(&$form, $form_state, $form_id) {
+	if($form['#id']=='webform-client-form-15') {
+		$user_details = get_user_details();
+		$form['submitted']['firstname']['#default_value'] = $user_details['0']['value'];
+		$form['submitted']['surname']['#default_value'] = $user_details['1']['value'];
+		$form['submitted']['page']['#default_value'] = 'http://'.$_SERVER['SERVER_NAME'].'/node/'.$_GET['nid'];
+	}
+	
+	if($form['type']['#value'] == 'blog') {
+		//print_r($form);
+		$form['body_field']['format'] = NULL;
+		$form['menu'] = NULL;
+		//$form['author']['name']['#type'] = 'hidden';
+		//$form['author']['date']['#type'] = 'hidden';
+		$form['revision_information'] = NULL;
+	//	$form['comment_settings'] = NULL;
+		//$form['path'] = NULL;
+		$form['attachments'] = NULL;
+	}
+	
+	if($form['type']['#value'] == 'release' || $form['type']['#value'] == 'supported-author' || $form['type']['#value'] == 'book_published') {
+		//print_r($form);
+		$form['body_field']['format'] = NULL;
+		$form['menu'] = NULL;
+		$form['author']['name']['#type'] = 'hidden';
+		$form['author']['date']['#type'] = 'hidden';
+		$form['revision_information'] = NULL;
+		$form['comment_settings'] = NULL;
+		//$form['path'] = NULL;
+		$form['attachments'] = NULL;
+	}
+	
+	
+	if($form['type']['#value'] == 'review') {
+		$uri_path = trim($_SERVER['REQUEST_URI'], '/');
+		$uri_parts = explode('/', $uri_path);
+		//print_r($form);
+		$form['body_field']['format'] = NULL;
+		$form['field_nid']['#title'] = 'Reference of this Word article';
+		$form['field_nid']['0']['#default_value']['value'] = $uri_parts['3'];
+		$form['field_word']['0']['#default_value']['value'] = node_title($uri_parts['3']);
+		$form['menu'] = NULL;
+		$form['author']['name']['#type'] = 'hidden';
+		$form['author']['date']['#type'] = 'hidden';
+		$form['revision_information'] = NULL;
+		$form['comment_settings'] = NULL;
+		//$form['path'] = NULL;
+		$form['attachments'] = NULL;
+	}
+	
+	
+	if($form['type']['#value'] == 'event') {
+		//print_r($form);
+		$form['body_field']['format'] = NULL;
+		$form['menu'] = NULL;
+		$form['author']['name']['#type'] = 'hidden';
+		$form['author']['date']['#type'] = 'hidden';
+		$form['revision_information'] = NULL;
+		$form['comment_settings'] = NULL;
+		//$form['path'] = NULL;
+		$form['attachments'] = NULL;
+	}
+	
+	if($form['form_id']['#value'] == 'comment_form') {
+		$form['subject']['#type'] = 'hidden';
+		$form['#redirect'] = $_SERVER['REQUEST_URI'];
+	}
+	
+	//print_r($form);
+	
+	if($form['#id'] == 'guestbook-form-entry-form') {
+		$uri_path = trim($_SERVER['REQUEST_URI'], '/');
+		$uri_parts = explode('/', $uri_path);
+		$form['submit']['#value'] = 'Add';
+		$form['#redirect'] = 'user/'.$uri_parts['1'].'';
+		
+	}
+	
+	if($form['form_id']['#value'] == 'review_node_form') {
+		$form['path']['#type'] = 'hidden';
+		$form['author']['#type'] = 'hidden';
+		$form['options']['promote']['#type'] = 'hidden';
+		$form['options']['sticky']['#type'] = 'hidden';
+	}
+	
+	if($form['#id'] == 'comment-form') {
+		$uri_path = trim($_SERVER['REQUEST_URI'], '/');
+		$uri_parts = explode('/', $uri_path);
+		$form['submit']['#value'] = 'Add';
+		$form['#redirect'] = 'node/'.$uri_parts['2'].'';
+	}
+	
+	//print_r($form);
+	
+	if($form['type']['#value'] == 'supported_author') {
+		$form['body_field']['format'] = NULL;
+		$form['menu'] = NULL;
+		$form['author']['#type'] = 'hidden';
+		$form['revision_information'] = NULL;
+		$form['comment_settings'] = NULL;
+		//$form['path'] = NULL;
+		$form['options']['promote']['#type'] = 'hidden';
+		$form['options']['sticky']['#type'] = 'hidden';
+		$form['attachments'] = NULL;
+	}
+	
+	if($form['type']['#value'] == 'banner') {
+		//print_R($form);
+		$form['title']['#required'] = 0;
+		$form['title']['#type'] = 'hidden';
+		$form['body_field']['body']['#type'] = 'hidden';
+		$form['body_field']['format'] = NULL;
+		$form['menu'] = NULL;
+		$form['path'] = NULL;
+		$form['author']['name']['#type'] = 'hidden';
+		$form['revision_information'] = NULL;
+		$form['comment_settings'] = NULL;
+		//$form['path'] = NULL;
+		$form['options']['promote']['#type'] = 'hidden';
+		$form['options']['sticky']['#type'] = 'hidden';
+		$form['attachments'] = NULL;
+		$form['options'] = NULL;
+	}
+	
+	if($form['#id'] == 'user-login') {
+		$form['password'] = array(
+			'#type' => 'markup',
+			'#weight' => 20,
+			'#value' => '<p>Forgot your password? Please <a href="/user/password">click here</a> to reset your password.</p>',
+		);
+	}
+	
+//	print_r($form);
+	
+	if($form['#id'] == 'user-register') {
+		$form['General Information']['#title'] = 'Profile Information';
+	}
+	
+	//print_r($_SERVER);
+}
+function custom_functions_user($op, &$edit, &$user, $category=null) {
+  if ($op == "insert") {
+	  // Create a path alias for this user
+	  $src = 'user/'.$user->uid.'';
+	  $dst = $user->name;
+	  $path = 'http://'.$_SERVER['SERVER_NAME'].'/'.$dst.'';
+      db_query("INSERT INTO {url_alias} (src, dst, language) VALUES ('%s', '%s', '%s')", $src, $dst, $language);
+   }
+   if ($op == "update") {
+	  //print_r($user);
+	  $src = 'user/'.$user->uid.'';
+	  $name = user_username($user->uid);
+	  db_query("DELETE FROM {url_alias} WHERE src = '%s'", $src);
+	  db_query("INSERT INTO {url_alias} (src, dst, language) VALUES ('%s', '%s', '%s')", $src, $name, $language);
+   }
+}
+function custom_functions_nodeapi(&$node, $op,$a3 = NULL, $a4 = NULL) {
+	global $user;
+	switch ($op) {
+		case 'insert':
+		    if($node->type == 'word') {
+			    //print_r($node);
+			    $tags = $node->taxonomy['tags']['1'];
+			    //print_r($tags);exit;
+			    if(strpos($tags,',') == TRUE) { 
+			   	 //print_r($tags);exit;
+				    $tags = explode(',',$tags);
+				    foreach($tags as $tag) {
+						db_query("INSERT INTO {genre_log} (uid, genre, nid) VALUES ('%d', '%s', '%d')", $user->uid, $tag, $node->nid);
+				    }
+				 } else {
+					db_query("INSERT INTO {genre_log} (uid, genre, nid) VALUES ('%d', '%s', '%d')", $user->uid, $tags, $node->nid);
+				}
+			    //print_r($tags);exit;
+		    } 
+	  break;
+	  case 'update':
+	       if($node->type=='word') {
+				
+			}
+	  break;
+     }
+}
+?>

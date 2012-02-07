@@ -1,0 +1,237 @@
+.picture img {
+	width:120px;
+}
+#main_panel {
+	display:block;
+	width:580px;
+	padding-bottom:20px;
+	border-bottom:5px solid #DDDDDB;
+}
+#main_panel #column1 {
+	display:block;
+	float:left;
+	width:110px;
+	margin-right:7px;
+	height:240px;
+}
+#main_panel #column1 img.user-picture {
+	width:93px;
+	height:114px;
+}
+#main_panel #column2 {
+	display:block;
+	float:left;
+	width:448px;
+}
+#main_panel #column2 .title {
+	border-bottom:1px solid #CFCFCF;
+	color:#467D69;
+	font-size:1.4em;
+	font-weight:bold;
+	height:40px;
+	margin:3px 0;
+	padding:0 0 5px;
+	text-transform:uppercase;
+	width:98%;
+	position:relative;
+}
+
+#main_panel #column2 .url {
+	clear:both;
+	display:block;
+	font-size:0.8em;
+	padding-top:5px;
+}
+
+#main_panel #column2 .url a {
+	color:#999999;
+	font-family:"Lucida Sans",Arial;
+	position:absolute;
+	text-align:left;
+	font-size:0.7em;
+	font-weight:normal;
+	text-decoration:none;
+	padding-left:18px;
+	background:url('/sites/all/themes/bookbloc/images/web.gif') no-repeat left;
+}
+.user_location {
+    display:inline;
+	font-size:0.8em;
+	font-weight:normal;
+	margin-top:4px;
+}
+#main_panel #column2 #inner_panel {
+	float:left;
+	display:block;
+	width:255px;
+	margin-right:7px;
+	padding-bottom:10px;
+}
+#main_panel #column2 #inner_panel ul.views {
+	padding:0 0 10px 0;
+	margin:0;
+	position:relative;
+	width:280px;
+}
+#main_panel #column2 #inner_panel ul.views li {
+	display:inline;
+	padding-left:20px;
+}
+
+#main_panel #column2 #inner_panel ul.views li.fans {
+	background:url('/sites/all/themes/bookbloc/images/fan.gif') no-repeat left;
+}
+
+#main_panel #column2 #inner_panel ul.views li.view {
+	background:url('/sites/all/themes/bookbloc/images/view.gif') no-repeat left;
+}
+
+#main_panel #column2 #inner_panel ul.views li.comments {
+	background:url('/sites/all/themes/bookbloc/images/comments.gif') no-repeat left;
+}
+
+#main_panel #inner_panel2 {
+	display:block;
+	float:left;
+	width:178px;
+	position:relative;
+}
+
+#bottom_panel {
+	display:block;
+	padding-top:20px;
+	width:580px;
+	padding-bottom:10px;
+}
+#bottom_panel #column1 {
+	width:400px;
+	float:left;
+	margin-right:7px;
+	border: 1px solid #ddd;
+	margin-bottom: 20px;
+}
+#bottom_panel h3 {
+	font-family:"Lucida Sans",Helvetica;
+	padding-left: 10px;
+}
+#bottom_panel #column2 {
+	width:154px;
+	float:right;
+}
+
+#bottom_panel #column2 .user-picture {
+	float:left;
+	width:33px;
+	height:40px;
+}
+
+.hr {
+	font-size:0;
+	height:10px;
+	line-height:0;
+	border-bottom:1px solid #d5d5d5;
+	width:100%;
+}
+
+.body {
+	font-size:0.9em;
+	border-bottom:1px solid #d5d5d5;
+	display:block;
+	padding-bottom:4px;
+	margin-bottom:4px;
+}
+
+#user-panel {
+	position:absolute;
+	top:0px;
+	left:20px;
+	width:103px;
+	height:118px;
+	padding:20px 10px 0 10px;
+	background:url('/sites/all/themes/bookbloc/images/user_panel.jpg') no-repeat bottom;
+	font-size:0.9em;
+}
+
+#user-panel ul li {
+	line-height:1.8em;
+	border-bottom:1px solid #ccc;
+	padding-left:10px;
+}
+#user-panel ul li a {
+	text-decoration:none;
+}
+.add_friend {
+	position:absolute;
+	top:170px;
+	left:20px;
+}
+
+
+body.publisher .add_friend {
+	display:block;
+	clear:both;
+	position:relative;
+	top:10px;
+	left:0;
+}
+
+#profile_tab {
+	background:transparent url('/sites/all/themes/bookbloc/images/green-tabs-bg.jpg') repeat-x scroll left bottom;
+	float:left;
+	margin-bottom:20px;
+	margin-top:10px;
+	width:100%;
+}
+#profile_tab ul {
+	margin:20px 0 0 20px;
+	padding:0;
+}
+#profile_tab ul li {
+	display:inline;
+}
+#profile_tab ul li a {
+	background:white none repeat scroll 0 0;
+	padding:10px;
+	text-decoration:none;
+}
+#profile_tab ul li a:hover, #profile_tab ul li a.active {
+	color:#467D69;
+	text-decoration:none;
+}
+.wall_date {
+	border-bottom:1px solid #CCCCCC;
+	color:#467D69;
+	font-size:0.9em;
+}
+ul.primary {
+	display:none;
+}
+
+a.readmore {
+	color:#467D69;
+}
+
+.extended_bio {
+	display:none;
+}
+a.close_bio {
+	color:#467D69;
+	display:block;
+	width:130px;
+	text-decoration:none;
+	border-bottom:1px solid #D5D5D5;
+}
+
+.bio_label {
+	display:block;
+	float:left;
+	padding:1px 2px  1px 2px;
+	background:#538f7d;
+	color:#FFF;
+	margin-right:10px;
+	margin-top:5px;
+}
+.bio_data {
+	padding-top:5px;
+	clear: both;
+}
