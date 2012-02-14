@@ -1,5 +1,4 @@
 <?php
-// $Id: user_relationship_migrate.mysql.inc,v 1.1.2.1 2009/06/22 12:36:05 alexk Exp $
 /**
  * @file MySQL implementation of Buddylist2->UR migration
  */

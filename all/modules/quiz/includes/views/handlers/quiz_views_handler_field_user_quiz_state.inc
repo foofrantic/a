@@ -1,5 +1,4 @@
 <?php
-// $Id: quiz_views_handler_field_user_quiz_state.inc,v 1.1.2.3 2009/05/21 19:02:13 sivaji Exp $
 
 /*
  * @file

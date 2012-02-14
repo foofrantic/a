@@ -1,5 +1,4 @@
 <?php
-// $Id: user_relationship_blocks.install,v 1.1.2.9 2009/09/13 23:35:41 alexk Exp $
 /**
  * @file 
  * User relationship blocks installation

@@ -1,5 +1,4 @@
 <?php
-// $Id: user_relationships-actions_block.tpl.php,v 1.1.2.5 2008/10/30 12:49:33 alexk Exp $
 /**
  * @file 
  * Template of relationships add/remove block

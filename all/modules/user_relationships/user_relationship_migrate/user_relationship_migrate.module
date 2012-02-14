@@ -1,5 +1,4 @@
 <?php
-// $Id: user_relationship_migrate.module,v 1.1.2.1 2009/06/22 12:36:05 alexk Exp $
 
 /**
  * Drupal Module: User Relationship Migrate.

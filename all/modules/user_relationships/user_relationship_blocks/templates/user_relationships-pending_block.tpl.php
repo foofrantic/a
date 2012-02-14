@@ -1,5 +1,4 @@
 <?php
-// $Id: user_relationships-pending_block.tpl.php,v 1.1.2.11 2009/10/15 15:23:26 aufumy Exp $
 /**
  * @file
  * Template for relationships requests block
@@ -27,11 +26,12 @@ if ($relationships) {
     $list[$key][] = $line;
   }
 
+  $output = array();
   foreach ($list as $title => $users) {
     $output[] = theme('item_list', $users, $title);
   }
 }
 
-print $output ? implode('', $output) : t('No Pending Requests');
+print isset($output) ? implode('', $output) : t('No Pending Requests');
 
 ?>

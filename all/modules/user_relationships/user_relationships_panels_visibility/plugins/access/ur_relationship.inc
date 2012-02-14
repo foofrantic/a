@@ -1,5 +1,4 @@
 <?php
-// $Id: ur_relationship.inc,v 1.1.2.1 2009/10/25 21:12:37 alexk Exp $
 
 /**
  * @file

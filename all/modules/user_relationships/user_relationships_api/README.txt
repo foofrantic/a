@@ -1,4 +1,3 @@
-$Id: README.txt,v 1.1.2.7 2009/07/10 07:27:49 alexk Exp $
 
 User Relationships API
 ------------------

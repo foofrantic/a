@@ -1,4 +1,3 @@
-; $Id: README.txt,v 1.1.2.5 2009/01/14 11:03:03 alexk Exp $
 
 User Relationship Implications Module
 -------------------------------------

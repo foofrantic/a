@@ -1,5 +1,4 @@
 <?php
-// $Id: user_relationships_api.actions.inc,v 1.1.2.7 2009/11/07 19:17:26 alexk Exp $
 
 /**
  * @file *Incomplete* Actions implementation

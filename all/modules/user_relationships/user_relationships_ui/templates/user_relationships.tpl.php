@@ -1,5 +1,4 @@
 <?php
-// $Id: user_relationships.tpl.php,v 1.1.2.10 2009/10/15 15:23:26 aufumy Exp $
 
 //$relationships array is loaded in template_preprocess_user_relationships()
 if ($relationships) {

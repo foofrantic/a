@@ -1,5 +1,4 @@
 <?php
-// $Id: user_relationships_ui.pages.inc,v 1.1.2.7 2009/11/07 21:24:54 alexk Exp $
 /**
  * @file
  * Various user relationships admin and user pages

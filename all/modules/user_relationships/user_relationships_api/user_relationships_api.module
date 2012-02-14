@@ -1,5 +1,4 @@
 <?php
-// $Id: user_relationships_api.module,v 1.1.2.21 2009/11/07 21:24:54 alexk Exp $
 
 /**
  * @file
@@ -20,7 +19,6 @@ if (module_exists('privatemsg')) {
   module_load_include('inc', 'user_relationships_api', 'user_relationships_api.privatemsg');
 }
 
-
 /**
  *  Invoke hook_user_relationships() or hook_user_relationships_type()
  *  Just a helper that allows us to pass the relationship or relationship_type
@@ -28,7 +26,10 @@ if (module_exists('privatemsg')) {
  */
 function _user_relationships_invoke($type, &$relationship, $is_type = FALSE) {
   $hook = 'user_relationships'. ($is_type ? '_type' : '');
-  module_invoke_all($hook, $type, $relationship);
+  foreach (module_implements($hook) as $module) {
+    $function = $module .'_'. $hook;
+    $function($type, $relationship);
+  }
 }
 
 
@@ -76,6 +77,7 @@ function _user_relationships_generate_query($param = array(), $options = array()
       $arguments[] = $value;
       break;
     
+    case 'rid':
     case 'requester_id':
     case 'requestee_id':
       $twoway_reverse_clause = TRUE;//#479486 these columns automatically should exclude duplicates
@@ -102,7 +104,7 @@ function _user_relationships_generate_query($param = array(), $options = array()
   }
 
   $selects = array('DISTINCT ur.rid', 'ur.*', 'urt.*');
-  $joins = array('INNER JOIN {user_relationship_types} urt USING ( rtid )');
+  $joins = array('INNER JOIN {user_relationship_types} urt ON ur.rtid = urt.rtid');
 
   // We wont need anything after this point for the count SQL
   $count_joins = implode(' ', $joins);
@@ -225,11 +227,12 @@ function user_relationships_api_cron() {
 
   $expired_requests = array();
   while ($request = db_fetch_object($result)) {
-    $expired_requests[$request->rid] = $request;
+    $expired_requests[] = $request->rid;
   }
 
-  if ($expired_requests) {
+  if (count($expired_requests)) {
     db_query('DELETE FROM {user_relationships} WHERE rid IN ('. db_placeholders($expired_requests) .')', $expired_requests);
+    //FIXME: this will trigger various hook_user_relationships() but will not pass a valid relationship object. E.g. in mailer.
     _user_relationships_invoke('delete', $expired_requests);
   }
 
@@ -275,10 +278,11 @@ function user_relationships_api_user_relationships($op, &$relationship) {
     $context = array(
       'hook' => 'user_relationships_api',
       'op' => $op,
-      'requester' => $relationship->requester_id,
-      'requestee' => $relationship->requestee_id,
+      'requester' => $relationship->requester,
+      'requestee' => $relationship->requestee,
       'relationship' => $relationship,
     );
+//print_r($relationship);
     actions_do(array_keys($aids), $relationship, $context);
   }
 }
@@ -303,12 +307,13 @@ function user_relationships_api_activity_info() {
 * Implementation of hook_token_list().
 */
 function user_relationships_api_token_list($type = 'all') {
+  $tokens = array();
   if ($type == 'requester') {
     $tokens['user_relationships_api'] = array(
       'requester' => t('The user who issued the connection request.'),
     );
   }
-  elseif ($type = 'relationship') {
+  elseif ($type == 'relationship') {
     $tokens['user_relationships_api'] = array(     
       'requestee' => t('The user who approved the connnection request.'),
       'relationship-name' => t('The relationship name (singular form)'),
@@ -324,19 +329,31 @@ function user_relationships_api_token_values($type, $data = NULL, $options = arr
   if ($type == 'requester') {
     $r = $data;
     $token_values = array(
-      'requester' => theme('username', user_load(array('uid' => $r))),
+      'requester' => theme('username', user_load(array('uid' => $r->uid))),
     );
   }
   elseif ($type == 'requestee') {
     $r = $data;
     $token_values = array(
-      'requestee' => theme('username', user_load(array('uid' => $r))),
+      'requestee' => theme('username', user_load(array('uid' => $r->uid))),
     );
   }
   elseif ($type == 'relationship') {
-    $r = $data;
-    $r_type = user_relationships_type_load($r->rtid);
-   
+    // http://drupal.org/node/811222 need to unwrap the relationship object from an array sometimes
+    if (is_array($data)) {
+      foreach ($data as $object) {
+        if (is_object($object)) {
+          $r = $object;
+          break;
+        }
+      }
+    }
+    else {
+      $r = $data; 
+    }
+    
+    $r_type = user_relationships_type_load((int) $r->rtid);
+
     $token_values = array(
       'requestee' => theme('username', user_load(array('uid' => $r->requestee_id))),
       'requester' => theme('username', user_load(array('uid' => $r->requester_id))),
@@ -344,5 +361,5 @@ function user_relationships_api_token_values($type, $data = NULL, $options = arr
     );
   }
  
-  return $token_values;
+  return isset($token_values) ? $token_values : NULL;
 }

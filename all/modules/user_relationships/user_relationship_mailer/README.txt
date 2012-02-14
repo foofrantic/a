@@ -1,4 +1,3 @@
-; $Id: README.txt,v 1.1.2.5 2008/10/01 09:38:11 alexk Exp $
 
 User Relationship Mailer Module
 -------------------------------

@@ -1,4 +1,3 @@
-/* $Id: README.txt,v 1.1.2.1 2009/03/10 18:40:53 jaydub Exp $
 
 User Relationship Invites Module
 --------------------------------

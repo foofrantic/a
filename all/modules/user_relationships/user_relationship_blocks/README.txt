@@ -1,4 +1,3 @@
-$Id: README.txt,v 1.1.2.4 2008/04/21 00:38:17 sprsquish Exp $
 
 User Relationship Blocks
 ------------------------

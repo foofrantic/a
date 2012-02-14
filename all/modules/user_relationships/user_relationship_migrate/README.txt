@@ -1,4 +1,3 @@
-$Id: README.txt,v 1.1.2.1 2009/06/22 12:36:04 alexk Exp $
 
 User Relationship Migrate Module
 ---------------------------------

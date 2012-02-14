@@ -1,5 +1,4 @@
 <?php
-// $Id: user_relationships-block.tpl.php,v 1.1.2.9 2009/10/15 15:23:26 aufumy Exp $
 /**
  * @file Main relationships listing block
  * List the relationships between the viewed user and the current user

@@ -1,4 +1,3 @@
-$Id: README.txt,v 1.6 2008/06/18 14:44:15 kbahey Exp $
 
 Copyright 2006 http://2bits.com
 

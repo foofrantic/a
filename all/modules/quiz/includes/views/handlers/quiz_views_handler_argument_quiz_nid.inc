@@ -1,5 +1,4 @@
 <?php
-// $Id: quiz_views_handler_argument_quiz_nid.inc,v 1.1.2.4 2009/05/21 19:02:13 sivaji Exp $
 
 /*
  * @file
@@ -20,6 +19,7 @@ class quiz_views_handler_argument_quiz_nid extends views_handler_argument_numeri
   function construct() {
     parent::construct();
     $this->nid_field = $this->definition['nid field'];
+    $this->vid_field = isset($this->definition['vid field']) ? $this->definition['vid field'] : 'vid';
   }
 
   function option_definition() {
@@ -153,6 +153,8 @@ class quiz_views_handler_argument_quiz_nid extends views_handler_argument_numeri
         $result = db_query("SELECT qnp.vid AS vid $from $where", $this->value);
         break;
     }
+
+    $this->nid_field = $this->vid_field;
 
     $this->corresponding_vids = array();
     while ($item = db_fetch_object($result)) {

@@ -1,4 +1,3 @@
-; $Id: README.txt,v 1.1.2.4 2009/08/22 19:33:31 alexk Exp $
 
 User Relationship Node Access
 -----------------------------

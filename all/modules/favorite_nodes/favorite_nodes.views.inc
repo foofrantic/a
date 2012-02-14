@@ -73,5 +73,20 @@ function favorite_nodes_views_data() {
     ),
   );
 
+  // Relationship to the 'Node' table
+  $data['favorite_nodes']['nid'] = array(
+    'title' => t('Node'),
+    'help' => t('The node that was favorited.'),
+    'relationship' => array(
+      'label' => t('Node'),
+      'base' => 'node',
+      'base field' => 'nid',
+      'type' => 'inner',
+      // This allows us to not show this relationship if the base is already
+      // comments so users won't create circular relationships.
+      'skip base' => array('node'),
+    ),
+  );
+
   return $data;
 }

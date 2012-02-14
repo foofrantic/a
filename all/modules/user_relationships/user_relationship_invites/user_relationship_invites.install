@@ -1,5 +1,4 @@
 <?php
-// $Id: user_relationship_invites.install,v 1.1.2.1 2009/03/10 18:40:53 jaydub Exp $
 
 /**
  * Implementation of hook_install().

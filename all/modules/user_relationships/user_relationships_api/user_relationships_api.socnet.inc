@@ -1,5 +1,4 @@
 <?php
-// $Id: user_relationships_api.socnet.inc,v 1.1.2.3 2009/11/07 19:30:07 alexk Exp $
 
 /**
  * @file

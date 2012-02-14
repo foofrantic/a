@@ -1,5 +1,4 @@
 <?php
-// $Id: user_relationship_invites.module,v 1.1.2.3 2009/06/28 21:51:34 alexk Exp $
 
 /**
  * Drupal Module: User Relationship Invites
@@ -41,7 +40,7 @@ function user_relationship_invites_form_alter(&$form, $form_state, $form_id) {
 
     $new_user = drupal_anonymous_user();
     module_load_include('inc', 'user_relationships_ui', 'user_relationships_ui.forms');
-    $form += user_relationships_ui_request_form($user->uid, $new_user->uid, $form_state['values']);
+    $form += user_relationships_ui_request_form($user, $new_user, $form_state['values']);
     $form['rtid']['#weight'] = 0;
     $form['#validate'][] = 'user_relationship_invites_invite_form_validate';
   }
@@ -60,7 +59,7 @@ function user_relationship_invites_invite_form_validate($form, &$form_state) {
 /**
  * Implementation of hook_invite().
 */
-function user_relationship_invites_invite($op, &$args) {
+function user_relationship_invites_invite($op, $args) {
   switch ($op) {
     case 'invite':
       db_query("INSERT INTO {user_relationship_invites} (inviter_uid, rtid, invite_code) VALUES (%d, %d, '%s')", $args['inviter']->uid, $args['inviter']->rtid, $args['code']);

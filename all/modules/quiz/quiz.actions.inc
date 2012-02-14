@@ -1,5 +1,4 @@
 <?php
-// $Id: quiz.actions.inc,v 1.1.2.2 2009/05/21 19:02:12 sivaji Exp $
 /**
  * @file
  * Example Action Implementation.

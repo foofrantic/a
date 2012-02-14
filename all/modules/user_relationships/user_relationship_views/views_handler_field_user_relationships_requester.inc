@@ -1,5 +1,4 @@
 <?php
-// $Id: views_handler_field_user_relationships_requester.inc,v 1.1.2.1 2008/10/08 14:38:41 alexk Exp $
 
 /**
  * @file

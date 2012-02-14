@@ -1,5 +1,4 @@
 <?php
-// $Id: addtoany.admin.inc,v 1.1.2.3 2009/10/10 19:52:53 micropat Exp $
 
 /**
  * @file
@@ -23,6 +22,7 @@ function addtoany_admin_settings() {
   	'share_save_171_16.png|171|16' => sprintf($button_img, 'share_save_171_16.png', 171, 16),
   	'share_save_256_24.png|256|24' => sprintf($button_img, 'share_save_256_24.png', 256, 24),
   	'custom'				=> 'Custom button',
+	'text'					=> 'Text only',
   );
   
   $form['addtoany_general_settings'] = array(
@@ -78,13 +78,19 @@ function addtoany_admin_settings() {
     '#type'          => 'textfield',
     '#title'         => t('Custom button URL'),
     '#default_value' => variable_get('addtoany_custom_image', ''),
-    '#description'   => t('URL to the button image of your choosing. Example: http://example.com/share.png'),
+    '#description'   => t('URL to the button image of your choice. Example: http://example.com/share.png'),
   );
-  $form['addtoany_button_settings']['addtoany_custom_image_attributes'] = array(
+  $form['addtoany_button_settings']['addtoany_image_attributes'] = array(
     '#type'          => 'textfield',
     '#title'         => t('Button image HTML attributes'),
-    '#default_value' => variable_get('addtoany_image_attributes', 'alt="Share/Save"'),
-    '#description'   => t('Extra HTML attributes for img tag. Example: alt=""'),
+    '#default_value' => variable_get('addtoany_image_attributes', 'alt="Share this"'),
+    '#description'   => t('Extra HTML attributes for img tag. Example: alt="Share"'),
+  );
+  $form['addtoany_button_settings']['addtoany_link_text'] = array(
+    '#type'          => 'textfield',
+    '#title'         => t('Link text'),
+    '#default_value' => variable_get('addtoany_link_text', ''),
+    '#description'   => t('Text for the AddToAny button link. Example: Share'),
   );
   
   $form['addtoany_additional_settings'] = array(
@@ -94,10 +100,11 @@ function addtoany_admin_settings() {
     '#collapsed'    => TRUE,
   );
   $form['addtoany_additional_settings']['addtoany_additional_js'] = array(
+  	'#wysiwyg' 	 	 => FALSE, // Exclude CKEditor/FCKeditor/etc. WYSIWYG HTML editors
     '#type'          => 'textarea',
     '#title'         => t('Additional script'),
     '#default_value' => variable_get('addtoany_additional_js', ''),
-    '#description'   => t('You can set special JavaScript variables for each Share/Save menu. Advanced users might want to check out AddToAny\'s <a href="http://www.addtoany.com/buttons/api/">JavaScript API</a> and <a href="http://www.addtoany.com/buttons/customize/">documentation</a>.'),
+    '#description'   => t('You can set special JavaScript configuration properties to apply to the menu. Advanced users might want to check out AddToAny\'s <a href="http://www.addtoany.com/buttons/api/">JavaScript API</a> and <a href="http://www.addtoany.com/buttons/customize/">documentation</a>.'),
   );
 
   $form['addtoany_widget_settings'] = array(
@@ -110,7 +117,7 @@ function addtoany_admin_settings() {
     '#type'          => 'checkbox',
     '#title'         => t('Disable dropdown'),
     '#default_value' => variable_get('addtoany_dropdown_disabled', '0'),
-    '#description'   => t('You can disable the drop-down for selecting where to share your link and use a pop-up window instead.'),
+    '#description'   => t('You can disable the drop-down menu and use AddToAny\'s classic sharing page instead.'),
   );
   
   return system_settings_form($form);

@@ -1,5 +1,4 @@
 <?php
-// $Id: user_relationships_ui.forms.inc,v 1.1.2.18 2009/11/07 21:24:54 alexk Exp $
 
 /**
  * @file
@@ -9,11 +8,14 @@ module_load_include('inc', 'user_relationships_ui', 'user_relationships_ui.actio
 
 /**
  * Request new user to user relationship
+ * @param $requester user object for the requesting user
+ * @param $requestee user object for the target user
+ * @param $form_values array $form['values'] when called from form_alter() 
  */
 function user_relationships_ui_request_form($requester, $requestee, $form_values = NULL) {
   $relationships = _user_relationships_ui_get_requestable_rtypes($requester, $requestee);
   //try to find out desired relationship type
-  if ($form_values['rtid']) {//given through form
+  if (isset($form_values['rtid'])) {//given through form
     $default_relationship = $form_values['rtid'];
   }
   elseif (is_numeric(arg(3)) && user_relationships_type_load(arg(3))) {//given through URL arguments, e.g. relationship/{uid}/request/{rtid}
@@ -45,11 +47,11 @@ function user_relationships_ui_request_form($requester, $requestee, $form_values
   }
   $form['requester'] = array(
     '#type'   => 'value',
-    '#value'  => $requester
+    '#value'  => $requester->uid,
   );
   $form['requestee'] = array(
     '#type'   => 'value',
-    '#value'  => $requestee
+    '#value'  => $requestee->uid,
   );
 
   return $form;
@@ -113,7 +115,7 @@ function user_relationships_ui_request(&$form_state, $requestee) {
     return $form;
   }
   // This is the default which means we will display the form
-  $form = user_relationships_ui_request_form($requester->uid, $requestee->uid, $form_state);
+  $form = user_relationships_ui_request_form($requester, $requestee, $form_state);
   if (!$form['rtid']) {
     $data['error'] = array(
       '#type' => 'markup',
@@ -127,13 +129,22 @@ function user_relationships_ui_request(&$form_state, $requestee) {
     if ($form['rtid']['#default_value']) {
       $relationship = user_relationships_type_load($form['rtid']['#default_value']);
     }
+
+    // http://drupal.org/node/489954 respect destination param if given
+    if (isset($_GET['destination'])) {
+      $dest = $_GET['destination'];
+    }
+    else {
+      $dest = "user/$requestee->uid";
+    }
+
     $form = confirm_form(
       $form,
       t('Request relationship'),
-      "user/$requestee->uid",
+      $dest,
       $relationship ?
       ($relationship->requires_approval 
-       ? t('Are you sure you wish to send a new %rel_name request to %name?', array('%name' => $requestee->name, '%rel_name' => ur_tt("user_relationships:rtid:$relationship->rtid:name", $relationship->name), '%rel_plural_name' => ur_tt("user_relationships:rtid:$relationship->rtid:plural_name", $relationship->plural_name))) 
+       ? t('Are you sure you wish to send a new %rel_name request to !name?', array('%name' => $requestee->name, '%rel_name' => ur_tt("user_relationships:rtid:$relationship->rtid:name", $relationship->name), '%rel_plural_name' => ur_tt("user_relationships:rtid:$relationship->rtid:plural_name", $relationship->plural_name), '!name' => theme('username', $requestee))) 
        : t("Are you sure you want to become %name's %rel_name?", array('%name' => $requestee->name, '%rel_name' => ur_tt("user_relationships:rtid:$relationship->rtid:name", $relationship->name)))) :
       t('How do you relate to %name?', array('%name' => $requestee->name)),
       t('Send'), t('Cancel'),
@@ -201,10 +212,19 @@ function user_relationships_ui_pending_requested(&$form_state, $action, $account
       $action_message = t('Cancel relationship');
   }
 
+  // http://drupal.org/node/489954 respect destination param if given
+  if (isset($_GET['destination'])) {
+    $dest = $_GET['destination'];
+  }
+  else {
+    $dest = ($viewed_id == $user->id ? 'relationships/requests' : "user/{$viewed_id}/relationships/requests");
+  }
+  
+  global $user;
   $output = confirm_form(
     $form,
     $action_message,
-    ($viewed_id == $user->id ? 'relationships/requests' : "user/{$viewed_id}/relationships/requests"),
+    $dest,
     $confirmation_message,
     t('Yes'), t('No'),
     'user_relationships_approve_confirm'
@@ -248,10 +268,19 @@ function user_relationships_ui_remove(&$form_state, $account, $relationship) {
     '#type'   => 'value',
     '#value'  => $viewed_id
   );
+
+  // http://drupal.org/node/489954 respect destination param if given
+  if (isset($_GET['destination'])) {
+    $dest = $_GET['destination'];
+  }
+  else {
+    $dest = ($viewed_id == $user->uid ? 'relationships' : "user/{$viewed_id}/relationships");
+  }
+
   $output = confirm_form(
     $form,
     t('Remove relationship'),
-    ($viewed_id == $user->id ? 'relationships' : "user/{$viewed_id}/relationships/"),
+    $dest,
 
     t("Are you sure you wish to delete the %relationship_name relationship with !name?", array(
       '%relationship_name'  => ur_tt("user_relationships:rtid:$relationship->rtid:name", $relationship->name),
