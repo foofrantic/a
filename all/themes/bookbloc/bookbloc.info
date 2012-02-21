@@ -1,13 +1,14 @@
-; $Id: bookbloc.info,v 1.1.2.2 2008/10/24 08:17:02 jwolf Exp $
+; $Id
 
 name = Bookbloc
 description = Bookbloc main theme.
 
 core = 6.x
 engine = phptemplate
-stylesheets[all][] = style.css
-stylesheets[all][] = icons.css
-stylesheets[all][] = local.css
+
+; added by 3Mules justin@3mules.coop
+stylesheets[all][] = styles/search-page.css
+
 regions[sidebar] = sidebar
 regions[header] = header
 regions[alerts] = alerts
@@ -25,10 +26,4 @@ features[] = comment_user_picture
 features[] = search
 features[] = favicon
 features[] = primary_links
-
-; Information added by drupal.org packaging script on 2008-12-03
-version = "6.x-1.3"
-core = "6.x"
-project = "Bookbloc"
-datestamp = "1228298102"
 

@@ -1,0 +1,8 @@
+.view-id-Search .views-exposed-widget {
+  float: left;
+}
+
+.view-id-Search .views-widget-filter-keys,
+.view-id-Search .views-widget-filter-uid {
+  margin-right: 20px;
+}
