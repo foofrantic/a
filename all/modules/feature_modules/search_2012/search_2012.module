@@ -1,0 +1,3 @@
+<?php
+
+include_once('search_2012.features.inc');

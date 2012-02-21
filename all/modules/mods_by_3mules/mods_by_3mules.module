@@ -1,0 +1,35 @@
+<?php
+
+/**
+ * @file
+ * Small modifications made by 3Mules.
+ * justin@3mules.coop
+ */
+
+/**
+ * Implements hook_form_alter() specific to views_exposed_form.
+ */
+function mods_by_3mules_form_views_exposed_form_alter(&$form, &$form_state) {
+
+  // Make all input boxes the same size and add useful hints.
+  $form['search_terms']['#size'] = 20;
+  $form['search_terms']['#description'] = t('Enter any keywords');
+  $form['author']['#size'] = 20;
+  $form['author']['#description'] = t('Enter comma separated user names');
+  $form['genre']['#size'] = 20;
+  $form['genre']['#description'] = t('Enter a genre name');
+}
+
+/**
+ * Implement preprocess page function.
+ */
+function mods_by_3mules_preprocess_page(&$vars) {
+
+  // Are we on the top level search page?
+  if ( arg(0) == 'search'  &&  !arg(1) ) {
+
+    // Remove the "user" and "node" tabs so that we don't confuse our users.
+    unset( $vars['tabs'] );
+  }
+}
+

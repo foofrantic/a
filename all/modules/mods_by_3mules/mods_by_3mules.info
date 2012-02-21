@@ -1,0 +1,5 @@
+; $Id
+name = "Modifications by 3Mules"
+description = "Small modifications made by 3Mules." 
+package = "Custom"
+core = 6.x
