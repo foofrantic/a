@@ -1,4 +1,4 @@
 .svn
 default/settings.php
 default/files
-
+*.swp
