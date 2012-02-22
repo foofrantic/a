@@ -1,0 +1,25 @@
+/**
+ * Mods by 3 Mules : justin@3mules.coop
+ */
+
+
+/**
+ * Search page
+ */
+.view-id-Search .views-exposed-widget {
+  float: left;
+}
+
+.view-id-Search .views-widget-filter-keys,
+.view-id-Search .views-widget-filter-uid {
+  margin-right: 20px;
+}
+
+
+/**
+ * tinymce
+ * Not actually page specific but leaving in this file for now anyway.
+ */
+#tinymce {
+  background: transparent;
+}
