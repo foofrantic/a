@@ -17,9 +17,24 @@
 
 
 /**
+ * Add/edit form for the Words content type.
+ */
+#word-paste-hint {
+/*  font-weight: bold; */
+  font-size: 100%;
+  color: maroon;
+}
+
+.node-form .body-field-wrapper {
+  margin-top: 2.5em;
+}
+
+
+/**
  * tinymce
  * Not actually page specific but leaving in this file for now anyway.
  */
+.mceContentBody,
 #tinymce {
   background: transparent;
 }
