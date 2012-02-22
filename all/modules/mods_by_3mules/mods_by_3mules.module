@@ -33,6 +33,11 @@ function mods_by_3mules_form_word_node_form_alter(&$form, &$form_state) {
     '<div id="word-paste-hint">' .
     t('If you have trouble pasting from Microsoft Word (e.g. mangled punctuation characters) then try using the "Paste from Word" and/or "Paste as Plain Text" buttons.')
     .'</div>';
+
+  // There is no UI to make teaser different from start of synopsis, so
+  // the relevant checkbox is probably meaningless to the user. Remove it.
+  unset( $form['body_field']['teaser_include'] );
+  $form['body_field']['teaser_include']['#value'] = '<!-- Removed teaser_include checkbox in ' . __FUNCTION__ . '-->';
 }
 
 
