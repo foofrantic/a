@@ -29,6 +29,13 @@
   margin-top: 2.5em;
 }
 
+#download-pdf-version-container {
+  padding: 5px 0;
+}
+
+#download-pdf-version-link {
+  font-size: 125%;
+}
 
 /**
  * tinymce

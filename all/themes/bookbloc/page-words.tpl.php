@@ -195,16 +195,24 @@ $votes_count = $votes_count - $publisher_votes_count;
 						<p><strong>Want to read more? Vote and make this successful.</strong></p>
 						
 						<div class="download-panel">
-							<strong>User rating </strong> <?php echo $votes;?> (<?php echo $votes_count;?> Votes)
-							<br/><strong>Publisher rating</strong> <?php echo number_format(floor($publisher_votes),2);?> (<?php echo $publisher_votes_count;?> Votes) 
+                                                  <div class="download-panel-item">
+						    <strong>User rating </strong> <?php echo $votes;?> (<?php echo $votes_count;?> Votes)
+                                                  </div>
+                                                  <div class="download-panel-item">
+						    <strong>Publisher rating</strong> <?php echo number_format(floor($publisher_votes),2);?> (<?php echo $publisher_votes_count;?> Votes) 
+                                                  </div>
+                                                  <div class="download-panel-item" id="download-pdf-version-container">
+                                                    <a id="download-pdf-version-link" href="/printpdf/<?php echo $node->nid; ?>">Download PDF version</a>
+                                                  </div>
 						</div>
-						<?php $filesize = $node->field_upload['0']['filesize'];
-							  $filesize = $filesize/1000000;
-							  $filesize = number_format($filesize,2);
+						<?php // $filesize = $node->field_upload['0']['filesize'];
+						      //  $filesize = $filesize/1000000;
+						      //  $filesize = number_format($filesize,2);
 						?>
-						<?php if($node->field_upload['0']['filepath']):?>
-						<a id="download-orange" href="/<?php echo $node->field_upload['0']['filepath'];?>"><span> <?php echo $filesize;?>mb</span></a>
-						<?php endif;?>
+						<?php // if($node->field_upload['0']['filepath']):?>
+						<!-- <a id="download-orange" href="/<?php echo $node->field_upload['0']['filepath'];?>"><span> <?php echo $filesize;?>mb</span></a> -->
+						<?php // endif;?>
+
 						
 				  </div>
 				  <div class="clear"></div>
