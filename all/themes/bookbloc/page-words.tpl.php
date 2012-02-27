@@ -41,18 +41,18 @@ $votes_count = $votes_count - $publisher_votes_count;
     <!--[if lte IE 6]>
       <link rel="stylesheet" href="<?php print $base_path . $directory; ?>/styles/ie6-fixes.css" type="text/css">
     <![endif]-->
-	<?php require_once drupal_get_path('theme', 'bookbloc') .'/includes/style.php';?>
+  <?php require_once drupal_get_path('theme', 'bookbloc') .'/includes/style.php';?>
     <?php print $scripts; ?>
   </head>
 
   <body class="<?php print $body_classes; ?> words">
     <div id="page" class="clearfix">
-	<a name="top"></a>
+  <a name="top"></a>
 
       <div id="header">
         <div id="header-wrapper" class="clearfix">
-	
-		  <?php require_once drupal_get_path('theme', 'bookbloc') .'/includes/login.php';?>
+  
+      <?php require_once drupal_get_path('theme', 'bookbloc') .'/includes/login.php';?>
           
           <?php if ($search_box): ?>
           <div id="search-box">
@@ -67,26 +67,26 @@ $votes_count = $votes_count - $publisher_votes_count;
             <?php endif; ?>
 
             <?php if($header):?>
-	  			<?php print $header;?>
-	        <?php endif;?>
-	
+          <?php print $header;?>
+          <?php endif;?>
+  
         </div><!-- /header-wrapper -->
    
       </div><!-- /header -->
 
 
       <div id="main">
-		
-		
-	
-	
+    
+    
+  
+  
         <div id="main-wrapper" class="clearfix">
-	
-			 <?php if ($sidebar): ?>
-		          <div id="sidebar">
-		            <?php print $sidebar; ?>
-		          </div><!-- /sidebar-first -->
-		     <?php endif; ?>
+  
+       <?php if ($sidebar): ?>
+              <div id="sidebar">
+                <?php print $sidebar; ?>
+              </div><!-- /sidebar-first -->
+         <?php endif; ?>
           
           <?php if ($breadcrumb): ?>
           <div id="breadcrumb">
@@ -113,120 +113,132 @@ $votes_count = $votes_count - $publisher_votes_count;
             
             <div id="content">
               <?php if ($tabs):  ?>
-              	<div id="content-tabs">
-	                <?php print $tabs; ?>
-	              </div>
-			  <div class="clear"></div>
+                <div id="content-tabs">
+                  <?php print $tabs; ?>
+                </div>
+        <div class="clear"></div>
               <?php  endif; ?>
             
 
               <div id="content-inner">
                 <?php if ($title): ?>
-                	<p class="title"><?php print $title; ?> <span>by <a href="/user/<?php echo $user_link['0']['uid'];?>">
-					<?php echo $user_link['0']['name'];?></a></span></p>
+                  <p class="title"><?php print $title; ?> <span>by <a href="/user/<?php echo $user_link['0']['uid'];?>">
+          <?php echo $user_link['0']['name'];?></a></span></p>
                 <?php endif; ?>
-				<div class="clear"></div>
-				
+        <div class="clear"></div>
+        
                 <div id="content-content">
-	
-					<ul class="views">
-						<li class="tag"><?php echo get_genre($node->nid);?> | </li>
-						<li class="view"><?php echo get_node_count($node->nid);?> Views | </li>
-						<li class="comments"><?php echo count($comments);?> Comments</li>
-					</ul>
-				
-					<div class="clear"></div>
-					<br/>
-				  <div id="tags">
-					<div class="clear"></div>
-					<?php foreach($tags as $tag):?>
-					
-						<div class="tag"><span><a href="/taxonomy/term/<?php echo $tag['tid'];?>"><?php echo $tag['name'];?></a></span></div>
-					<?php endforeach;?>
-				  </div>
-				  <div class="clear"></div>
-				
-				  <?php if ($node->field_cover[0] != ''): ?><?php print theme('imagecache', 'cover', $node->field_cover[0]['filepath'], $node->title, $node->title, array('class'=>'words-picture')) ?>
-				  <?php else: ?>	
-				  <?php print user_picture($node->uid);?>
-				  <?php endif; ?>
-				  <br/>
-				
-				
-				  <?php if($node->uid!=$user->uid):?>
-  				
-				  <?php global $user;
-				        if($user->uid != 0):?>
-				  <span id="rate">Rate this article</span>
-				
-				  
-				  <div class="fivestar">
-					  <?php
-					      $fivestarwidget = fivestar_widget_form($node);
-					      print $fivestarwidget;
-					  ?>
-				  </div>
-				  <?php endif;?>
-				
-				  <?php endif;?>
-				
-				  <div id="user-panel">
-					<ul>
-						<li><a href="/user/<?php echo $node->uid;?>">Back to Profile</a></li>
-						<li><a href="/report/&nid=<?php echo $node->nid;?>">Report this</a></li>
-						<?php if($user->uid==0) { ?>
-							<li><a href="/user/&destination=comment/reply/<?php echo $node->nid;?>">Add Comment</a></li>
-						<?php } else { ?>
-						<li><a href="/comment/reply/<?php echo $node->nid;?>">Add Comment</a></li>
-						<?php if($check_favorite != $node->nid) { ?>
-							<li><a href="/favorite_nodes/add/<?php echo $node->nid;?>">Add to favourites</a></li>
-						<?php } ?>
-						<?php if(is_publisher()):?>
-							<li><a href="/node/add/review/<?php echo $node->nid;?>">Write a review</a></li>
-						<?php endif;?>
-						
-						<?php } ?>
-					</ul>
-				  </div>
-				
-                  <?php //print $content; ?>
-				  <div class="content-node">
-   				  		<?php print $node->body;?>
-						<p><strong>Want to read more? Vote and make this successful.</strong></p>
-						
-						<div class="download-panel">
-                                                  <div class="download-panel-item">
-						    <strong>User rating </strong> <?php echo $votes;?> (<?php echo $votes_count;?> Votes)
-                                                  </div>
-                                                  <div class="download-panel-item">
-						    <strong>Publisher rating</strong> <?php echo number_format(floor($publisher_votes),2);?> (<?php echo $publisher_votes_count;?> Votes) 
-                                                  </div>
-                                                  <div class="download-panel-item" id="download-pdf-version-container">
-                                                    <a id="download-pdf-version-link" href="/printpdf/<?php echo $node->nid; ?>">Download PDF version</a>
-                                                  </div>
-						</div>
-						<?php // $filesize = $node->field_upload['0']['filesize'];
-						      //  $filesize = $filesize/1000000;
-						      //  $filesize = number_format($filesize,2);
-						?>
-						<?php // if($node->field_upload['0']['filepath']):?>
-						<!-- <a id="download-orange" href="/<?php echo $node->field_upload['0']['filepath'];?>"><span> <?php echo $filesize;?>mb</span></a> -->
-						<?php // endif;?>
+  
+          <ul class="views">
+            <li class="tag"><?php echo get_genre($node->nid);?> | </li>
+            <li class="view"><?php echo get_node_count($node->nid);?> Views | </li>
+            <li class="comments"><?php echo count($comments);?> Comments</li>
+          </ul>
+        
+          <div class="clear"></div>
+          <br/>
+          <div id="tags">
+          <div class="clear"></div>
+          <?php foreach($tags as $tag):?>
+          
+            <div class="tag"><span><a href="/taxonomy/term/<?php echo $tag['tid'];?>"><?php echo $tag['name'];?></a></span></div>
+          <?php endforeach;?>
+          </div>
+          <div class="clear"></div>
+        
+          <?php if ($node->field_cover[0] != ''): ?><?php print theme('imagecache', 'cover', $node->field_cover[0]['filepath'], $node->title, $node->title, array('class'=>'words-picture')) ?>
+          <?php else: ?>  
+          <?php print user_picture($node->uid);?>
+          <?php endif; ?>
+          <br/>
+        
+        
+          <?php if($node->uid!=$user->uid):?>
+          
+          <?php global $user;
+                if($user->uid != 0):?>
+          <span id="rate">Rate this article</span>
+        
+          
+          <div class="fivestar">
+            <?php
+                $fivestarwidget = fivestar_widget_form($node);
+                print $fivestarwidget;
+            ?>
+          </div>
+          <?php endif;?>
+        
+          <?php endif;?>
+        
+          <div id="user-panel">
+          <ul>
+            <li><a href="/user/<?php echo $node->uid;?>">Back to Profile</a></li>
+            <li><a href="/report/&nid=<?php echo $node->nid;?>">Report this</a></li>
+            <?php if($user->uid==0) { ?>
+              <li><a href="/user/&destination=comment/reply/<?php echo $node->nid;?>">Add Comment</a></li>
+            <?php } else { ?>
+            <li><a href="/comment/reply/<?php echo $node->nid;?>">Add Comment</a></li>
+            <?php if($check_favorite != $node->nid) { ?>
+              <li><a href="/favorite_nodes/add/<?php echo $node->nid;?>">Add to favourites</a></li>
+            <?php } ?>
+            <?php if(is_publisher()):?>
+              <li><a href="/node/add/review/<?php echo $node->nid;?>">Write a review</a></li>
+            <?php endif;?>
+            
+            <?php } ?>
+          </ul>
+          </div>
+        
+          <?php //print $content; ?>
 
-						
-				  </div>
-				  <div class="clear"></div>
-				
-				  <div id="split"></div>
-				  <h5 style="float:left;width:auto">Comments about these words</h5>
-					
-				  <div id="comments">
-				  	<?php print $content;?>
-				  </div>
-				
-				  <?php print $below_content ?>
+          <?php
+            // Modified content-node section in order to add a PDF download
+            // link and to replace attachment with a field for the full text
+            // of the submission. justin@3mules.coop
+          ?>
+          <div class="content-node">
 
-					
+            <?php print $node->body;?>
+
+            <div class="vote-message">
+              <p><strong>Want to read more? Vote and make this successful.</strong></p>
+            </div>
+            
+            <div class="download-panel">
+              <div class="download-panel-item">
+                <strong>User rating </strong> <?php echo $votes;?> (<?php echo $votes_count;?> Votes)
+              </div>
+              <div class="download-panel-item">
+                <strong>Publisher rating</strong> <?php echo number_format(floor($publisher_votes),2);?> (<?php echo $publisher_votes_count;?> Votes) 
+              </div>
+              <div class="download-panel-item" id="download-pdf-version-container">
+                <a id="download-pdf-version-link" href="/printpdf/<?php echo $node->nid; ?>">Download PDF version</a>
+              </div>
+            </div>
+
+            <?php // $filesize = $node->field_upload['0']['filesize'];
+                  //  $filesize = $filesize/1000000;
+                  //  $filesize = number_format($filesize,2);
+            ?>
+            <?php // if($node->field_upload['0']['filepath']):?>
+            <!-- <a id="download-orange" href="/<?php // echo $node->field_upload['0']['filepath'];?>"><span> <?php // echo $filesize;?>mb</span></a> -->
+            <?php // endif;?>
+            
+          </div>
+
+
+          <div class="clear"></div>
+        
+          <div id="split"></div>
+          <h5 style="float:left;width:auto">Comments about these words</h5>
+          
+          <div id="comments">
+            <?php print $content;?>
+          </div>
+        
+          <?php print $below_content ?>
+
+          
                 </div>
               </div><!-- /content-inner -->
             </div><!-- /content -->
@@ -243,7 +255,7 @@ $votes_count = $votes_count - $publisher_votes_count;
 
 
           <?php if ($footer_top || $footer || $footer_message): ?>
-	<div class="clear"></div>
+  <div class="clear"></div>
           <div id="footer" class="clearfix">
             <?php if ($footer_top): ?>
             <?php print $footer_top; ?>
@@ -261,7 +273,7 @@ $votes_count = $votes_count - $publisher_votes_count;
       </div><!-- /main -->
     </div><!-- /page -->
     <div id="hr"></div>
-	<?php print $pre_closure; ?>
+  <?php print $pre_closure; ?>
     <?php print $closure; ?>
 <?php require_once drupal_get_path('theme', 'bookbloc') .'/includes/analytics.php';?>
   </body>
