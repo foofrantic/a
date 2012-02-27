@@ -26,6 +26,10 @@ $publisher_votes_count = count($publisher_votes_count);
 
 $votes_count = $votes_count - $publisher_votes_count;
 
+// Utter hack but, given the way this page was coded, can't think of a good way
+// to get & render node fields without rewriting tpl & css. justin@3mules.coop
+$raw_node = node_load( $node->nid );
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="<?php print $language->language; ?>" xml:lang="<?php print $language->language; ?>">
@@ -198,7 +202,13 @@ $votes_count = $votes_count - $publisher_votes_count;
           ?>
           <div class="content-node">
 
-            <?php print $node->body;?>
+            <?php print $raw_node->body; ?>
+            
+            <code>
+            <?php print htmlentities( print_r( $raw_node, TRUE ) );?>
+            </code>
+
+            <?php print _addtoany_create_button(menu_get_object()); ?>
 
             <div class="vote-message">
               <p><strong>Want to read more? Vote and make this successful.</strong></p>
