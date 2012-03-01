@@ -20,7 +20,6 @@ function mods_by_3mules_form_views_exposed_form_alter(&$form, &$form_state) {
   $form['genre']['#description'] = t('Enter a genre name');
 }
 
-
 /**
  * Implements hook_form_alter() specific to word_node_form.
  */
@@ -40,6 +39,26 @@ function mods_by_3mules_form_word_node_form_alter(&$form, &$form_state) {
   $form['body_field']['teaser_include']['#value'] = '<!-- Removed teaser_include checkbox in ' . __FUNCTION__ . '-->';
 }
 
+/**
+ * Implements generic hook_form_alter()
+ *
+ * This hook gets called *after* the form-specific hook on D6, which is
+ * the only reason that I've implemented it.
+ */
+function mods_by_3mules_form_alter(&$form, &$form_state, $form_id) {
+
+  switch ( $form_id ) {
+    case 'word_node_form' :
+
+      // Only admins get to upload attachments to the Word content type now
+      // that this feature is deprecated.
+      if ( ! user_access( 'administer nodes' ) ) {
+        unset( $form['group_chapter'] );
+        $form['group_chapter']['#value'] = '<!-- Removed chapter upload fieldset for non-admins in ' . __FUNCTION__ . '-->';
+      }
+      break;
+  }
+}
 
 /**
  * Implement preprocess page function.
