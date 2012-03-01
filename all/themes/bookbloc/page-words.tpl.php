@@ -217,7 +217,7 @@ $raw_node = node_load( $node->nid );
                 <div class="field-label"><?php print t('Synopsis') ?>:</div>
                 <div class="field-items">
                   <div class="field-item odd">
-                    <?php print check_plain( $raw_node->body ); ?>
+                    <?php print $raw_node->body; ?>
                   </div>
                 </div>
               </div>
@@ -229,7 +229,7 @@ $raw_node = node_load( $node->nid );
                 <div class="field-label"><?php print t('Full text') ?>:</div>
                 <div class="field-items">
                   <div class="field-item odd">
-                    <?php print check_plain( $raw_node->field_word_full_text[0]['value'] ); ?>
+                    <?php print $raw_node->field_word_full_text[0]['value']; ?>
                   </div>
                 </div>
               </div>
