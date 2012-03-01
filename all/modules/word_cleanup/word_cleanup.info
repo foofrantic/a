@@ -1,0 +1,8 @@
+; $Id
+name = "Word cleanup"
+description = "Pasting from word has inserted magled characters. Replace them." 
+package = "Custom"
+core = 6.x
+
+; Using the dsm() function
+dependencies[] = devel

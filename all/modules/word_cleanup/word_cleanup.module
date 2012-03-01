@@ -1,0 +1,133 @@
+<?php
+
+/**
+ * @file
+ * Replace mangled characters from all node bodies across the website.
+ * Bad characters were originally inserted by pasting from Microsoft Word.
+ * justin@3mules.coop
+ */
+
+function word_cleanup_block( $op = 'list', $delta = 0, $edit = array() ) {
+
+  switch ( $op ) {
+    case 'list' :
+      return array( 'clean-up-bodies' => array(
+            'info' => 'Clean up node bodies',
+            ) );
+    case 'view' :
+      return array( 'content' => drupal_get_form( '_word_cleanup_clean_up_bodies_form' ) );
+  }
+}
+
+
+function _word_cleanup_clean_up_bodies_form( &$form_state ) {
+
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => 'Clean them bodies',
+    );
+
+  return $form;
+}
+
+/**
+ * Iterate through nodes, cleaning their body fields.
+ *
+ * NOTE: Should have refactored code but it has already done its job.
+ * Not going to change the code because I don't want to test any changes but
+ * commented it in case anyone else might need it.
+ */
+function _word_cleanup_clean_up_bodies_form_submit( $form, &$form_state ) {
+
+  $nid_to_clean =  //variable_get( '3mules-body-cleanup', 1 );
+  $num_misses = 0;
+
+  // HACK! Hard coded limit because my loop break didn't work
+  while ( $nid_to_clean < 265 ) {
+    $node = node_load( $nid_to_clean );
+
+    // Did the node actually exist?
+    if ( empty( $node ) ) {
+      $num_misses++;
+      $nid_to_clean++;
+      dsm( 'missed on');
+    } else {
+      $num_misses = 0;
+
+      // Do the actual cleanup
+      $body_in = $node->body;
+      node_save( _word_cleanup_cleanup_body( $node ) );
+      $body_out = $node->body;
+      $nid_to_clean++;
+      variable_set( '3mules-body-cleanup', $nid_to_clean );
+
+      // Alert user about changes made and any potential crap not fixed.
+      if ( $body_in != $body_out ) {
+        $dsm =  array( $node->nid, $body_in, $body_out );
+        $chars = array( 'â', '€', 'Ã' );
+        foreach ( $chars as $char ) {
+          if ( strpos( $body_out, $char ) !== FALSE ) {
+            $dsm[] = 'Still contains ' . $char;
+          }
+        }
+        dsm ( $dsm );
+      }
+    }
+  }
+}
+
+function _word_cleanup_cleanup_body( $node ) {
+
+  $body = trim( $node->body );
+
+  if ( strlen( $body ) == 0 ) {
+    return;
+  }
+
+  // Crude way of deciding whether content is html.
+  $is_html = ( $body[0] == '<' );
+
+  // Only screw with new lines, etc, if content is *not* html.
+  if ( ! $is_html ) {
+    // Start  and end body with paragraph elements.
+    $body = '<p>' . $body . '</p>';
+
+    // Replace twin carriage returns with paragraph break.
+    $body = str_replace( "\n\n", "</p><p>" , $body );
+
+    // Replace single carriage returns with line break.
+    $body = str_replace( "\n", "<br>" , $body );
+  }
+
+  // Apostrophe. Also used as closing quote and, sometimes, opening quote.
+  $body = str_replace( 'â€™', "'" , $body );
+
+  // Opening quote. Often paired with apostrophe-as-closing-quote, so this
+  // is a single quote too.
+  $body = str_replace( 'â€˜', "'", $body );
+
+  // Occurs at the end of paragraphs in quotes. All possible punctuation
+  // characters seem to occur in the same circumstances in the same text.
+  // Playing it safe: Replacing with a full stop.
+  $body = str_replace( 'â€¦', '.', $body );
+
+  // These two appear in the name 'Cort?s'. Assuming e with acute accent.
+  $body = str_replace( 'Ã©', 'é', $body );
+  $body = str_replace( 'Ã‰', 'É', $body );
+
+  // The only thing I can replace this with in all circumstances is a comma.
+  $body = str_replace( ' â€“', ',', $body );
+
+  // Opening double quote.
+  $body = str_replace( 'â€œ', '"', $body );
+
+  // Closing double quote. This is followed by a (unicode?) character, 009D.
+  // I don't know how to encode that in a PHP string, so I'm replacing all
+  // remaining occurences of 'â€' with a double quote. A bit risky. Just have
+  // to hope that there are no other encoded characters starting with 'â€'.
+  $body = str_replace( 'â€', '"', $body );
+
+  $node->body = $body;
+  return $node;
+}
+
