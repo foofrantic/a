@@ -74,9 +74,10 @@ p.title span {
 	height:auto!important;
 	height:150px;
 }
-.content-node .fivestar-widget {
-	display:none;
+.node-type-word .field-field-word-full-text {
+	margin-top:20px;
 }
+
 #user-panel {
 	position:absolute;
 	top:60px;
