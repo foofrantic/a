@@ -67,8 +67,9 @@ p.title span {
 
 .content-node {
 	float:left;
+	margin-top:20px;
 	margin-left:142px;
-	width:238px;
+	width:433px;
 	min-height:150px;
 	height:auto!important;
 	height:150px;
@@ -116,11 +117,11 @@ body.words .links {
 	margin-left:142px;
 }
 
+/*
 .field {
 	display:none;
 }
-
-
+*/
 
 #comments .node-type-word {
 	display:none;

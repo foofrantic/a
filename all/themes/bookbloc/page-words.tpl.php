@@ -26,8 +26,9 @@ $publisher_votes_count = count($publisher_votes_count);
 
 $votes_count = $votes_count - $publisher_votes_count;
 
-// Utter hack but, given the way this page was coded, can't think of a good way
-// to get & render node fields without rewriting tpl & css. justin@3mules.coop
+// HACK // // HACK // // HACK // // HACK // // HACK // // HACK // // HACK // 
+// Didn't add this in a preprocess fn as it's a raw node and wanted to keep all
+// the hacks in one file. See <div class="content-node"> below.
 $raw_node = node_load( $node->nid );
 
 ?>
@@ -195,18 +196,45 @@ $raw_node = node_load( $node->nid );
         
           <?php //print $content; ?>
 
+
           <?php
-            // Modified content-node section in order to add a PDF download
-            // link and to replace attachment with a field for the full text
-            // of the submission. justin@3mules.coop
+            // HACK // HACK // HACK // HACK // HACK // HACK // HACK // HACK 
+            // This section was not utilising the output of the node template
+            // and I modified it in place. I should really have made it use
+            // a node template overriden for the Word content type.
+            //
+            // Modifications here were part of changing from making the
+            // chapter or poem available as a downloadable attachment to
+            // including the full text of the chapter in the text (for SEO
+            // purposes) and providing a link to generate a PDF version.
+            // justin@3mules.coop
           ?>
           <div class="content-node">
 
-            <?php print $raw_node->body; ?>
-            
-            <code>
-            <?php print htmlentities( print_r( $raw_node, TRUE ) );?>
-            </code>
+            <?php if ( 0 < strlen( trim( $raw_node->body ) ) ): ?>
+
+              <div class="field field-type-text field-field-body">
+                <div class="field-label"><?php print t('Synopsis') ?>:</div>
+                <div class="field-items">
+                  <div class="field-item odd">
+                    <?php print check_plain( $raw_node->body ); ?>
+                  </div>
+                </div>
+              </div>
+
+            <?php endif; ?>
+            <?php if ( 0 < strlen( trim( $raw_node->field_word_full_text[0]['value'] ) ) ): ?>
+
+              <div class="field field-type-text field-field-word-full-text">
+                <div class="field-label"><?php print t('Full text') ?>:</div>
+                <div class="field-items">
+                  <div class="field-item odd">
+                    <?php print check_plain( $raw_node->field_word_full_text[0]['value'] ); ?>
+                  </div>
+                </div>
+              </div>
+
+            <?php endif; ?>
 
             <?php print _addtoany_create_button(menu_get_object()); ?>
 
