@@ -51,6 +51,7 @@
 	?>
 	<?php if($other_words):?>
 		<h5 style="float:right;width:auto;">Users other words</h5>
+                <div class="clearfix"></div>
 		<?php foreach($other_words as $item) { ?>
 			<h4><a href="/node/<?php echo $item['nid'];?>"><?php echo $item['title'];?></a></h4>
 			<strong><?php echo date('d F Y',$item['created']);?></strong>
