@@ -277,6 +277,7 @@ $raw_node = node_load( $node->nid );
 
           </div> <!-- /content-node -->
 
+
           <div class="clear"></div>
         
           <div id="split"></div>
