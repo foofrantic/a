@@ -141,6 +141,11 @@ function custom_functions_form_alter(&$form, $form_state, $form_id) {
 	
 	//print_r($_SERVER);
 }
+
+/**
+ * Replacing manual path insertion with use of the Pathauto module
+ * justin@3mules.coop
+ *
 function custom_functions_user($op, &$edit, &$user, $category=null) {
   if ($op == "insert") {
 	  // Create a path alias for this user
@@ -157,6 +162,8 @@ function custom_functions_user($op, &$edit, &$user, $category=null) {
 	  db_query("INSERT INTO {url_alias} (src, dst, language) VALUES ('%s', '%s', '%s')", $src, $name, $language);
    }
 }
+*/
+
 function custom_functions_nodeapi(&$node, $op,$a3 = NULL, $a4 = NULL) {
 	global $user;
 	switch ($op) {
@@ -184,4 +191,3 @@ function custom_functions_nodeapi(&$node, $op,$a3 = NULL, $a4 = NULL) {
 	  break;
      }
 }
-?>
