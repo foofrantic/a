@@ -128,6 +128,10 @@ body.words .links {
 	display:none;
 }
 
+.rating-download-wrapper {
+  width: 238px;
+}
+
 .download-panel {
 	background:#FBF7B8 none repeat scroll 0 0;
 	border-top:1px solid #CECB96;
@@ -143,13 +147,13 @@ body.words .links {
 	background:transparent url('/sites/all/themes/bookbloc/images/download-orange.jpg') no-repeat scroll left top;
 	color:#FFFFFF;
 	float:left;
-	font-size:0.85em;
-	height:39px;
-	padding-right:12px;
-	padding-top:12px;
+	font-size:1.25em;
+	height:35px;
+	margin-bottom:8px;
+	padding-top:7px;
 	position:relative;
-	text-align:left;
-	width:113px;
+	text-align:center;
+	width:124px;
 	text-decoration:none;
 }
 #download-orange span {

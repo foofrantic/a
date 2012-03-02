@@ -242,28 +242,40 @@ $raw_node = node_load( $node->nid );
               <p><strong>Want to read more? Vote and make this successful.</strong></p>
             </div>
             
-            <div class="download-panel">
-              <div class="download-panel-item">
-                <strong>User rating </strong> <?php echo $votes;?> (<?php echo $votes_count;?> Votes)
-              </div>
-              <div class="download-panel-item">
-                <strong>Publisher rating</strong> <?php echo number_format(floor($publisher_votes),2);?> (<?php echo $publisher_votes_count;?> Votes) 
-              </div>
-              <div class="download-panel-item" id="download-pdf-version-container">
-                <a id="download-pdf-version-link" href="/printpdf/<?php echo $node->nid; ?>">Download PDF version</a>
-              </div>
-            </div>
+            <div class="rating-download-wrapper">
 
-            <?php // $filesize = $node->field_upload['0']['filesize'];
-                  //  $filesize = $filesize/1000000;
-                  //  $filesize = number_format($filesize,2);
-            ?>
-            <?php // if($node->field_upload['0']['filepath']):?>
-            <!-- <a id="download-orange" href="/<?php // echo $node->field_upload['0']['filepath'];?>"><span> <?php // echo $filesize;?>mb</span></a> -->
-            <?php // endif;?>
-            
-          </div>
+              <div class="download-panel">
 
+                <div class="download-panel-item">
+                  <strong>User rating </strong> <?php echo $votes;?> (<?php echo $votes_count;?> Votes)
+                </div>
+                <div class="download-panel-item">
+                  <strong>Publisher rating</strong> <?php echo number_format(floor($publisher_votes),2);?> (<?php echo $publisher_votes_count;?> Votes) 
+                </div>
+                <div class="download-panel-item" id="download-pdf-version-container">
+                <!--  <a id="download-pdf-version-link" href="/printpdf/<?php //echo $node->nid; ?>">Download PDF version</a> -->
+                </div>
+
+              </div> <!-- /download-panel -->
+
+              <?php
+                // $filesize = $node->field_upload['0']['filesize'];
+                // $filesize = $filesize/1000000;
+                // $filesize = number_format($filesize,2);
+              ?>
+
+              <?php // Does the node include anything in "Full Text" box? ?>
+              <?php if ( 0 < strlen( trim( $raw_node->field_word_full_text[0]['value'] ) ) ): ?>
+                <a id="download-orange" href="/printpdf/<?php echo $node->nid; ?>"> <?php print t('PDF version');?> </a>
+
+              <?php // else, does node have an attached doument? ?>
+              <?php elseif ( $node->field_upload['0']['filepath']): ?>
+                <a id="download-orange" href="/<?php echo $node->field_upload['0']['filepath'];?>"> <?php print t('Download file');?> </a>
+              <?php endif; ?>
+
+            </div> <!-- /rating-download-wrapper -->
+
+          </div> <!-- /content-node -->
 
           <div class="clear"></div>
         
