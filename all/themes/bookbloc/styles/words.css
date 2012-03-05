@@ -78,6 +78,7 @@ p.title span {
 	margin-top:20px;
 }
 
+
 #user-panel {
 	position:absolute;
 	top:60px;
@@ -141,6 +142,13 @@ body.words .links {
 	margin:20px 10px 20px 0;
 	padding:5px 10px;
 	width:220px;
+}
+
+.login-register-download {
+ 	background-color: #FBF7B8;
+ 	padding: 10px;
+        clear: both;
+        margin-bottom: 20px;
 }
 
 #download-orange {

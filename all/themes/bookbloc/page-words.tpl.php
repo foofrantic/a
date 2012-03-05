@@ -200,10 +200,11 @@ $raw_node = node_load( $node->nid );
           <?php
             // HACK // HACK // HACK // HACK // HACK // HACK // HACK // HACK 
             // This section was not utilising the output of the node template
-            // and I modified it in place. I should really have made it use
-            // a node template overriden for the Word content type.
+            // and I modified it in place. I found that the output of the node
+            // template is printed in the comments section further below, and
+            // all that output (other than the comments) is being hidden in CSS.
             //
-            // Modifications here were part of changing from making the
+            // Modifications here were part of a change from having the
             // chapter or poem available as a downloadable attachment to
             // including the full text of the chapter in the text (for SEO
             // purposes) and providing a link to generate a PDF version.
@@ -264,8 +265,21 @@ $raw_node = node_load( $node->nid );
                 // $filesize = number_format($filesize,2);
               ?>
 
-              <?php // Does the node include anything in "Full Text" box? ?>
-              <?php if ( 0 < strlen( trim( $raw_node->field_word_full_text[0]['value'] ) ) ): ?>
+              <?php if ( ! user_is_logged_in() ): ?>
+                <div class="login-register-download">
+                <?php
+                  $destination = drupal_get_destination();
+                  print t(
+                    '<a href="@login">Login</a> or <a href="@register">register</a> to download',
+                    array(
+                      '@login' => url('user/login', array('query' => $destination)),
+                      '@register' => url('user/register', array('query' => $destination)),
+                  ) );
+                ?>
+                </div>
+
+              <?php // else does the node include anything in "Full Text" box? ?>
+              <?php elseif ( 0 < strlen( trim( $raw_node->field_word_full_text[0]['value'] ) ) ): ?>
                 <a id="download-orange" href="/printpdf/<?php echo $node->nid; ?>"> <?php print t('PDF version');?> </a>
 
               <?php // else, does node have an attached doument? ?>
