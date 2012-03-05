@@ -25,7 +25,7 @@
     } ?>
 
     <!-- Replace logo with a biggun to take a whole page -->
-    <div class="print-logo" style="background-color: #27946A;"><?php print $print['logo']; ?></div>
+    <div class="print-logo" style="background-color: #27946A; padding: 5px 0 10px 10px;"><?php print $print['logo']; ?></div>
     <!-- <div style="page-break-before: always;"></div> -->
 
     <div class="print-site_name"><?php print $print['site_name']; ?></div>
