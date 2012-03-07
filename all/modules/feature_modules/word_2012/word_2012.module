@@ -1,0 +1,3 @@
+<?php
+
+include_once('word_2012.features.inc');
