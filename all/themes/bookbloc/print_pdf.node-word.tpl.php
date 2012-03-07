@@ -46,7 +46,6 @@
 
     <h1 class="print-title"><?php print $print['title']; ?></h1>
     <div class="print-content"><?php print $full_text; ?></div>
-    <div style="page-break-before: always;"></div>
 
     <div class="print-links"><?php // print $print['pfp_links']; ?></div>
   </body>
