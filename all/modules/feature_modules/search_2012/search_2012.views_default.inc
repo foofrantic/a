@@ -246,13 +246,13 @@ function search_2012_views_default_views() {
       'precision' => '2',
       'decimal' => '.',
       'separator' => ',',
-      'format_plural' => 1,
+      'format_plural' => 0,
       'format_plural_singular' => '1',
       'format_plural_plural' => '@count',
       'prefix' => '',
       'suffix' => '',
-      'appearance' => 'fivestar_views_value_display_handler',
-      'exclude' => 0,
+      'appearance' => 'fivestar_views_value_text_handler',
+      'exclude' => 1,
       'id' => 'value',
       'table' => 'votingapi_cache',
       'field' => 'value',
@@ -277,6 +277,23 @@ function search_2012_views_default_views() {
     ),
   ));
   $handler->override_option('filters', array(
+    'status' => array(
+      'operator' => '=',
+      'value' => '1',
+      'group' => '0',
+      'exposed' => FALSE,
+      'expose' => array(
+        'operator' => FALSE,
+        'label' => '',
+      ),
+      'id' => 'status',
+      'table' => 'node',
+      'field' => 'status',
+      'override' => array(
+        'button' => 'Override',
+      ),
+      'relationship' => 'none',
+    ),
     'type' => array(
       'operator' => 'in',
       'value' => array(
