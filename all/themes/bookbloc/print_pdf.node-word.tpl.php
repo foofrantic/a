@@ -33,20 +33,33 @@
     
     <?php
       $break1 = strpos( $print['content'], '<div class="field field-type-text field-field-word-full-text"' );
-      $synopsis = substr( $print['content'], 0, $break1 );
       $break2 = strpos( $print['content'], '<fieldset class="fieldgroup group-word-cover-image">' );
-      $full_text = substr( $print['content'], $break1, $break2 - $break1 );
+
+      $full_text_field_exists = ( $break1 !== FALSE );
+  
+      if ( $full_text_field_exists ) {
+        $synopsis = substr( $print['content'], 0, $break1 );
+        $full_text = substr( $print['content'], $break1, $break2 - $break1 );
+      }
+      else {
+        $synopsis = substr( $print['content'], 0, $break2 );
+        $full_text = "";
+      }
     ?>
 
-    <h1 class="print-title"><?php print $print['title']; ?></h1>
-    <div class="print-content"><?php print $synopsis; ?>
-    <br /><br /><br />
-    <div class="print-source_url"><?php print $print['source_url']; ?></div>
-    <div style="page-break-before: always;"></div>
-
-    <h1 class="print-title"><?php print $print['title']; ?></h1>
-    <div class="print-content"><?php print $full_text; ?></div>
-
-    <div class="print-links"><?php // print $print['pfp_links']; ?></div>
+    <?php if ( $full_text_field_exists ): ?>
+      <h1 class="print-title"><?php print $print['title']; ?></h1>
+      <div class="print-content"><?php print $synopsis; ?>
+      <br /><br /><br />
+      <div class="print-source_url"><?php print $print['source_url']; ?></div>
+      <div style="page-break-before: always;"></div>
+      <h1 class="print-title"><?php print $print['title']; ?></h1>
+      <div class="print-content"><?php print $full_text; ?></div>
+    <?php else: ?>
+      <h1 class="print-title"><?php print $print['title']; ?></h1>
+      <div class="print-content"><?php print $synopsis; ?>
+      <br /><br /><br />
+      <div class="print-source_url"><?php print $print['source_url']; ?></div>
+    <?php endif; ?>
   </body>
 </html>

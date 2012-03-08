@@ -278,13 +278,18 @@ $raw_node = node_load( $node->nid );
                 ?>
                 </div>
 
-              <?php // else does the node include anything in "Full Text" box? ?>
+              <?php // else, does the node include anything in "Full Text" box? ?>
               <?php elseif ( 0 < strlen( trim( $raw_node->field_word_full_text[0]['value'] ) ) ): ?>
                 <a id="download-orange" href="/printpdf/<?php echo $node->nid; ?>"> <?php print t('PDF version');?> </a>
 
               <?php // else, does node have an attached doument? ?>
               <?php elseif ( $node->field_upload['0']['filepath']): ?>
                 <a id="download-orange" href="/<?php echo $node->field_upload['0']['filepath'];?>"> <?php print t('Download file');?> </a>
+
+              <?php // else, make node available as PDF anyway ?>
+              <?php else: ?>
+                <a id="download-orange" href="/printpdf/<?php echo $node->nid; ?>"> <?php print t('PDF version');?> </a>
+
               <?php endif; ?>
 
             </div> <!-- /rating-download-wrapper -->
