@@ -29,7 +29,7 @@
       <!-- HACK - logo failed to print on the live server so doing
            this instead -->
       <?php // print $print['logo']; ?>
-      <?php $logo_src = '../sites/default/files/bookbloc_logo.gif'; ?>
+      <?php $logo_src = '../sites/all/themes/bookbloc/bookbloc_logo.gif'; ?>
       <img class='print-logo' src="<?php print $logo_src; ?>" alt='Bookbloc' id='logo' />
     </div>
     <!-- <div style="page-break-before: always;"></div> -->
