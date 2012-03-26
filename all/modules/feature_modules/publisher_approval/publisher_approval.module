@@ -1,0 +1,3 @@
+<?php
+
+include_once('publisher_approval.features.inc');
