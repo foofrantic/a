@@ -26,11 +26,10 @@
 
     <!-- Replace logo with a biggun to take a whole page -->
     <div class="print-logo" style="background-color: #27946A; padding: 5px 0 10px 10px;">
-      <!-- HACK - logo failed to print on the live server so doing
-           this instead -->
+      <!-- HACK - logo failed to print on the live server so doing using text
+           instead. -->
       <?php // print $print['logo']; ?>
-      <?php $logo_src = '../sites/all/themes/bookbloc/bookbloc_logo.gif'; ?>
-      <img class='print-logo' src="<?php print $logo_src; ?>" alt='Bookbloc' id='logo' />
+      <h2>Bookbloc</h2>
     </div>
     <!-- <div style="page-break-before: always;"></div> -->
 
