@@ -25,11 +25,14 @@
     } ?>
 
     <!-- Replace logo with a biggun to take a whole page -->
-    <div class="print-logo" style="background-color: #27946A; padding: 5px 0 10px 10px;"><?php print $print['logo']; ?></div>
+    <div class="print-logo" style="background-color: #27946A; padding: 5px 0 10px 10px;">
+      <!-- HACK - logo failed to print on the live server so doing
+           this instead -->
+      <?php // print $print['logo']; ?>
+      <?php $logo_src = '../sites/default/files/bookbloc_logo.gif'; ?>
+      <img class='print-logo' src="<?php print $logo_src; ?>" alt='Bookbloc' id='logo' />
+    </div>
     <!-- <div style="page-break-before: always;"></div> -->
-<?php print htmlentities( $print['logo'] ); ?>
-
-<img class='print-logo' src='http://book.3mules.coop/sites/default/files/bookbloc_logo.gif' alt='Bookbloc' id='logo' />
 
     <div class="print-site_name"><?php print $print['site_name']; ?></div>
     <hr class="print-hr" />
