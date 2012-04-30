@@ -120,8 +120,11 @@
 	background-color: #FBF7B8;
 }
 
+#block_82 .views-row-first {
+  margin-top: 10px;
+}
 #block_82 .views-row {
-  margin-bottom: 3px;
+  margin-bottom: 5px;
 }
 #block_82 .views-row-last {
   margin-bottom: 0;
