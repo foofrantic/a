@@ -37,6 +37,19 @@
   font-size: 125%;
 }
 
+
+/**
+ * Registration page
+ */
+.publisher-reg-hint {
+  color: black;
+  border-color: #fcc;
+  border-width: 1px;
+  border-style: solid;
+  padding: 5px;
+}
+
+
 /**
  * tinymce
  * Not actually page specific but leaving in this file for now anyway.

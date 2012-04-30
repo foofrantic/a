@@ -7,6 +7,23 @@
  */
 
 /**
+ * Implements hook_form_alter() specific to user_register.
+ */
+function mods_by_3mules_form_user_register_alter(&$form, &$form_state) {
+
+  $original_help_text = $form['user_registration_help']['#value'];
+
+  $form['user_registration_help']['#value'] =
+    '<div class="publisher-reg-hint">' .
+    '<strong>Note</strong>: If you are a literary agent or a publisher then please <a href="/apply-publisher-account">apply for a publisher account</a> rather than using this form.'
+    . '</div>';
+
+  if ( $original_help_text ) {
+    $form['user_registration_help']['#value'] .= '<br />' . $original_help_text;
+  }
+}
+
+/**
  * Implements hook_form_alter() specific to views_exposed_form.
  */
 function mods_by_3mules_form_views_exposed_form_alter(&$form, &$form_state) {
