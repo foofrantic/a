@@ -191,7 +191,6 @@ $popular = most_popular();
 										
 										<ul class="featuresList">
 											<li class="featureBlog"><a href="http://bookbloc.posterous.com/" target="_blank">Keep up-to-date with our blog</a></li>
-											<li class="featureQuiz"><a href="/bookbloc-quiz">Play the Bookbloc literary quiz</a></li>
 											<li class="featureTwitter"><a href="http://twitter.com/bookbloc" target="_blank" title="Follow us on Twitter">Bookbloc is on twitter, follow us</a></li>
 											<li class="featureRegister"><a href="/user/register">Register now as a bookbloc member</a></li>
 										</ul>
