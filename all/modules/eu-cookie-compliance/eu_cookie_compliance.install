@@ -1,0 +1,94 @@
+<?php
+
+/**
+ * @file
+ * Installation file.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function eu_cookie_compliance_install() {
+  $popup_settings = array(
+    'popup_info' => array(
+      'value' => '<h2>We use cookies on this site to enhance your user experience</h2><p>By clicking any link on this page you are giving your consent for us to set cookies.</p>',
+      'format' => "2",
+    ),
+    'popup_agreed' => array(
+      'value' => '<h2>Thank you for accepting cookies</h2><p>You can now hide this message or find out more about cookies.</p>',
+      'format' => "2",
+    ),
+  );
+  global $language;
+  $lang = ($language->language) ? $language->language : 'en';
+  variable_set('eu_cookie_compliance_' . $lang, $popup_settings);
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function eu_cookie_compliance_uninstall() {
+  db_query("DELETE FROM {variable} WHERE name LIKE '%eu_cookie_compliance_%'");
+  cache_clear_all('variables', 'cache');
+}
+
+/**
+ * Implements hook_update_n().
+ */
+function eu_cookie_compliance_update_6100() {
+  $popup_settings = array(
+    'popup_info' => variable_get('eu_cookie_compliance_popup_info', ''),
+    'popup_agreed' => variable_get('eu_cookie_compliance_popup_agreed', ''),
+    'popup_link' => variable_get('eu_cookie_compliance_popup_link', ''),
+    'popup_height' => variable_get('eu_cookie_compliance_popup_height', 50),
+    'popup_width' => variable_get('eu_cookie_compliance_popup_width', '100%'),
+    'popup_delay' => variable_get('eu_cookie_compliance_popup_delay', 1),
+    'popup_enabled' => variable_get('eu_cookie_compliance_popup_enabled', 0),
+    'popup_position' => variable_get('eu_cookie_compliance_popup_position', 0),
+  );
+  global $language;
+  $lang = ($language->language) ? $language->language : 'en';
+  variable_set('eu_cookie_compliance_' . $lang, $popup_settings);
+
+  variable_del('eu_cookie_compliance_popup_info');
+  variable_del('eu_cookie_compliance_popup_agreed');
+  variable_del('eu_cookie_compliance_popup_link');
+  variable_del('eu_cookie_compliance_popup_height');
+  variable_del('eu_cookie_compliance_popup_width');
+  variable_del('eu_cookie_compliance_popup_delay');
+  variable_del('eu_cookie_compliance_popup_enabled');
+  variable_del('eu_cookie_compliance_popup_position');
+}
+
+/**
+ * Implements hook_update_n().
+ */
+function eu_cookie_compliance_update_6101() {
+
+  $rids = array_keys(user_roles());
+  if ( ! empty($rids) ) {
+    foreach ( $rids as $rid ) {
+      __eu_cookie_compliance_add_permissions($rid, 'see EU Cookie Compliance popup');
+    }
+  }
+
+}
+
+/**
+ * _add_permissions() is a helper function to add permissions by role to the db
+ */
+function __eu_cookie_compliance_add_permissions($rid, $permissions) {
+  if (!is_array($permissions)) {
+    $permissions = explode(', ', $permissions);
+  }
+  $current_perms = explode(', ', db_result(db_query("SELECT perm FROM {permission} WHERE rid=%d", $rid)));
+  foreach($permissions as $permission) {
+    if (!in_array($permission, $current_perms)) {
+        $current_perms[] = $permission;
+      }
+    }
+  $current_perms = implode(', ', $current_perms);
+  $return = db_query("UPDATE {permission} SET perm= '%s' WHERE rid=%d", $current_perms, $rid);
+  return $return;
+}
+
