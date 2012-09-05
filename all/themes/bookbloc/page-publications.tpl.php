@@ -170,6 +170,5 @@ $genres = user_genres($uid);
 	<div id="hr"></div>
 	<?php print $pre_closure; ?>
 	<?php print $closure; ?>
-   <?php require_once drupal_get_path('theme', 'bookbloc') .'/includes/analytics.php';?>
 </body>
 </html>
