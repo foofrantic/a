@@ -269,7 +269,7 @@ function user_relationship_implications_user_relationships_page_alter($page_id, 
       $names = array();
       foreach ($rtype->implies as $implied_rtid => $implication) {
         $implied = user_relationships_type_load($implied_rtid);
-        $names[] = $implied->name;
+        $names[] = check_plain($implied->name);
       }
       $table['rows'][$key][2] = implode(', ', $names);
     }

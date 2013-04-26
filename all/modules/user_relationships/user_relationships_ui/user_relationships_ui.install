@@ -4,6 +4,14 @@
  */
 
 /**
+ * Implementation of hook_install()
+ */
+function user_relationships_ui_install() {
+  // Set the  default value prior to footer setting it through its access check. See #1596602.
+  variable_set('user_relationships_enable_ajax_popups', TRUE);
+}
+
+/**
  * Implementation of hook_uninstall()
  */
 function user_relationships_ui_uninstall() {
@@ -24,4 +32,5 @@ function user_relationships_ui_uninstall() {
   variable_del('user_relationships_allow_auto_approve');
   variable_del('user_relationships_enable_author_pane');
   variable_del('user_relationships_api_author_pane_rtids');
+  variable_del('user_relationships_enable_ajax_popups');
 }

@@ -155,8 +155,8 @@ function user_relationship_node_access_form_alter(&$form, $form_state, $form_id)
     '#tree'         => TRUE,
   );
   //place fieldset where content type admin has placed it on cck field management page
-  if ($object_type == 'node' && module_exists('content')) {
-    $fieldset_weight = content_extra_field_weight($node->type, 'user_relationship_node_access');
+  if (module_exists('content')) {
+    $fieldset_weight = content_extra_field_weight($form['type']['#value'], 'user_relationship_node_access');
     if (isset($fieldset_weight)) {
       $form['user_relationship_node_access']['#weight'] = $fieldset_weight;
     }
@@ -336,6 +336,7 @@ function user_relationship_node_access_node_access_records($node) {
         'grant_view'    => isset($permissions['view']) ? $permissions['view'] : NULL,
         'grant_update'  => isset($permissions['update']) ? $permissions['update'] : NULL,
         'grant_delete'  => isset($permissions['delete']) ? $permissions['delete'] : NULL,
+        'priority'      => 0,
       );
     }
   }
@@ -346,7 +347,8 @@ function user_relationship_node_access_node_access_records($node) {
       'gid'           => $node->uid,
       'grant_view'    => TRUE,
       'grant_update'  => TRUE,
-      'grant_delete'  => TRUE
+      'grant_delete'  => TRUE,
+      'priority'      => 0,
     );
   }
 

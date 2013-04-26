@@ -188,15 +188,6 @@ function user_relationships_rules_condition_messages_only_to_relationships($user
  */
 function user_relationships_rules_condition_users_are_related($user1, $user2, $settings) {
   // Get relationships between the two users
-  $relationships = user_relationships_load(array('between' => array($user1->uid, $user2->uid), 'approved' => 1));
-  
-  // Unset unwanted relationship types
-  if (!empty($relationships) && !empty($settings['relationship_types'])) {
-    foreach($relationships as $relationship) {
-      if(!in_array($relationship->rtid,$settings['relationship_types'])) {
-        unset($relationships[$relationship->rid]);
-      }
-    }
-  }
+  $relationships = user_relationships_load(array('between' => array($user1->uid, $user2->uid), 'approved' => 1, 'rtid' => $settings['relationship_types']));
   return !empty($relationships);
 }

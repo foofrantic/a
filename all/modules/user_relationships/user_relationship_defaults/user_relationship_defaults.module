@@ -223,7 +223,7 @@ function user_relationship_defaults_delete_form_submit($form, &$form_state) {
 /**
  * hook_user()
  */
-function user_relationship_defaults_user($type, &$edit, &$account, $cagetory = NULL) {
+function user_relationship_defaults_user($type, &$edit, &$account, $category = NULL) {
   if (
       ($type == 'insert' && $account->status)  //if new user is already approved, create relationship
       || ($type == 'after_update' && $account->status && !$account->login) //#519440 if admin approves a new user account, create relationship
@@ -234,6 +234,10 @@ function user_relationship_defaults_user($type, &$edit, &$account, $cagetory = N
     foreach ($defaults as $default) {
       user_relationships_request_relationship($default->user, $account, $default->relationship_type, TRUE);
     }
+  }
+  //delete our default user if they are deleted from the site
+  if ($type == 'delete') {
+    db_query("DELETE FROM {user_relationship_defaults} WHERE uid = %d", $account->uid);
   }
 }
 
@@ -249,7 +253,7 @@ function user_relationship_defaults_user_relationships_page_alter($page_id, &$pa
     foreach ($defaults as $default) {
       $default_rows[] = array(
         theme('username', $default->user),
-        $default->relationship_type->name,
+        check_plain($default->relationship_type->name),
         l(t('delete'), "admin/user/relationships/defaults/{$default->rdid}/delete"),
       );
     }

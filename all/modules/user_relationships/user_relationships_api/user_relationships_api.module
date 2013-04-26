@@ -39,6 +39,20 @@ function _user_relationships_invoke($type, &$relationship, $is_type = FALSE) {
 function _user_relationships_generate_query($param = array(), $options = array()) {
   extract($options, EXTR_SKIP);
 
+  // Doing a JOIN on the {user_relationship_types} table is rather slow as
+  // MySQL has to use ALL for the table join. On most sites, there will only be
+  // a few relationship types, and there will nearly always be a far higher
+  // number of relationships. So, we split the query out into PHP saving us
+  // from having to do the JOIN.
+  $relationship_types = user_relationships_types_load();
+  $oneway_relationship_type_ids = array();
+  foreach ($relationship_types as $rt) {
+    if ($rt->is_oneway) {
+      $oneway_relationship_type_ids[] = $rt->rtid;
+    }
+  }
+  $oneway_relationship_types_in = implode(",", $oneway_relationship_type_ids);
+
   $twoway_reverse_clause = FALSE;//#479486
   // Turn the conditions into a query.
   foreach ($param as $key => $value) {
@@ -53,7 +67,12 @@ function _user_relationships_generate_query($param = array(), $options = array()
       $between_cond = "((ur.requester_id {$operator[0]} AND ur.requestee_id {$operator[1]}) OR (";
       //#479486 do not include reverse records of two-way relationships by default
       if (!isset($include_twoway_reverse)) {
-        $between_cond .= '(ur.approved <> 1 OR urt.is_oneway <> 0) AND ';
+        if (!empty($oneway_relationship_types_in)) {
+          $between_cond .= '(ur.approved <> 1 OR ur.rtid IN (' . $oneway_relationship_types_in . ')) AND ';
+        }
+        else {
+          $between_cond .= '(ur.approved <> 1) AND ';
+        }
         $twoway_reverse_clause = TRUE;
       }
       $between_cond .= "ur.requestee_id {$operator[0]} AND ur.requester_id {$operator[1]}))";
@@ -67,7 +86,13 @@ function _user_relationships_generate_query($param = array(), $options = array()
     case 'user':
       //#479486 when showing all user's relationships, do not include reverse records of two-way relationships
       if (!isset($include_twoway_reverse)) {
-        $cond[] = "(ur.requester_id {$operator} OR ((ur.approved <> 1 OR urt.is_oneway <> 0) AND ur.requestee_id {$operator}))";
+
+        if (!empty($oneway_relationship_types_in)) {
+          $cond[] = "(ur.requester_id {$operator} OR ((ur.approved <> 1 OR ur.rtid IN (" . $oneway_relationship_types_in . ")) AND ur.requestee_id {$operator}))";
+        }
+        else {
+          $cond[] = "(ur.requester_id {$operator} OR (ur.approved <> 1 AND ur.requestee_id {$operator}))";
+        }
         $twoway_reverse_clause = TRUE;
       }
       else {
@@ -76,7 +101,7 @@ function _user_relationships_generate_query($param = array(), $options = array()
       $arguments[] = $value;
       $arguments[] = $value;
       break;
-    
+
     case 'rid':
     case 'requester_id':
     case 'requestee_id':
@@ -99,7 +124,12 @@ function _user_relationships_generate_query($param = array(), $options = array()
   
   //#479486 add a general clause that removed reverse direction from two-way relationship results, unless it's been addressed above
   if (!$twoway_reverse_clause && !isset($include_twoway_reverse)) {
-    $cond[] = '(urt.is_oneway <> 0 OR ur.approved <> 1 OR ur.requester_id < ur.requestee_id)';
+    if (!empty($oneway_relationship_types_in)) {
+      $cond[] = '(ur.rtid IN (' . $oneway_relationship_types_in . ') OR ur.approved <> 1 OR ur.requester_id < ur.requestee_id)';
+    }
+    else {
+      $cond[] = '(ur.approved <> 1 OR ur.requester_id < ur.requestee_id)';
+    }
     $twoway_reverse_clause = TRUE;
   }
 
@@ -180,7 +210,7 @@ function _user_relationship_process_query_argument($key, &$value) {
   }
   elseif (preg_match('/([<>=]{1,2})\s*(.+)/', $value, $matches)) {
     $marker = "'%s'";
-    $value = $matches[3];
+    $value = $matches[2];
 
     if (is_numeric($value)) {
       $marker = '%d';
@@ -193,7 +223,6 @@ function _user_relationship_process_query_argument($key, &$value) {
     return "= '%s'";
   }
 }
-
 
 /**
  * hook_perm()

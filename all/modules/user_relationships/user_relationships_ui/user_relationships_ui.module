@@ -425,7 +425,10 @@ function user_relationships_ui_perm() {
  */
 function user_relationships_ui_footer($main = 0) {
   // This is the div we are utilizing for the form popups for confirmation.
-  return '<div id="user_relationships_popup_form" class="user_relationships_ui_popup_form"></div>';
+  // This should only be presented if the ajax option is checked.
+  if (variable_get('user_relationships_enable_ajax_popups', FALSE)) {
+    return '<div id="user_relationships_popup_form" class="user_relationships_ui_popup_form"></div>';
+  }
 }
 
 /**
@@ -499,6 +502,7 @@ function user_relationships_ui_menu() {
     'access arguments'  => array('administer user relationships'),
   );
 
+  //TODO: Issue #735862, see node/109153 rethink how to handle relationships/*
   $items['relationships'] = array(
     'title'             => 'My relationships',
     'type'              => MENU_NORMAL_ITEM,
@@ -523,6 +527,7 @@ function user_relationships_ui_menu() {
       'page callback'     => 'user_relationships_pending_requests_page',
       'file'              => 'user_relationships_ui.pages.inc',
     );
+
     foreach (user_relationships_types_load() as $rtid => $relationship) {
       $items["relationships/{$rtid}"] = array(
         'title'             => $relationship->plural_name ? $relationship->plural_name : $relationship->name,
@@ -809,6 +814,13 @@ function user_relationships_ui_theme() {
  * Pre processor for user_relationships page
  */
 function template_preprocess_user_relationships(&$variables) {
+  if(!empty($variables['rtid']) && !is_numeric($variables['rtid'])) {
+    return NULL;
+  }
+
+  if(!empty($variables['account']) && !is_object($variables['account'])) {
+    return NULL;
+  }
   global $user;
 
   // readability

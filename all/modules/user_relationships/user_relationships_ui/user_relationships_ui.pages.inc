@@ -17,8 +17,8 @@ function user_relationships_ui_types_list_page() {
   foreach ($relationship_types as $relationship) {
     $table['data'][] = $relationship;
     $table['rows'][] = array(
-      $relationship->name,
-      $relationship->plural_name,
+      check_plain($relationship->name),
+      check_plain($relationship->plural_name),
       ($relationship->is_oneway ? ($relationship->is_reciprocal ? t('reciprocal') : t('one way')) : t('mutual')),
       ($relationship->requires_approval ? t('yes') : t('no')),
       ($relationship->expires_val ? t('@expires_val', array('@expires_val' => format_plural($relationship->expires_val, '1 day', '@count days'))) : t('Never')),

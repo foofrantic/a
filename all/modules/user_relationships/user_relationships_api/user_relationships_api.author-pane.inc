@@ -30,11 +30,7 @@ function user_relationships_api_preprocess_author_pane(&$variables) {
     $return;
   }
   // Get a list of selected relationship types
-  $all_rtypes = user_relationships_types_load();
-  $rtypes = array();
-  foreach ($rtids as $rtid) {
-    $rtypes[] = $all_rtypes[$rtid];
-  }
+  $rtypes = user_relationships_types_load();
   
   foreach ($rtypes as $rtype) {
     $relationships = user_relationships_load(array('requester_id' => $user->uid, 'requestee_id' => $account->uid, 'rtid' => $rtype->rtid));

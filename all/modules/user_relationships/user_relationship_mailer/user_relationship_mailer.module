@@ -202,7 +202,6 @@ function user_relationship_mailer_user($type, &$edit, &$account, $category = NUL
       $form['user_relationship_mailer_settings']['user_relationship_mailer_send_mail'] = array(
         '#type'           => 'checkbox',
         '#title'          => t('Receive relationship email notifications'),
-        '#options'        => $options,
         '#default_value'  => isset($edit['user_relationship_mailer_send_mail']) ? $edit['user_relationship_mailer_send_mail'] : TRUE,
         '#description'    => t("Check this if you'd like to receive relationship related email notifications"),
       );
